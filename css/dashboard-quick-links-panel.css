@@ -1,0 +1,29 @@
+.cms-content.DashboardAdmin .dashboard-panel.quick-links-panel {
+	padding: 10px 0;
+}
+
+.cms-content.DashboardAdmin .dashboard-panel.quick-links-panel a {
+	display: inline-block;
+	text-align: center;
+	padding: 0 20px;
+	margin: 10px 0;
+	color: inherit;
+	min-width: 50px;
+	text-decoration: none;
+	border-right: 1px solid #dddddd;
+	border-right: 1px solid rgba(0,0,0,0.05);
+	transition: color 250ms;
+}
+.cms-content.DashboardAdmin .dashboard-panel.quick-links-panel a:hover {
+	text-decoration: none;
+	color: #999999;
+}
+.cms-content.DashboardAdmin .dashboard-panel.quick-links-panel a:last-child {
+	border-right: none;
+}
+
+.cms-content.DashboardAdmin .dashboard-panel.quick-links-panel .fa {
+	font-size: 30px;
+	margin-bottom: 10px;
+	display: block;
+}

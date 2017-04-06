@@ -1,0 +1,220 @@
+.cms-content.DashboardAdmin .cms-content-fields {
+	background-color: #ebeff2;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-size: 14px;
+	width: 100% !important;
+	min-height: 100%;
+}
+
+.cms-content.DashboardAdmin .message.error,
+.cms-content.DashboardAdmin .message.bad,
+.cms-content.DashboardAdmin .message.required,
+.cms-content.DashboardAdmin .message.validation {
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+
+
+.cms-content.DashboardAdmin .dashboard-main-content {
+	padding: 16px;
+}
+.cms-content.DashboardAdmin .dashboard-main-content:after {
+	content: '';
+	clear: both;
+	display: block;
+}
+
+.cms-content.DashboardAdmin .dashboard-panel {
+	padding: 20px;
+	border-radius: 5px;
+	background: #ffffff;
+	border-top: 4px solid #333;
+	margin: 0 0 20px 0;
+	box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.cms-content.DashboardAdmin .list {
+	list-style: disc;
+	margin: 1em 0;
+	padding-left: 20px;
+}
+
+.cms-content.DashboardAdmin .dashboard-panel p:last-child {
+	margin-bottom: 0;
+}
+.cms-content.DashboardAdmin h1 {
+	margin: 0 0 20px 0;
+	font-size: 40px;
+	line-height: 46px;
+	text-shadow: 0 0px 8px rgba(255, 255, 255, 0.2), 0 1px 0px rgba(255, 255, 255, 0.2);
+}
+.cms-content.DashboardAdmin .dashboard-panel h3 {
+	margin: 0 0 20px 0;
+}
+.cms-content.DashboardAdmin .dashboard-panel h3 a {
+	color: inherit;
+	transition: color 250ms;
+}
+.cms-content.DashboardAdmin .dashboard-panel h3 a:hover {
+	color: #0071c4;
+	text-decoration: none;
+}
+
+.cms-content.DashboardAdmin .dashboard-row {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin: 0 -0.5%;
+	margin: 0 calc(-10px);
+}
+.cms-content.DashboardAdmin .dashboard-row > .dashboard-panel {
+	-webkit-flex-basis: 32.3333%;
+	-ms-flex-basis: 32.3333%;
+	flex-basis: 32.3333%;
+	-webkit-flex-basis: calc(33.3333% - 20px);
+	-ms-flex-basis: calc(33.3333% - 20px);
+	flex-basis: calc(33.3333% - 20px);
+	margin: 0 0.5% 20px;
+	margin: 0 calc(10px) 20px;
+}
+.cms-content.DashboardAdmin .fixed-height-table {
+	max-height: 300px;
+	overflow: auto;
+}
+.cms-content.DashboardAdmin .table {
+	width: 100%;
+}
+
+.cms-content.DashboardAdmin .table th,
+.cms-content.DashboardAdmin .table td {
+	vertical-align: top;
+	padding: 8px;
+	transition: background 250ms;
+}
+.cms-content.DashboardAdmin .table thead th {
+	border-bottom: 2px solid #dddddd;
+	border-bottom: 2px solid rgba(0,0,0,0.05);
+	font-weight: bold;
+}
+.cms-content.DashboardAdmin .table th.link > a,
+.cms-content.DashboardAdmin .table td.link > a {
+	padding: 8px;
+}
+.cms-content.DashboardAdmin .note {
+	font-size: 11px;
+	color: #999999;
+	font-style: italic;
+}
+.cms-content.DashboardAdmin .table td > a {
+	display: block;
+}
+.cms-content.DashboardAdmin .table th.link,
+.cms-content.DashboardAdmin .table td.link {
+	padding: 0px;
+}
+.cms-content.DashboardAdmin .table tr + tr > td {
+	border-top: 1px solid #dddddd;
+	border-top: 1px solid rgba(0,0,0,0.05);
+}
+.cms-content.DashboardAdmin .table tr:hover > td {
+	background: #f9f9f9;
+	background: rgba(0,0,0,0.05);
+}
+.cms-content.DashboardAdmin .table td a:hover {
+	text-decoration: none;
+}
+
+.cms-content.DashboardAdmin .pagination {
+	display: inline-block;
+	padding-left: 0;
+	margin: 20px 0;
+	border-radius: 4px;
+}
+
+
+.cms-content.DashboardAdmin .pagination:last-child {
+	margin-bottom: 0;
+}
+.cms-content.DashboardAdmin .pagination > li {
+		display: inline;
+}
+.cms-content.DashboardAdmin .pagination > li > a,
+.cms-content.DashboardAdmin .pagination > li > span {
+	position: relative;
+	float: left;
+	padding: 5px 10px;
+	margin-left: -1px;
+	line-height: 1.3;
+	color: #337ab7;
+	text-decoration: none;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	transition: background 250ms;
+}
+.cms-content.DashboardAdmin .pagination > li > span {
+	padding: 5px 7px;
+}
+.cms-content.DashboardAdmin .pagination > li:first-child > a,
+.cms-content.DashboardAdmin .pagination > li:first-child > span {
+	margin-left: 0;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.cms-content.DashboardAdmin .pagination > li:last-child > a,
+.cms-content.DashboardAdmin .pagination > li:last-child > span {
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.cms-content.DashboardAdmin .pagination > .active > a,
+.cms-content.DashboardAdmin .pagination > .active > a:focus,
+.cms-content.DashboardAdmin .pagination > .active > a:hover,
+.cms-content.DashboardAdmin .pagination > .active > span,
+.cms-content.DashboardAdmin .pagination > .active > span:focus,
+.cms-content.DashboardAdmin .pagination > .active > span:hover {
+	z-index: 3;
+	color: #fff;
+	cursor: default;
+	background-color: #337ab7;
+	border-color: #337ab7;
+}
+
+.cms-content.DashboardAdmin .pagination > li > a:focus,
+.cms-content.DashboardAdmin .pagination > li > a:hover {
+	z-index: 2;
+	color: #23527c;
+	background-color: #eee;
+	border-color: #ddd;
+}
+
+@media screen and (max-width: 1440px) {
+	.cms-content.DashboardAdmin .dashboard-row > .dashboard-panel {
+		-webkit-flex-basis: 49%;
+		-ms-flex-basis: 49%;
+		flex-basis: 49%;
+		-webkit-flex-basis: calc(50% - 20px);
+		-ms-flex-basis: calc(50% - 20px);
+		flex-basis: calc(50% - 20px);
+		margin: 0 0.5% 20px;
+		margin: 0 calc(10px) 20px;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.cms-content.DashboardAdmin .dashboard-row {
+		display: block;
+		margin: 0;
+	}
+	.cms-content.DashboardAdmin .dashboard-row > .dashboard-panel {
+		margin: 0 0 20px;
+	}
+}

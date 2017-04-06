@@ -1,0 +1,52 @@
+#Form_DashboardSearchForm {
+	float: right;
+	position: relative;
+	margin-bottom: 10px;
+}
+#Form_DashboardSearchForm_Search {
+	background-image: none;
+	border: none;
+	box-shadow: none;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 15px;
+	padding: 0 30px 0 10px;
+	width: 300px;
+	outline: none;
+	font-size: 16px;
+	box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	transition: box-shadow 250ms;
+}
+#Form_DashboardSearchForm_Search:focus {
+	box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.12), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+}
+#Form_DashboardSearchForm .submit {
+	background: none;
+	border: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 30px;
+	width: 30px;
+	color: #999999;
+	transition: color 250ms;
+}
+#Form_DashboardSearchForm .submit:hover {
+	color: #000000;
+	box-shadow: none;
+}
+#Form_DashboardSearchForm .submit .ui-button-text {
+	padding: 0;
+}
+
+@media screen and (max-width: 840px) {
+	#Form_DashboardSearchForm {
+		float: none;
+	}
+	#Form_DashboardSearchForm_Search {
+		width: 100%;
+	}
+}

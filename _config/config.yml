@@ -1,0 +1,10 @@
+---
+Name: dashboard-adminpanels
+After: 'framework/*','cms/*'
+---
+AdminRootController:
+  default_panel: 'DashboardAdmin'
+
+DashboardAdmin:
+  extensions:
+    - DashboardSearchExtension

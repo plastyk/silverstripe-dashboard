@@ -1,0 +1,9 @@
+---
+Name: dashboard-search
+After: 'framework/*','cms/*'
+---
+DashboardAdmin:
+  search_panels:
+    - DashboardSearchResultPagePanel
+    - DashboardSearchResultMemberPanel
+    - DashboardSearchResultFilePanel

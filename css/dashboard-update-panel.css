@@ -1,0 +1,35 @@
+.cms-content.DashboardAdmin .dashboard-panel.update-panel {
+	margin: -16px -16px 20px -16px;
+	border-radius: 0;
+	padding: 0;
+}
+.cms-content.DashboardAdmin .dashboard-panel.update-panel .panel-head {
+	padding: 16px 46px 16px 16px;
+	cursor: pointer;
+	position: relative;
+}
+
+.cms-content.DashboardAdmin .dashboard-panel.update-panel .panel-body {
+	display: none;
+	padding: 16px;
+	background: #f9f9f9;
+}
+.cms-content.DashboardAdmin .dashboard-panel.update-panel.open .read-more-link {
+	display: none;
+}
+
+.cms-content.DashboardAdmin .dashboard-panel.update-panel .fa-exclamation-triangle {
+	margin-right: 10px;
+}
+.cms-content.DashboardAdmin .dashboard-panel.update-panel .fa-angle-right {
+	position: absolute;
+	top: 8px;
+	right: 16px;
+	font-size: 30px;
+}
+.cms-content.DashboardAdmin .dashboard-panel.update-panel.open .fa-angle-right {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
