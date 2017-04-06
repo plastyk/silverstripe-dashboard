@@ -1,0 +1,28 @@
+{
+	"name": "plastyk/dashboard",
+	"description": "An extendable dashboard for SilverStripe",
+	"type": "silverstripe-module",
+	"keywords": ["silverstripe", "dashboard"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "3dgoo",
+			"email": "michael@3dgoo.com"
+		},
+		{
+			"name": "Turnerj",
+			"email": "git@turnerj.com"
+		},
+		{
+			"name": "Plastyk Studios",
+			"email": "howdy@plastyk.com.au"
+		}
+	],
+	"require": {
+		"silverstripe/framework": "~3.2",
+		"silverstripe/framework": "~3.2"
+	},
+	"extra": {
+		"installer-name": "dashboard"
+	}
+}
