@@ -52,20 +52,26 @@ class UpdatePanel extends DashboardPanel {
 				$curl = curl_init();
 				curl_setopt($curl, CURLOPT_URL, 'https://packagist.org/feeds/package.silverstripe/framework.rss');
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-				$package_feed = curl_exec($curl);
+				$versionFeed = curl_exec($curl);
 				curl_close($curl);
-				if ($package_feed) {
-					$xml = simplexml_load_string($package_feed);
+				if ($versionFeed) {
+					$xml = simplexml_load_string($versionFeed);
 					$json = json_encode($xml);
-					$package_array = json_decode($json, true);
-					if ($package_array && isset($package_array['channel']['item'])) {
-						for ($i = 0; $i < count($package_array['channel']['item']); $i++) {
-							$title = $package_array['channel']['item'][$i]['title'];
+					$versionList = json_decode($json, true);
+					if ($versionList && isset($versionList['channel']['item'])) {
+						for ($i = 0; $i < count($versionList['channel']['item']); $i++) {
+							$title = $versionList['channel']['item'][$i]['title'];
 							if (isset($title) && strpos($title, 'alpha') === false && strpos($title, 'beta') === false && strpos($title, 'rc') === false) {
-								$latestVersion = preg_replace('@[^0-9\.]+@i', '', $title);
-								Session::set('silverstripe_latest_version', $latestVersion);
-								break 1;
+								$versionNumber = preg_replace('@[^0-9\.]+@i', '', $title);
+								if (!$latestVersion) {
+									$latestVersion = $versionNumber;
+								} else if ($versionNumber > $latestVersion) {
+									$latestVersion = $versionNumber;
+								}
 							}
+						}
+						if ($latestVersion) {
+							Session::set('silverstripe_latest_version', $latestVersion);
 						}
 					}
 				}
