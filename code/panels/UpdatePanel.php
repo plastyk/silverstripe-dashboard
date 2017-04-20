@@ -49,20 +49,21 @@ class UpdatePanel extends DashboardPanel {
 		$latestVersion = false;
 		if (!Session::get('silverstripe_latest_version')) {
 			if (!$latestVersion) {
-				$curl = curl_init();
-				curl_setopt($curl, CURLOPT_URL, 'https://packagist.org/feeds/package.silverstripe/framework.rss');
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-				$versionFeed = curl_exec($curl);
-				curl_close($curl);
+				$versionRequest = curl_init();
+				curl_setopt($versionRequest, CURLOPT_URL, 'https://packagist.org/feeds/package.silverstripe/framework.rss');
+				curl_setopt($versionRequest, CURLOPT_RETURNTRANSFER, 1);
+				$versionFeed = curl_exec($versionRequest);
+				curl_close($versionRequest);
 				if ($versionFeed) {
 					$xml = simplexml_load_string($versionFeed);
 					$json = json_encode($xml);
 					$versionList = json_decode($json, true);
 					if ($versionList && isset($versionList['channel']['item'])) {
-						for ($i = 0; $i < count($versionList['channel']['item']); $i++) {
-							$title = $versionList['channel']['item'][$i]['title'];
-							if (isset($title) && strpos($title, 'alpha') === false && strpos($title, 'beta') === false && strpos($title, 'rc') === false) {
-								$versionNumber = preg_replace('@[^0-9\.]+@i', '', $title);
+						$versionItem = $versionList['channel']['item'];
+						for ($i = 0; $i < count($versionItem); $i++) {
+							$versionTitle = $versionItem[$i]['title'];
+							if (isset($versionTitle) && strpos($versionTitle, 'alpha') === false && strpos($versionTitle, 'beta') === false && strpos($versionTitle, 'rc') === false) {
+								$versionNumber = preg_replace('@[^0-9\.]+@i', '', $versionTitle);
 								if (!$latestVersion) {
 									$latestVersion = $versionNumber;
 								} else if ($versionNumber > $latestVersion) {
