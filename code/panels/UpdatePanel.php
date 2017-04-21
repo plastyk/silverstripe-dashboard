@@ -4,7 +4,10 @@ class UpdatePanel extends DashboardPanel {
 
 	public function canView($member = null) {
 		if (Permission::check('CMS_ACCESS_ADMIN')) {
-			return !$this->isCurrentSilverStripeVersion();
+			$currentVersion = $this->getCurrentSilverStripeVersion();
+			$latestVersion = $this->getLatestSilverStripeVersion();
+
+			return !$this->isNewerSilverStripeVersion($currentVersion, $latestVersion);
 		}
 		return false;
 	}
@@ -60,13 +63,12 @@ class UpdatePanel extends DashboardPanel {
 					$versionList = json_decode($json, true);
 					if ($versionList && isset($versionList['channel']['item'])) {
 						$versionItem = $versionList['channel']['item'];
-						for ($i = 0; $i < count($versionItem); $i++) {
-							$versionTitle = $versionItem[$i]['title'];
+						for ($versionItemIndex = 0; $versionItemIndex < count($versionItem); $versionItemIndex++) {
+							$versionTitle = $versionItem[$versionItemIndex]['title'];
 							if (isset($versionTitle) && strpos($versionTitle, 'alpha') === false && strpos($versionTitle, 'beta') === false && strpos($versionTitle, 'rc') === false) {
 								$versionNumber = preg_replace('@[^0-9\.]+@i', '', $versionTitle);
-								if (!$latestVersion) {
-									$latestVersion = $versionNumber;
-								} else if ($versionNumber > $latestVersion) {
+
+								if ($this->isNewerSilverStripeVersion($versionNumber, $latestVersion)) {
 									$latestVersion = $versionNumber;
 								}
 							}
@@ -83,28 +85,42 @@ class UpdatePanel extends DashboardPanel {
 		return $latestVersion;
 	}
 
-	public function isCurrentSilverStripeVersion() {
-		if ($this->getCurrentSilverStripeVersion() && $this->getLatestSilverStripeVersion()) {
-			return $this->getCurrentSilverStripeVersion() >= $this->getLatestSilverStripeVersion();
+	public function isNewerSilverStripeVersion($versionNumber, $latestVersionNumber) {
+		if ($versionNumber == $latestVersionNumber) {
+			return true;
+		}
+		$versionNumberParts = explode('.', $versionNumber);
+		$latestVersionNumberParts = explode('.', $latestVersionNumber);
+
+		for ($versionNumberIndex = 0; $versionNumberIndex < count($versionNumberParts) && $versionNumberIndex < count($latestVersionNumberParts); $versionNumberIndex++) {
+			if ($versionNumberParts[$versionNumberIndex] > $latestVersionNumberParts[$versionNumberIndex]) {
+				return true;
+			} else if ($versionNumberParts[$versionNumberIndex] < $latestVersionNumberParts[$versionNumberIndex]) {
+				break;
+			}
 		}
 		return false;
 	}
 
 	public function getUpdateVersionLevel() {
-		if ($this->isCurrentSilverStripeVersion()) {
+		$currentVersion = $this->getCurrentSilverStripeVersion();
+		$latestVersion = $this->getLatestSilverStripeVersion();
+
+		if ($this->isNewerSilverStripeVersion($currentVersion, $latestVersion)) {
 			return false;
 		}
-		$currentVersion = explode('.', $this->getCurrentSilverStripeVersion());
-		$latestVersion = explode('.', $this->getLatestSilverStripeVersion());
 
-		if (count($currentVersion) === 3 && count($latestVersion) === 3) {
-			if ($latestVersion[0] > $currentVersion[0]) {
+		$currentVersionParts = explode('.', $currentVersion);
+		$latestVersionParts = explode('.', $latestVersion);
+
+		if (count($currentVersionParts) === 3 && count($latestVersionParts) === 3) {
+			if ($latestVersionParts[0] > $currentVersionParts[0]) {
 				return 'major';
 			}
-			if ($latestVersion[1] > $currentVersion[1]) {
+			if ($latestVersionParts[1] > $currentVersionParts[1]) {
 				return 'minor';
 			}
-			if ($latestVersion[2] > $currentVersion[2]) {
+			if ($latestVersionParts[2] > $currentVersionParts[2]) {
 				return 'security';
 			}
 		}
