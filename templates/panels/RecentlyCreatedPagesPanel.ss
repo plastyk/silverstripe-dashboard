@@ -18,7 +18,7 @@
 					</a>
 				</td>
 				<td class="link">
-					<a href="admin/pages/edit/show/{$ID}">$Created.Ago</a>
+					<a href="admin/pages/edit/show/{$ID}" title="$Created.Nice">$Created.Ago</a>
 				</td>
 			</tr>
 			<% end_loop %>
