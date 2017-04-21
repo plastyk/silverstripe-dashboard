@@ -7,7 +7,7 @@ class UpdatePanel extends DashboardPanel {
 			$currentVersion = $this->getCurrentSilverStripeVersion();
 			$latestVersion = $this->getLatestSilverStripeVersion();
 
-			return !$this->isNewerSilverStripeVersion($currentVersion, $latestVersion);
+			return !$this->isNewestSilverStripeVersion($currentVersion, $latestVersion);
 		}
 		return false;
 	}
@@ -68,7 +68,7 @@ class UpdatePanel extends DashboardPanel {
 							if (isset($versionTitle) && strpos($versionTitle, 'alpha') === false && strpos($versionTitle, 'beta') === false && strpos($versionTitle, 'rc') === false) {
 								$versionNumber = preg_replace('@[^0-9\.]+@i', '', $versionTitle);
 
-								if ($this->isNewerSilverStripeVersion($versionNumber, $latestVersion)) {
+								if ($this->isNewestSilverStripeVersion($versionNumber, $latestVersion)) {
 									$latestVersion = $versionNumber;
 								}
 							}
@@ -85,7 +85,7 @@ class UpdatePanel extends DashboardPanel {
 		return $latestVersion;
 	}
 
-	public function isNewerSilverStripeVersion($versionNumber, $latestVersionNumber) {
+	public function isNewestSilverStripeVersion($versionNumber, $latestVersionNumber) {
 		if ($versionNumber == $latestVersionNumber) {
 			return true;
 		}
@@ -106,7 +106,7 @@ class UpdatePanel extends DashboardPanel {
 		$currentVersion = $this->getCurrentSilverStripeVersion();
 		$latestVersion = $this->getLatestSilverStripeVersion();
 
-		if ($this->isNewerSilverStripeVersion($currentVersion, $latestVersion)) {
+		if ($this->isNewestSilverStripeVersion($currentVersion, $latestVersion)) {
 			return false;
 		}
 
