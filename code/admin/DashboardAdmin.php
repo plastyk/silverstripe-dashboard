@@ -14,10 +14,11 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider {
 	}
 
 	public function providePermissions() {
+		$title = _t('DashboardAdmin.MENUTITLE', LeftAndMain::menu_title_for_class('DashboardAdmin'));
 		return array(
 			'CMS_ACCESS_DASHBOARDADMIN' => array(
-				'name' => 'Access to \'Dashboard\' section',
-				'category' => 'Dashboard',
+				'name' => _t('CMSMain.ACCESS', "Access to '{title}' section", array('title' => $title)),
+				'category' => $title,
 				'help' => 'Allow use of the CMS Dashboard'
 			)
 		);
