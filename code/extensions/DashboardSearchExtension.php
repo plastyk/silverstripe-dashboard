@@ -11,11 +11,11 @@ class DashboardSearchExtension extends Extension {
 	function DashboardSearchForm() {
 
 		$fields = FieldList::create(
-			TextField::create('Search', 'Search')->setAttribute('placeholder', 'Search')
+			TextField::create('Search', _t('SearchForm.SEARCH','Search'))->setAttribute('placeholder', _t('SearchForm.SEARCH','Search'))
 		);
 
 		$actions = FieldList::create(
-			FormAction::create('doDashboardSearch', 'Search')
+			FormAction::create('doDashboardSearch', _t('SearchForm.SEARCH','Search'))
 		);
 
 		$requiredFields = RequiredFields::create(
@@ -85,7 +85,7 @@ class DashboardSearchExtension extends Extension {
 		}
 
 		if (count($searchMessageClasses)) {
-			$data['SearchMessage'] = 'Searching for ' . strrev(implode(strrev(' and '), explode(strrev(', '), strrev(implode(', ', $searchMessageClasses)), 2)));
+			$data['SearchMessage'] = 'Searching for ' . strrev(implode(strrev(' &amp; '), explode(strrev(', '), strrev(implode(', ', $searchMessageClasses)), 2)));
 		}
 		$data['SearchResults'] = $searchResults;
 
