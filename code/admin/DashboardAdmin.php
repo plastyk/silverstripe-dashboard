@@ -52,8 +52,4 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider {
 
 		return false;
 	}
-
-	public function subsiteCMSShowInMenu() {
-		return true;
-	}
 }
