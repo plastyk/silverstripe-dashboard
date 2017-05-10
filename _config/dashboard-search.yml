@@ -7,3 +7,18 @@ DashboardAdmin:
     - DashboardSearchResultPagePanel
     - DashboardSearchResultMemberPanel
     - DashboardSearchResultFilePanel
+
+Page:
+  dashboard_admin_link: 'admin/pages/edit/show/$ID/'
+  extensions:
+    - DashboardSearchResultExtension
+
+Member:
+  dashboard_admin_link: 'admin/security/EditForm/field/Members/item/$ID/edit/'
+  extensions:
+    - DashboardSearchResultExtension
+
+File:
+  dashboard_admin_link: 'admin/assets/EditForm/field/File/item/$ID/edit/'
+  extensions:
+    - DashboardSearchResultExtension
