@@ -92,7 +92,7 @@ class DashboardSearchExtension extends Extension {
 
 		if ($singleSearchResultItem) {
 			if ($singleSearchResultItem->config()->dashboard_automatic_search_redirect) {
-				if ($searchResultCMSLink = $singleSearchResultItem->SearchResultCMSLink) {
+				if ($searchResultCMSLink = $singleSearchResultItem->getSearchResultCMSLink()) {
 					return $this->owner->redirect($searchResultCMSLink);
 				}
 			}
