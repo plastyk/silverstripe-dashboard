@@ -69,6 +69,7 @@ class DashboardSearchExtension extends Extension {
 		$searchPanelNames = DashboardAdmin::config()->search_panels;
 		$searchMessageClasses = array();
 		$searchResults = ArrayList::create();
+		$singleSearchResultItem = NULL;
 		foreach($searchPanelNames as $searchPanelName) {
 			if (class_exists($searchPanelName)) {
 				$searchPanel = new $searchPanelName($this->owner);
@@ -79,7 +80,20 @@ class DashboardSearchExtension extends Extension {
 						$searchResults->push(ArrayData::create(array(
 							'Results' => $searchPanel->forTemplate()
 						)));
+						if ($results->count() === 1 && count($searchResults) === 1) {
+							$singleSearchResultItem = $results->first();
+						} else {
+							$singleSearchResultItem = NULL;
+						}
 					}
+				}
+			}
+		}
+
+		if ($singleSearchResultItem) {
+			if ($singleSearchResultItem->config()->dashboard_automatic_search_redirect) {
+				if ($searchResultCMSLink = $singleSearchResultItem->SearchResultCMSLink) {
+					return $this->owner->redirect($searchResultCMSLink);
 				}
 			}
 		}

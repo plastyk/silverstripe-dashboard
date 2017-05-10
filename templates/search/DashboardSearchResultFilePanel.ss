@@ -11,7 +11,7 @@
 			<% loop $Results %>
 			<tr>
 				<td class="link">
-					<a href="admin/assets/EditForm/field/File/item/{$ID}/edit">
+					<a href="$SearchResultCMSLink">
 						$Title
 						<div class="note">$Filename</div>
 					</a>
