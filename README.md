@@ -16,3 +16,8 @@ This dashboard module provides a landing page for users logging into the CMS. Ou
 * File
 * Page
 * Member
+
+## Documentation
+* [Index](docs/en/index.md)
+* [Installation](docs/en/index.md#installation-with-composer)
+* [Configuration](docs/en/index.md#configuration)
