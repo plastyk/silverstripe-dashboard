@@ -18,8 +18,9 @@ By default the `UpdatePanel` and `MoreInformationPanel` tell the user to contact
 DashboardAdmin:
   contact_email: 'email@example.com'
   contact_name: 'Developer Name'
-  panel_accent_colour: '#0093d1'
+  panel_accent_colour: '#efbc2a'
 ```
+![Dashboard module customisation screenshot](docs/en/_images/dashboard-module-screenshot-blue.png)
 
 ## Subsite compatibility
 
