@@ -20,7 +20,7 @@ DashboardAdmin:
   contact_name: 'Developer Name'
   panel_accent_colour: '#efbc2a'
 ```
-![Dashboard module customisation screenshot](_images/dashboard-module-screenshot-blue.png)
+![Dashboard module customisation screenshot](_images/dashboard-module-screenshot-yellow.png)
 
 ## Subsite compatibility
 
