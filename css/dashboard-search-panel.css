@@ -1,7 +1,7 @@
 #Form_DashboardSearchForm {
 	float: right;
 	position: relative;
-	margin-bottom: 10px;
+	margin: 8px 0 10px 0;
 }
 #Form_DashboardSearchForm_Search {
 	background-image: none;
