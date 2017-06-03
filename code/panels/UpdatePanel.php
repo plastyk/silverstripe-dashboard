@@ -49,39 +49,42 @@ class UpdatePanel extends DashboardPanel {
 	}
 
 	public function getLatestSilverStripeVersion() {
-		$latestVersion = false;
-		if (!Session::get('silverstripe_latest_version')) {
-			if (!$latestVersion) {
-				$versionRequest = curl_init();
-				curl_setopt($versionRequest, CURLOPT_URL, 'https://packagist.org/feeds/package.silverstripe/framework.rss');
-				curl_setopt($versionRequest, CURLOPT_RETURNTRANSFER, 1);
-				$versionFeed = curl_exec($versionRequest);
-				curl_close($versionRequest);
-				if ($versionFeed) {
-					$xml = simplexml_load_string($versionFeed);
-					$json = json_encode($xml);
-					$versionList = json_decode($json, true);
-					if ($versionList && isset($versionList['channel']['item'])) {
-						$versionItem = $versionList['channel']['item'];
-						for ($versionItemIndex = 0; $versionItemIndex < count($versionItem); $versionItemIndex++) {
-							$versionTitle = $versionItem[$versionItemIndex]['title'];
-							if (isset($versionTitle) && strpos($versionTitle, 'alpha') === false && strpos($versionTitle, 'beta') === false && strpos($versionTitle, 'rc') === false) {
-								$versionNumber = preg_replace('@[^0-9\.]+@i', '', $versionTitle);
+		$latestVersion = Session::get('silverstripe_latest_version');
+		if ($latestVersion) {
+			return $latestVersion;
+		}
 
-								if ($this->isNewestSilverStripeVersion($versionNumber, $latestVersion)) {
-									$latestVersion = $versionNumber;
-								}
-							}
-						}
-						if ($latestVersion) {
-							Session::set('silverstripe_latest_version', $latestVersion);
-						}
-					}
+		$versionRequest = curl_init();
+		curl_setopt($versionRequest, CURLOPT_URL, 'https://packagist.org/packages/silverstripe/framework.json');
+		curl_setopt($versionRequest, CURLOPT_RETURNTRANSFER, 1);
+		$versionFeed = curl_exec($versionRequest);
+		curl_close($versionRequest);
+
+		if (!$versionFeed) {
+			return false;
+		}
+
+		$versionJSON = json_decode($versionFeed, true);
+		if (!$versionJSON || !isset($versionJSON['package']['versions'])) {
+			return false;
+		}
+
+		$versionItems = $versionJSON['package']['versions'];
+		rsort($versionItems);
+
+		foreach ($versionItems as $versionItem) {
+			$versionNumber = $versionItem['version'];
+			if (isset($versionNumber) && !preg_match('/[^0-9\.]/', $versionNumber)) {
+				if ($this->isNewestSilverStripeVersion($versionNumber, $latestVersion)) {
+					$latestVersion = $versionNumber;
 				}
 			}
-		} else {
-			$latestVersion = Session::get('silverstripe_latest_version');
 		}
+
+		if ($latestVersion) {
+			Session::set('silverstripe_latest_version', $latestVersion);
+		}
+
 		return $latestVersion;
 	}
 
