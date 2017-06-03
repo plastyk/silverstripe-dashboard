@@ -34,7 +34,10 @@ CSS
 	}
 
 	public function canView($member = null) {
-		return Permission::check('CMS_ACCESS_DASHBOARDADMIN');
+		if (Permission::check('CMS_ACCESS_DASHBOARDADMIN')) {
+			return true;
+		}
+		return false;
 	}
 
 	public function DashboardContent() {
