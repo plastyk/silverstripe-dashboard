@@ -6,9 +6,7 @@ class DashboardSearchExtension extends Extension {
 		'DashboardSearchForm'
 	);
 
-	private static $search_classes = array();
-
-	function DashboardSearchForm() {
+	public function DashboardSearchForm() {
 
 		$fields = FieldList::create(
 			TextField::create('Search', _t('SearchForm.SEARCH','Search'))->setAttribute('placeholder', _t('SearchForm.SEARCH','Search'))
@@ -37,7 +35,7 @@ class DashboardSearchExtension extends Extension {
 		return $form;
 	}
 
-	function doDashboardSearch() {
+	public function doDashboardSearch() {
 		Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-search-panel.css');
 		Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-search-panel.js');
 
@@ -59,7 +57,7 @@ class DashboardSearchExtension extends Extension {
 			if (Director::is_ajax()) {
 				if (class_exists($searchPanelName)) {
 					$searchPanel = new $searchPanelName($this->owner);
-					$results = $searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
+					$searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
 					return $searchPanel->forTemplate();
 				}
 				return false;
