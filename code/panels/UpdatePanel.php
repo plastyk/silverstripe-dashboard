@@ -18,8 +18,8 @@ class UpdatePanel extends DashboardPanel {
 		$data['CurrentSilverStripeVersion'] = $this->getCurrentSilverStripeVersion();
 		$data['LatestSilverStripeVersion'] = $this->getLatestSilverStripeVersion();
 		$data['UpdateVersionLevel'] = $this->getUpdateVersionLevel();
-		$data['DashboardContactEmail'] = DashboardAdmin::config()->contact_email ? : false;
-		$data['DashboardContactName'] = DashboardAdmin::config()->contact_name ? : false;
+		$data['DashboardContactEmail'] = DashboardAdmin::config()->contact_email ?: false;
+		$data['DashboardContactName'] = DashboardAdmin::config()->contact_name ?: false;
 
 		return $data;
 	}
@@ -37,7 +37,7 @@ class UpdatePanel extends DashboardPanel {
 			if ($versions) {
 				foreach ($versions as $version) {
 					if (strpos($version, 'Framework: ') !== false) {
-						$currentVersion =  substr($version, 11);
+						$currentVersion = substr($version, 11);
 						Session::set('silverstripe_current_version', $currentVersion);
 					}
 				}
