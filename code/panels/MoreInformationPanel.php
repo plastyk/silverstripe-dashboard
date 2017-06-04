@@ -14,8 +14,8 @@ class MoreInformationPanel extends DashboardPanel {
 	public function getData() {
 		$data = parent::getData();
 
-		$data['DashboardContactEmail'] = DashboardAdmin::config()->contact_email ? : false;
-		$data['DashboardContactName'] = DashboardAdmin::config()->contact_name ? : false;
+		$data['DashboardContactEmail'] = DashboardAdmin::config()->contact_email ?: false;
+		$data['DashboardContactName'] = DashboardAdmin::config()->contact_name ?: false;
 
 		return $data;
 	}

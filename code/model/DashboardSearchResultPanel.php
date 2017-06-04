@@ -9,6 +9,9 @@ abstract class DashboardSearchResultPanel extends Object {
 	protected $singular_name;
 	protected $plural_name;
 
+	/**
+	 * @param string $className
+	 */
 	public function __construct($controller, $className) {
 		$this->controller = $controller;
 		$this->className = $className;

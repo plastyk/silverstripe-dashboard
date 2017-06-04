@@ -9,11 +9,11 @@ class DashboardSearchExtension extends Extension {
 	public function DashboardSearchForm() {
 
 		$fields = FieldList::create(
-			TextField::create('Search', _t('SearchForm.SEARCH','Search'))->setAttribute('placeholder', _t('SearchForm.SEARCH','Search'))
+			TextField::create('Search', _t('SearchForm.SEARCH', 'Search'))->setAttribute('placeholder', _t('SearchForm.SEARCH', 'Search'))
 		);
 
 		$actions = FieldList::create(
-			FormAction::create('doDashboardSearch', _t('SearchForm.SEARCH','Search'))
+			FormAction::create('doDashboardSearch', _t('SearchForm.SEARCH', 'Search'))
 		);
 
 		$requiredFields = RequiredFields::create(
@@ -43,7 +43,7 @@ class DashboardSearchExtension extends Extension {
 		$member = Member::CurrentUser();
 
 		$data = array(
-			'SearchValue' =>  Convert::html2raw($searchValue)
+			'SearchValue' => Convert::html2raw($searchValue)
 		);
 
 		if (!$searchValue) {
@@ -68,7 +68,7 @@ class DashboardSearchExtension extends Extension {
 		$searchMessageClasses = array();
 		$searchResults = ArrayList::create();
 		$singleSearchResultItem = NULL;
-		foreach($searchPanelNames as $searchPanelName) {
+		foreach ($searchPanelNames as $searchPanelName) {
 			if (class_exists($searchPanelName)) {
 				$searchPanel = new $searchPanelName($this->owner);
 				if ($searchPanel->canView($member)) {
