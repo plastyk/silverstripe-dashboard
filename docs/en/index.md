@@ -12,13 +12,17 @@ See the "require" section of [composer.json](https://github.com/plastyk/silverst
 
 ## Configuration
 
-By default the `UpdatePanel` and `MoreInformationPanel` tell the user to contact their web developer for help. We can make this display the developer name and email address to give a more personalised message. We can also adjust the panel accent colour to match the colour scheme of the website. In our `mysite/_config/config.yml` add:
+By default the `UpdatePanel` and `MoreInformationPanel` tell the user to contact their web developer for help. We can make this display the developer name and email address to give a more personalised message. 
+
+We can also adjust the panel accent colour to match the colour scheme of the website.
+
+In our `mysite/_config/config.yml` add:
 
 ```yml
 DashboardAdmin:
   contact_email: 'email@example.com'
   contact_name: 'Developer Name'
-  panel_accent_colour: '#efbc2a'
+  panel_accent_color: '#efbc2a'
 ```
 ![Dashboard module customisation screenshot](_images/dashboard-module-screenshot-yellow.png)
 
