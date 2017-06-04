@@ -10,7 +10,7 @@ class DashboardSearchResultPagePanel extends DashboardSearchResultPanel {
 		return parent::canView($member) && Permission::check('CMS_ACCESS_CMSMain') && class_exists('CMSPagesController');
 	}
 
-	function performSearch($searchValue, $request = array(), $searchFields = array('Title', 'Content'), $sort = 'Title', $exclusions = array()) {
+	public function performSearch($searchValue, $request = array(), $searchFields = array('Title', 'Content'), $sort = 'Title', $exclusions = array()) {
 		return parent::performSearch($searchValue, $request, $searchFields, $sort, $exclusions);
 	}
 }

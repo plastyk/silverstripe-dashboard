@@ -10,7 +10,7 @@ class DashboardSearchResultFilePanel extends DashboardSearchResultPanel {
 		return parent::canView($member) && Permission::check('CMS_ACCESS_AssetAdmin') && class_exists('AssetAdmin');
 	}
 
-	function performSearch($searchValue, $request = array(), $searchFields = array('Title', 'Name', 'Content', 'Filename'), $sort = 'Title', $exclusions = array('ClassName' => 'Folder')) {
+	public function performSearch($searchValue, $request = array(), $searchFields = array('Title', 'Name', 'Content', 'Filename'), $sort = 'Title', $exclusions = array('ClassName' => 'Folder')) {
 		return parent::performSearch($searchValue, $request, $searchFields, $sort, $exclusions);
 	}
 }
