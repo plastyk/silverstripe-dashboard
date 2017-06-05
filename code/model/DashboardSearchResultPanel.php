@@ -68,7 +68,7 @@ abstract class DashboardSearchResultPanel extends Object {
 		return $template->process($this->controller, $data);
 	}
 
-	public function performSearch($searchValue, $paginationStart = 0, $searchFields = array('Title'), $sort = 'Created', $exclusions = array()) {
+	public function performSearch($searchValue, $paginationStart = 0, $searchFields = array('Title'), $sort = array('Created' => 'ASC'), $exclusions = array()) {
 		$searchWhereClause = '';
 		$searchWords = explode(' ', $searchValue);
 		$notFirstWord = false;

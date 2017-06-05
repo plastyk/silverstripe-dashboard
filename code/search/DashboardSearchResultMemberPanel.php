@@ -10,7 +10,7 @@ class DashboardSearchResultMemberPanel extends DashboardSearchResultPanel {
 		return parent::canView($member) && Permission::check('CMS_ACCESS_SecurityAdmin') && class_exists('SecurityAdmin');
 	}
 
-	public function performSearch($searchValue, $request = array(), $searchFields = array('FirstName', 'Surname', 'Email'), $sort = array('FirstName' => 'ASC', 'Surname' => 'ASC', 'Email' => 'ASC'), $exclusions = array()) {
-		return parent::performSearch($searchValue, $request, $searchFields, $sort, $exclusions);
+	public function performSearch($searchValue, $paginationStart = 0, $searchFields = array('FirstName', 'Surname', 'Email'), $sort = array('FirstName' => 'ASC', 'Surname' => 'ASC', 'Email' => 'ASC'), $exclusions = array()) {
+		return parent::performSearch($searchValue, $paginationStart, $searchFields, $sort, $exclusions);
 	}
 }
