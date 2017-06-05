@@ -34,7 +34,7 @@ class UpdatePanel extends DashboardPanel {
 		$currentVersion = false;
 		if (!Session::get('silverstripe_current_version')) {
 			$versions = explode(', ', Injector::inst()->get('LeftAndMain')->CMSVersion());
-			if ($versions) {
+			if (!empty($versions)) {
 				foreach ($versions as $version) {
 					if (strpos($version, 'Framework: ') !== false) {
 						$currentVersion = substr($version, 11);

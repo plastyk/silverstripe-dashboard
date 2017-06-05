@@ -27,7 +27,7 @@ abstract class DashboardPanel extends Object {
 
 		$data = $this->getData();
 
-		return $template->process(null, $data);
+		return $template->process(new ArrayData(array()), $data);
 	}
 
 	public function canView($member = null) {
