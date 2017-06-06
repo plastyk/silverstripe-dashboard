@@ -5,8 +5,8 @@ abstract class DashboardPanel extends Object {
 	protected $controller;
 
 	public function __construct($controller = null) {
+		parent::__construct();
 		$this->controller = $controller;
-
 		$this->init();
 	}
 
