@@ -1,5 +1,5 @@
 ---
-Name: dashboard-adminpanels
+Name: dashboard
 After: 'framework/*','cms/*'
 ---
 AdminRootController:
