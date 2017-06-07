@@ -1,113 +1,113 @@
 <?php
 
-class DashboardSearchExtension extends Extension {
+class DashboardSearchExtension extends Extension
+{
+    private static $allowed_actions = array(
+        'DashboardSearchForm'
+    );
 
-	private static $allowed_actions = array(
-		'DashboardSearchForm'
-	);
+    public function DashboardSearchForm()
+    {
+        $fields = FieldList::create(
+            TextField::create('Search', _t('SearchForm.SEARCH', 'Search'))->setAttribute('placeholder', _t('SearchForm.SEARCH', 'Search'))
+        );
 
-	public function DashboardSearchForm() {
+        $actions = FieldList::create(
+            FormAction::create('doDashboardSearch', _t('SearchForm.SEARCH', 'Search'))
+        );
 
-		$fields = FieldList::create(
-			TextField::create('Search', _t('SearchForm.SEARCH', 'Search'))->setAttribute('placeholder', _t('SearchForm.SEARCH', 'Search'))
-		);
+        $requiredFields = RequiredFields::create(
+        );
 
-		$actions = FieldList::create(
-			FormAction::create('doDashboardSearch', _t('SearchForm.SEARCH', 'Search'))
-		);
+        $form = Form::create(
+            $this->owner,
+            'DashboardSearchForm',
+            $fields,
+            $actions,
+            $requiredFields
+        );
+        $form->setFormMethod('get');
+        $form->setTemplate('DashboardSearchForm');
+        $form->addExtraClass('dashboard-search-form');
+        $form->disableSecurityToken();
+        $form->loadDataFrom($this->owner->getRequest()->getVars());
 
-		$requiredFields = RequiredFields::create(
-		);
+        return $form;
+    }
 
-		$form = Form::create(
-			$this->owner,
-			'DashboardSearchForm',
-			$fields,
-			$actions,
-			$requiredFields
-		);
-		$form->setFormMethod('get');
-		$form->setTemplate('DashboardSearchForm');
-		$form->addExtraClass('dashboard-search-form');
-		$form->disableSecurityToken();
-		$form->loadDataFrom($this->owner->getRequest()->getVars());
+    public function doDashboardSearch()
+    {
+        Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-search-panel.css');
+        Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-search-panel.js');
 
-		return $form;
-	}
+        $searchValue = Convert::raw2sql($this->owner->getRequest()->getVar('Search'));
+        $member = Member::CurrentUser();
 
-	public function doDashboardSearch() {
-		Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-search-panel.css');
-		Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-search-panel.js');
+        $data = array(
+            'SearchValue' => Convert::html2raw($searchValue)
+        );
 
-		$searchValue = Convert::raw2sql($this->owner->getRequest()->getVar('Search'));
-		$member = Member::CurrentUser();
+        if (!$searchValue) {
+            if (Director::is_ajax()) {
+                return $this->owner->renderWith('DashboardContent');
+            }
+            return $this->owner;
+        }
 
-		$data = array(
-			'SearchValue' => Convert::html2raw($searchValue)
-		);
+        if ($searchPanelName = $this->owner->getRequest()->getVar('panel-class')) {
+            if (Director::is_ajax()) {
+                if (class_exists($searchPanelName)) {
+                    $searchPanel = new $searchPanelName($this->owner);
+                    $searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
+                    return $searchPanel->forTemplate();
+                }
+                return false;
+            }
+        }
 
-		if (!$searchValue) {
-			if (Director::is_ajax()) {
-				return $this->owner->renderWith('DashboardContent');
-			}
-			return $this->owner;
-		}
+        $searchPanelNames = DashboardAdmin::config()->search_panels;
+        $searchMessageClasses = array();
+        $searchResults = ArrayList::create();
+        $singleSearchResultItem = null;
+        foreach ($searchPanelNames as $searchPanelName) {
+            if (class_exists($searchPanelName)) {
+                $searchPanel = new $searchPanelName($this->owner);
+                if ($searchPanel->canView($member)) {
+                    $searchMessageClasses[] = $searchPanel->plural_name();
+                    $results = $searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
+                    if ($results->count()) {
+                        $searchResults->push(ArrayData::create(array(
+                            'Results' => $searchPanel->forTemplate()
+                        )));
+                        if ($results->count() === 1 && count($searchResults) === 1) {
+                            $singleSearchResultItem = $results->first();
+                        } else {
+                            $singleSearchResultItem = null;
+                        }
+                    }
+                }
+            }
+        }
 
-		if ($searchPanelName = $this->owner->getRequest()->getVar('panel-class')) {
-			if (Director::is_ajax()) {
-				if (class_exists($searchPanelName)) {
-					$searchPanel = new $searchPanelName($this->owner);
-					$searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
-					return $searchPanel->forTemplate();
-				}
-				return false;
-			}
-		}
+        if ($singleSearchResultItem) {
+            if ($singleSearchResultItem->config()->dashboard_automatic_search_redirect) {
+                if ($searchResultCMSLink = $singleSearchResultItem->getSearchResultCMSLink()) {
+                    return $this->owner->redirect($searchResultCMSLink);
+                }
+            }
+        }
 
-		$searchPanelNames = DashboardAdmin::config()->search_panels;
-		$searchMessageClasses = array();
-		$searchResults = ArrayList::create();
-		$singleSearchResultItem = NULL;
-		foreach ($searchPanelNames as $searchPanelName) {
-			if (class_exists($searchPanelName)) {
-				$searchPanel = new $searchPanelName($this->owner);
-				if ($searchPanel->canView($member)) {
-					$searchMessageClasses[] = $searchPanel->plural_name();
-					$results = $searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
-					if ($results->count()) {
-						$searchResults->push(ArrayData::create(array(
-							'Results' => $searchPanel->forTemplate()
-						)));
-						if ($results->count() === 1 && count($searchResults) === 1) {
-							$singleSearchResultItem = $results->first();
-						} else {
-							$singleSearchResultItem = NULL;
-						}
-					}
-				}
-			}
-		}
+        if (count($searchMessageClasses)) {
+            $data['SearchMessage'] = 'Searching for ' . strrev(implode(strrev(' &amp; '), explode(strrev(', '), strrev(implode(', ', $searchMessageClasses)), 2)));
+        }
+        $data['SearchResults'] = $searchResults;
 
-		if ($singleSearchResultItem) {
-			if ($singleSearchResultItem->config()->dashboard_automatic_search_redirect) {
-				if ($searchResultCMSLink = $singleSearchResultItem->getSearchResultCMSLink()) {
-					return $this->owner->redirect($searchResultCMSLink);
-				}
-			}
-		}
+        $this->owner->customise($data);
 
-		if (count($searchMessageClasses)) {
-			$data['SearchMessage'] = 'Searching for ' . strrev(implode(strrev(' &amp; '), explode(strrev(', '), strrev(implode(', ', $searchMessageClasses)), 2)));
-		}
-		$data['SearchResults'] = $searchResults;
+        if (Director::is_ajax()) {
+            return $this->owner->customise(array('DashboardPanels' => $this->owner->renderWith('SearchPanel')))->renderWith('DashboardContent');
+        }
 
-		$this->owner->customise($data);
-
-		if (Director::is_ajax()) {
-			return $this->owner->customise(array('DashboardPanels' => $this->owner->renderWith('SearchPanel')))->renderWith('DashboardContent');
-		}
-
-		return $this->owner->customise(array('DashboardPanels' => $this->owner->renderWith('SearchPanel')));
-	}
-
+        return $this->owner->customise(array('DashboardPanels' => $this->owner->renderWith('SearchPanel')));
+    }
 }

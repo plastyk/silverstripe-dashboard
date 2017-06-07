@@ -1,5 +1,5 @@
 <?php
 
-class UsefulLinksPanel extends DashboardPanel {
-	
+class UsefulLinksPanel extends DashboardPanel
+{
 }
