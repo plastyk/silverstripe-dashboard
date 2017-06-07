@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # SilverStripe Dashboard
 
 This dashboard module provides a landing page for users logging into the CMS. Out of the box, allows viewing the state of recently created or modified pages, searching for pages & files as well as letting the user know whether the SilverStripe install is out of date.
@@ -24,7 +28,7 @@ DashboardAdmin:
   contact_name: 'Developer Name'
   panel_accent_color: '#efbc2a'
 ```
-![Dashboard module customisation screenshot](_images/dashboard-module-screenshot-yellow.png)
+![Dashboard module customisation screenshot](images/dashboard-module-screenshot-yellow.png)
 
 ### Automatic search redirect
 
