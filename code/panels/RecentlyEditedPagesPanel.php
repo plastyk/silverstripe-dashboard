@@ -1,24 +1,27 @@
 <?php
 
-class RecentlyEditedPagesPanel extends DashboardPanel {
+class RecentlyEditedPagesPanel extends DashboardPanel
+{
+    public function canView($member = null)
+    {
+        if (!Permission::check('CMS_ACCESS_CMSMain') || !class_exists('CMSPagesController')) {
+            return false;
+        }
 
-	public function canView($member = null) {
-		if (!Permission::check('CMS_ACCESS_CMSMain') || !class_exists('CMSPagesController')) {
-			return false;
-		}
+        return parent::canView($member);
+    }
 
-		return parent::canView($member);
-	}
+    public function getData()
+    {
+        $data = parent::getData();
 
-	public function getData() {
-		$data = parent::getData();
+        $data['Results'] = $this->Results();
 
-		$data['Results'] = $this->Results();
+        return $data;
+    }
 
-		return $data;
-	}
-
-	public function Results() {
-		return Page::get()->filter('LastEdited:GreaterThan', date('c', strtotime('-6 months')))->sort('LastEdited DESC')->limit(8);
-	}
+    public function Results()
+    {
+        return Page::get()->filter('LastEdited:GreaterThan', date('c', strtotime('-6 months')))->sort('LastEdited DESC')->limit(8);
+    }
 }
