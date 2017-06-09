@@ -1,55 +1,55 @@
-de:
+﻿de:
   DashboardAdmin:
     MENUTITLE: Instrumententafel
   MoreInformationPanel:
     CONTACT: Kontakt
     CUSTOMPANELSAVAILABLE: 'Benutzerdefinierte Armaturenbretter sind vorhanden.'
-    IFYOUWOULDLIKETODISCUSS: 'wenn du gerne diskutieren wurdest.'
+    IFYOUWOULDLIKETODISCUSS: 'wenn du gerne diskutieren würdest.'
     YOURWEBDEVELOPER: 'ihr Web-Entwickler'
   RecentlyCreatedPagesPanel:
     CREATED: Bearbeitet
     NORECENTLYCREATEDPAGES: 'Keine Seiten in den letzten sechs Monaten erstellt.'
-    PANELTITLE: 'Kurzlich erstellte Seiten'
+    PANELTITLE: 'Kürzlich erstellte Seiten'
     TITLE: Titel
   RecentlyEditedPagesPanel:
     EDITED: Bearbeitet
     NORECENTLYEDITEDPAGES: 'Keine Seiten in den letzten sechs Monaten bearbeitet.'
-    PANELTITLE: 'Kurzlich bearbeitete Seiten'
+    PANELTITLE: 'Kürzlich bearbeitete Seiten'
     TITLE: Titel
   SearchPanel:
     NAME: Name
     NORESULTS: 'Leider keine Ergebnisse.'
     SEARCH: Suche
     SEARCHINGFOR: 'Auf der Suche nach'
-    SEARCHRESULTSFOR: 'Suchergebnisse fur'
+    SEARCHRESULTSFOR: 'Suchergebnisse für'
     TITLE: Titel
-    VIEWNEXTPAGE: 'Nachste Seite ansehen'
+    VIEWNEXTPAGE: 'Nächste Seite ansehen'
     VIEWPAGENUMBER: 'Seitenzahl anzeigen'
     VIEWPREVIOUSPAGE: 'Vorherige Seite ansehen'
   UpdatePanel:
     BUGFIXES: 'Bug fixes'
-    IFYOUWOULDLIKETOUPDATE: 'Wenn Sie auf die neueste Version aktualisieren mochten, kontaktieren Sie bitte'
+    IFYOUWOULDLIKETOUPDATE: 'Wenn Sie auf die neueste Version aktualisieren möchten, kontaktieren Sie bitte'
     IMPROVEDADMIN: 'Verbesserter Admin-Bereich'
     LATESTVERSIONIS: 'Die neueste Version ist'
-    MAJORVERSIONMESSAGE: 'Das verfugbare aktualisieren ist ein dur update. Eine dur version aktualisieren besteht aus:'
-    MINORVERSIONMESSAGE: 'Das verfugbare aktualisieren ist ein geringer update. Eine geringer version aktualisieren besteht aus:'
+    MAJORVERSIONMESSAGE: 'Das verfügbare aktualisieren ist ein dur update. Eine dur version aktualisieren besteht aus:'
+    MINORVERSIONMESSAGE: 'Das verfügbare aktualisieren ist ein geringer update. Eine geringer version aktualisieren besteht aus:'
     NEWFEATURES: 'Neue Funktionen und Erweiterungen'
-    NEWSILVERSTRIPEUPDATESAVAILABLE: 'Neue SilverStripe CMS updates sind verfugbar.'
+    NEWSILVERSTRIPEUPDATESAVAILABLE: 'Neue SilverStripe CMS updates sind verfügbar.'
     READMORE: 'Weiterlesen'
     SITEPERFORMANCE: 'Verbesserungen der Standortleistung'
     SECURITYPATCHES: 'Sicherheits-Patches'
-    SECURITYVERSIONMESSAGE: 'Das verfugbare aktualisieren ist ein sicherheit update. Eine sicherheit version aktualisieren besteht aus:'
+    SECURITYVERSIONMESSAGE: 'Das verfügbare aktualisieren ist ein sicherheit update. Eine sicherheit version aktualisieren besteht aus:'
     YOURVERSIONIS: 'Ihre Version ist'
     YOURWEBDEVELOPER: 'ihr Web-Entwickler'
   UsefulLinksPanel:
     GOOGLEANALYTICS: 'Google Analytics'
     GOOGLEANALYTICSDESCRIPTION: 'Website Traffic Berichte zu sehen, wie viele Menschen besuchen Sie Ihre Website.'
     METADESCRIPTION: 'Meta Beschreibung Tipps'
-    METADESCRIPTIONDESCRIPTION: 'Nutzliche Informationen zum Bestatigen von Meta-Beschreibungen fur Ihre Seiten.'
+    METADESCRIPTIONDESCRIPTION: 'Nützliche Informationen zum Bestätigen von Meta-Beschreibungen für Ihre Seiten.'
     PANELTITLE: 'Werkzeuge und Tipps'
     PIXLR: 'Pixlr'
-    PIXLRDESCRIPTION: 'Online-Bildbearbeitungs-App zur GroBenanderung und Bearbeitung von Bildern vor dem Hochladen.'
+    PIXLRDESCRIPTION: 'Online-Bildbearbeitungs-App zur Größenänderung und Bearbeitung von Bildern vor dem Hochladen.'
     SCREENSHOTSHARING: 'Screenshot teilen'
-    SCREENSHOTSHARINGDESCRIPTION: 'Online-App, um zu helfen, Screenshots Ihrer Website zu helfen, Fehler zu beheben oder fur neue Funktionen zu helfen.'
+    SCREENSHOTSHARINGDESCRIPTION: 'Online-App, um zu helfen, Screenshots Ihrer Website zu helfen, Fehler zu beheben oder für neue Funktionen zu helfen.'
     WHATSMYBROWSER: "What's my browser"
-    WHATSMYBROWSERDESCRIPTION: 'Informationen daruber, welchen Browser Sie gerade nutzen.'
+    WHATSMYBROWSERDESCRIPTION: 'Informationen darüber, welchen Browser Sie gerade nutzen.'
