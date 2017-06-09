@@ -1,11 +1,11 @@
 <div class="dashboard-panel">
-	<h3><a href="admin/pages/">Recently created pages</a></h3>
+	<h3><a href="admin/pages/"><% _t('RecentlyCreatedPagesPanel.PANELTITLE', 'Recently created pages') %></a></h3>
 	<% if $Results %>
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Title</th>
-				<th>Created</th>
+				<th><% _t('RecentlyCreatedPagesPanel.TITLE', 'Title') %></th>
+				<th><% _t('RecentlyCreatedPagesPanel.CREATED', 'Created') %></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,6 +25,6 @@
 		</tbody>
 	</table>
 	<% else %>
-	<p>No pages created in the last six months.</p>
+	<p><% _t('RecentlyCreatedPagesPanel.NORECENTLYCREATEDPAGES', 'No pages created in the last six months.') %></p>
 	<% end_if %>
 </div>

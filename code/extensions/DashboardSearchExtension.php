@@ -98,7 +98,7 @@ class DashboardSearchExtension extends Extension
         }
 
         if (count($searchMessageClasses)) {
-            $data['SearchMessage'] = 'Searching for ' . strrev(implode(strrev(' &amp; '), explode(strrev(', '), strrev(implode(', ', $searchMessageClasses)), 2)));
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . strrev(implode(strrev(' &amp; '), explode(strrev(', '), strrev(implode(', ', $searchMessageClasses)), 2)));
         }
         $data['SearchResults'] = $searchResults;
 
