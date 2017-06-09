@@ -102,12 +102,12 @@ abstract class DashboardSearchResultPanel extends Object
         $exactItems = $className::get()->where(
             str_replace('[search-string]', $searchValue, $searchWhereClauseTemplate)
         )->exclude($exclusions)->sort($sort);
-        $exactItems = $exactItems->filterByCallback(function ($item) use ($member) {
+        $exactItems = $exactItems->filterByCallback(function($item) use ($member) {
             return $item->canEdit($member);
         });
 
         $items = $className::get()->where($searchWhereClause)->exclude($exclusions)->sort($sort);
-        $items = $items->filterByCallback(function ($item) use ($member) {
+        $items = $items->filterByCallback(function($item) use ($member) {
             return $item->canEdit($member);
         });
 
