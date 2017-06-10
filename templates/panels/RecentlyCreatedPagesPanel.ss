@@ -17,7 +17,7 @@
 						<div class="note">$Breadcrumbs(4, true)</div>
 					</a>
 				</td>
-				<td class="link">
+				<td class="link date">
 					<a href="admin/pages/edit/show/{$ID}" title="$Created.Nice">$Created.Ago</a>
 				</td>
 			</tr>
