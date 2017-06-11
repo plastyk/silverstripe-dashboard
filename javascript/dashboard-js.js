@@ -17,6 +17,9 @@
 				}
 
 				if (!$('.cms-container').loadPanel(url)) {
+					if (url.indexOf('admin/pages/') !== -1) {
+						$('.cms-menu-list li#Menu-CMSPagesController').select();
+					}
 					return false;
 				}
 
