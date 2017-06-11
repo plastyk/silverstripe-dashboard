@@ -30,8 +30,6 @@ class QuickLinksPanel extends DashboardPanel
         $data['CanView'] = $data['CanView'] || $data['CanViewUsers'];
         $data['CanViewSettings'] = Permission::check('EDIT_SITECONFIG') && class_exists('SiteConfigLeftAndMain');
         $data['CanView'] = $data['CanView'] || $data['CanViewSettings'];
-        $data['CanViewRedirects'] = Permission::check('CMS_ACCESS_MisdirectionAdmin') && class_exists('MisdirectionAdmin');
-        $data['CanView'] = $data['CanView'] || $data['CanViewRedirects'];
 
         $this->extend('updateData', $data);
 
