@@ -137,4 +137,4 @@ Now our buttons will only display to users who can view those sections.
 
 ## Customising icons
 
-When adding new buttons we can make use of the range of font awesome icons that are included with the dashboard module.
+When adding new buttons we can make use of the range of [font awesome icons](http://fontawesome.io/icons/) that are included with the dashboard module.
