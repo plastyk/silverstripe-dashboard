@@ -61,6 +61,8 @@ We can now see we have a link to the properties admin and a link to create a new
 
 ![Dashboard module customised QuickLinksPanel screenshot](images/dashboard-module-quick-links-panel-customised.png)
 
+## Adding permission checks
+
 We can improve on this code to check if the user has permission to view the properties section before displaying the buttons to the user.
 
 First we create a `QuickLinksPanelExtension.php` extension class in `dashboard-custom/code/extensions/`.
@@ -132,5 +134,7 @@ Then in our template we wrap our property buttons in a `$CanViewProperties` chec
 ```
 
 Now our buttons will only display to users who can view those sections.
+
+## Customising icons
 
 When adding new buttons we can make use of the range of font awesome icons that are included with the dashboard module.
