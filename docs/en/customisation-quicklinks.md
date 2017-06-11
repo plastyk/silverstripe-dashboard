@@ -10,7 +10,9 @@ By default the `QuickLinksPanel` displays links to the CMS pages, users and sett
 
 We can add, remove or modify these links by extending the `QuickLinksPanel`.
 
-We have a custom `DataObject` named `Property` that is controlled through a custom `ModelAdmin` called `PropertiesAdmin`. We would like to add a quick link that links to the `PropertiesAdmin` as well a quick link to add a new `Property`.
+## Adding buttons to the QuickLinksPanel template
+
+Say we have a custom `DataObject` named `Property` that is controlled through a custom `ModelAdmin` called `PropertiesAdmin`. We would like to add a quick link that links to the `PropertiesAdmin` as well a quick link to add a new `Property`.
 
 First we create a `dashboard-custom` folder in our root directory to house our dashboard customisation code. Next we create a copy of the `QuickLinksPanel.ss` template and place this in `dashboard-custom/templates/panels/`.
 
@@ -53,13 +55,13 @@ In our `dashboard-custom/templates/panels/QuickLinksPanel.ss` template we add th
 </div>
 ```
 
-To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside it. We then call `?flush=all` in the browser URL to have the new template picked up by SilverStripe.
+To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside `dashboard-custom`. We then call `?flush=all` in the browser URL to have the new template picked up by SilverStripe.
 
 We can now see we have a link to the properties admin and a link to create a new property:
 
 ![Dashboard module customised QuickLinksPanel screenshot](images/dashboard-module-quick-links-panel-customised.png)
 
-We can improve on this code to check if the user has permission to view the properties section before display the buttons to them.
+We can improve on this code to check if the user has permission to view the properties section before displaying the buttons to the user.
 
 First we create a `QuickLinksPanelExtension.php` extension class in `dashboard-custom/code/extensions/`.
 
@@ -128,3 +130,7 @@ Then in our template we wrap our property buttons in a `$CanViewProperties` chec
 
 </div>
 ```
+
+Now our buttons will only display to users who can view those sections.
+
+When adding new buttons we can make use of the range of font awesome icons that are included with the dashboard module.
