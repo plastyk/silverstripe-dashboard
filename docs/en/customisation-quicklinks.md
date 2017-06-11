@@ -72,7 +72,7 @@ In our `dashboard-custom/code/extensions/QuickLinksPanelExtension.php` class we 
 ```php
 class QuickLinksPanelExtension extends Extension
 {
-    public function updateData($data)
+    public function updateData(&$data)
     {
         $data['CanViewProperties'] = Permission::check('CMS_ACCESS_PropertiesAdmin') && class_exists('PropertiesAdmin');
         $data['CanView'] = $data['CanView'] || $data['CanViewProperties'];
