@@ -4,7 +4,6 @@ class UpdatePanel extends DashboardPanel
 {
     public function canView($member = null)
     {
-        return true;
         if (Permission::check('CMS_ACCESS_ADMIN')) {
             $currentVersion = $this->getCurrentSilverStripeVersion();
             $latestVersion = $this->getLatestSilverStripeVersion();
