@@ -12,15 +12,6 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
         Requirements::css('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
         Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-cms.css');
         Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-js.js');
-
-        if ($panelAccentColor = DashboardAdmin::config()->panel_accent_color) {
-            Requirements::customCSS(<<<CSS
-.cms-content.DashboardAdmin .dashboard-panel {
-	border-top-color: $panelAccentColor;
-}
-CSS
-);
-        }
     }
 
     public function providePermissions()
@@ -71,5 +62,10 @@ CSS
         }
 
         return false;
+    }
+
+    public function getPanelAccentColor()
+    {
+        return DashboardAdmin::config()->panel_accent_color;
     }
 }
