@@ -4,6 +4,7 @@ class UpdatePanel extends DashboardPanel
 {
     public function canView($member = null)
     {
+        return true;
         if (Permission::check('CMS_ACCESS_ADMIN')) {
             $currentVersion = $this->getCurrentSilverStripeVersion();
             $latestVersion = $this->getLatestSilverStripeVersion();
@@ -20,8 +21,9 @@ class UpdatePanel extends DashboardPanel
         $data['CurrentSilverStripeVersion'] = $this->getCurrentSilverStripeVersion();
         $data['LatestSilverStripeVersion'] = $this->getLatestSilverStripeVersion();
         $data['UpdateVersionLevel'] = $this->getUpdateVersionLevel();
-        $data['DashboardContactEmail'] = DashboardAdmin::config()->contact_email ?: false;
-        $data['DashboardContactName'] = DashboardAdmin::config()->contact_name ?: false;
+        $data['ContactEmail'] = DashboardAdmin::config()->contact_email ?: false;
+        $data['ContactName'] = DashboardAdmin::config()->contact_name ?: _t('UpdatePanel.YOURWEBDEVELOPER', 'your web developer');
+        $data['ContactContent'] = $this->getContactContent();
 
         return $data;
     }
@@ -31,6 +33,25 @@ class UpdatePanel extends DashboardPanel
         parent::init();
         Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-update-panel.css');
         Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-update-panel.js');
+    }
+
+    public function getContactContent()
+    {
+        $contactEmail = DashboardAdmin::config()->contact_email ?: false;
+        $contactName = DashboardAdmin::config()->contact_name ?: _t('UpdatePanel.YOURWEBDEVELOPER', 'your web developer');
+
+        if ($contactEmail) {
+            $contactName = '<a href="mailto:' . $contactEmail . '">' . $contactName . '</a>';
+        }
+
+        $content = _t(
+            'UpdatePanel.IFYOUWOULDLIKETOUPDATE',
+            'If you would like to update to the latest version please contact {contactName}.',
+            'Update message',
+            array('contactName' => $contactName)
+        );
+
+        return DBField::create_field('HTMLText', $content);
     }
 
     public function getCurrentSilverStripeVersion()

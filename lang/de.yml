@@ -2,9 +2,7 @@ de:
   DashboardAdmin:
     MENUTITLE: Instrumententafel
   MoreInformationPanel:
-    CONTACT: Kontakt
-    CUSTOMPANELSAVAILABLE: 'Benutzerdefinierte Armaturenbretter sind vorhanden.'
-    IFYOUWOULDLIKETODISCUSS: 'wenn du gerne diskutieren würdest.'
+    MOREINFORMATIONMESSAGE: 'Benutzerdefinierte Armaturenbretter sind vorhanden. Kontakt {contactName} wenn du gerne diskutieren würdest.'
     YOURWEBDEVELOPER: 'ihr Web-Entwickler'
   RecentlyCreatedPagesPanel:
     CREATED: Bearbeitet
@@ -28,7 +26,7 @@ de:
     VIEWPREVIOUSPAGE: 'Vorherige Seite ansehen'
   UpdatePanel:
     BUGFIXES: 'Bug fixes'
-    IFYOUWOULDLIKETOUPDATE: 'Wenn Sie auf die neueste Version aktualisieren möchten, kontaktieren Sie bitte'
+    IFYOUWOULDLIKETOUPDATE: 'Wenn Sie auf die neueste Version aktualisieren möchten, kontaktieren Sie bitte {contactName}'
     IMPROVEDADMIN: 'Verbesserter Admin-Bereich'
     LATESTVERSIONIS: 'Die neueste Version ist'
     MAJORVERSIONMESSAGE: 'Das verfügbare aktualisieren ist ein dur update. Eine dur version aktualisieren besteht aus:'

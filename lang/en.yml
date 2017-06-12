@@ -2,9 +2,7 @@ en:
   DashboardAdmin:
     MENUTITLE: Dashboard
   MoreInformationPanel:
-    CONTACT: Contact
-    CUSTOMPANELSAVAILABLE: 'Custom dashboard panels are available.'
-    IFYOUWOULDLIKETODISCUSS: 'if you would like to discuss.'
+    MOREINFORMATIONMESSAGE: 'Custom dashboard panels are available. Contact {contactName} if you would like to discuss.'
     YOURWEBDEVELOPER: 'your web developer'
   RecentlyCreatedPagesPanel:
     CREATED: Created
@@ -28,7 +26,7 @@ en:
     VIEWPREVIOUSPAGE: 'View the previous page'
   UpdatePanel:
     BUGFIXES: 'Bug fixes'
-    IFYOUWOULDLIKETOUPDATE: 'If you would like to update to the latest version please contact'
+    IFYOUWOULDLIKETOUPDATE: 'If you would like to update to the latest version please contact {contactName}'
     IMPROVEDADMIN: 'Improved admin section'
     LATESTVERSIONIS: 'The latest version is'
     MAJORVERSIONMESSAGE: 'The available update is a major version update. A major version update consists of:'
