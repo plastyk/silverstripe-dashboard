@@ -1,8 +1,9 @@
 <% if $PanelAccentColor %>
 <style type="text/css">
 .cms-content.DashboardAdmin .dashboard-panel {
-	border-top-color: #f00e21;
+	border-top-color: $PanelAccentColor;
 }
 </style>
 <% end_if %>
+
 $DashboardContent
