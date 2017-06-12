@@ -14,13 +14,6 @@
 	</a>
 	<% end_if %>
 
-	<% if $CanViewRedirects %>
-	<a href="admin/misdirection/">
-		<span class="fa fa-repeat" aria-hidden="true"></span>
-		Redirects
-	</a>
-	<% end_if %>
-
 	<% if $CanViewSettings %>
 	<a href="admin/settings/">
 		<span class="fa fa-cogs" aria-hidden="true"></span>

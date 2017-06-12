@@ -45,6 +45,9 @@ Page:
   dashboard_automatic_search_redirect: true
 ```
 
+## Customisation
+* [Quick Links Panel Customisation](https://plastyk.github.io/silverstripe-dashboard/en/customisation-quicklinks)
+
 ## Subsite compatibility
 
 If using the [SilverStripe Subsites Module](https://github.com/silverstripe/silverstripe-subsites/) the dashboard menu item will not display on subsites by default. To fix this we can apply the `SubsiteMenuExtension` to our `DashboardAdmin`. In our `mysite/_config/config.yml` add:
