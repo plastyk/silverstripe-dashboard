@@ -39,10 +39,7 @@
 		<% end_if %>
 
 		<p>
-			<% _t('UpdatePanel.IFYOUWOULDLIKETOUPDATE', 'If you would like to update to the latest version please contact') %>
-			<% if $DashboardContactEmail %><a href="mailto:{$DashboardContactEmail}"><% end_if %>
-			<% if $DashboardContactName %>$DashboardContactName<% else %><% _t('UpdatePanel.YOURWEBDEVELOPER', 'your web developer') %><% end_if %>
-			<% if $DashboardContactEmail %></a><% end_if %>.
+			$ContactContent
 		</p>
 	</div>
 </div>
