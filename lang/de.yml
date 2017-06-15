@@ -26,7 +26,7 @@ de:
     VIEWPREVIOUSPAGE: 'Vorherige Seite ansehen'
   UpdatePanel:
     BUGFIXES: 'Bug fixes'
-    IFYOUWOULDLIKETOUPDATE: 'Wenn Sie auf die neueste Version aktualisieren möchten, kontaktieren Sie bitte {contactName}'
+    IFYOUWOULDLIKETOUPDATE: 'Wenn Sie auf die neueste Version aktualisieren möchten, kontaktieren Sie bitte {contactName}.'
     IMPROVEDADMIN: 'Verbesserter Admin-Bereich'
     LATESTVERSIONIS: 'Die neueste Version ist'
     MAJORVERSIONMESSAGE: 'Das verfügbare aktualisieren ist ein dur update. Eine dur version aktualisieren besteht aus:'
@@ -34,9 +34,9 @@ de:
     NEWFEATURES: 'Neue Funktionen und Erweiterungen'
     NEWSILVERSTRIPEUPDATESAVAILABLE: 'Neue SilverStripe CMS updates sind verfügbar.'
     READMORE: 'Weiterlesen'
-    SITEPERFORMANCE: 'Verbesserungen der Standortleistung'
     SECURITYPATCHES: 'Sicherheits-Patches'
     SECURITYVERSIONMESSAGE: 'Das verfügbare aktualisieren ist ein sicherheit update. Eine sicherheit version aktualisieren besteht aus:'
+    SITEPERFORMANCE: 'Verbesserungen der Standortleistung'
     YOURVERSIONIS: 'Ihre Version ist'
     YOURWEBDEVELOPER: 'ihr Web-Entwickler'
   UsefulLinksPanel:
@@ -45,9 +45,9 @@ de:
     METADESCRIPTION: 'Meta Beschreibung Tipps'
     METADESCRIPTIONDESCRIPTION: 'Nützliche Informationen zum Bestätigen von Meta-Beschreibungen für Ihre Seiten.'
     PANELTITLE: 'Werkzeuge und Tipps'
-    PIXLR: 'Pixlr'
+    PIXLR: Pixlr
     PIXLRDESCRIPTION: 'Online-Bildbearbeitungs-App zur Größenänderung und Bearbeitung von Bildern vor dem Hochladen.'
     SCREENSHOTSHARING: 'Screenshot teilen'
     SCREENSHOTSHARINGDESCRIPTION: 'Online-App, um zu helfen, Screenshots Ihrer Website zu helfen, Fehler zu beheben oder für neue Funktionen zu helfen.'
-    WHATSMYBROWSER: "What's my browser"
+    WHATSMYBROWSER: 'What''s my browser'
     WHATSMYBROWSERDESCRIPTION: 'Informationen darüber, welchen Browser Sie gerade nutzen.'
