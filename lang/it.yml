@@ -1,0 +1,53 @@
+en:
+  DashboardAdmin:
+    MENUTITLE: Dashboard
+  MoreInformationPanel:
+    MOREINFORMATIONMESSAGE: 'Custom dashboard panels are available. Contact {contactName} if you would like to discuss.'
+    YOURWEBDEVELOPER: 'your web developer'
+  RecentlyCreatedPagesPanel:
+    CREATED: Created
+    NORECENTLYCREATEDPAGES: 'No pages edited in the last six months.'
+    PANELTITLE: 'Recently created pages'
+    TITLE: Title
+  RecentlyEditedPagesPanel:
+    EDITED: Edited
+    NORECENTLYEDITEDPAGES: 'No pages edited in the last six months.'
+    PANELTITLE: 'Recently edited pages'
+    TITLE: Title
+  SearchPanel:
+    NAME: Name
+    NORESULTS: 'Sorry, no results found.'
+    SEARCH: Search
+    SEARCHINGFOR: 'Searching for'
+    SEARCHRESULTSFOR: 'Search Results for'
+    TITLE: Title
+    VIEWNEXTPAGE: 'View the next page'
+    VIEWPAGENUMBER: 'View page number'
+    VIEWPREVIOUSPAGE: 'View the previous page'
+  UpdatePanel:
+    BUGFIXES: 'Bug fixes'
+    IFYOUWOULDLIKETOUPDATE: 'If you would like to update to the latest version please contact {contactName}'
+    IMPROVEDADMIN: 'Improved admin section'
+    LATESTVERSIONIS: 'The latest version is'
+    MAJORVERSIONMESSAGE: 'The available update is a major version update. A major version update consists of:'
+    MINORVERSIONMESSAGE: 'The available update is a minor version update. A minor version update consists of:'
+    NEWFEATURES: 'New features and enhancements'
+    NEWSILVERSTRIPEUPDATESAVAILABLE: 'New SilverStripe CMS updates are available.'
+    READMORE: 'Read more'
+    SITEPERFORMANCE: 'Site performance improvements'
+    SECURITYPATCHES: 'Security patches'
+    SECURITYVERSIONMESSAGE: 'The available update is a security release. A security release consists of:'
+    YOURVERSIONIS: 'Your version is'
+    YOURWEBDEVELOPER: 'your web developer'
+  UsefulLinksPanel:
+    GOOGLEANALYTICS: 'Google Analytics'
+    GOOGLEANALYTICSDESCRIPTION: 'Website traffic reports to see how many people are visiting your website.'
+    METADESCRIPTION: 'Meta Description Tips'
+    METADESCRIPTIONDESCRIPTION: 'Useful information on how to best write meta descriptions for your pages.'
+    PANELTITLE: 'Tools and tips'
+    PIXLR: 'Pixlr'
+    PIXLRDESCRIPTION: 'Online photo editing app to resize and edit images before uploading.'
+    SCREENSHOTSHARING: 'Screenshot sharing'
+    SCREENSHOTSHARINGDESCRIPTION: 'Online app to help share screenshots of your website to help fix bugs or for new features.'
+    WHATSMYBROWSER: "What's my browser"
+    WHATSMYBROWSERDESCRIPTION: 'Information on what browser you are currently using.'
