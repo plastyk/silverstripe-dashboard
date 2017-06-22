@@ -1,0 +1,53 @@
+pl:
+  DashboardAdmin:
+    MENUTITLE: Deska rozdzielcza
+  MoreInformationPanel:
+    MOREINFORMATIONMESSAGE: 'Dostępne są niestandardowe panele deski rozdzielczej. Skontaktuj się z {contactName}, jeśli chcesz porozmawiać.'
+    YOURWEBDEVELOPER: 'twój programista'
+  RecentlyCreatedPagesPanel:
+    CREATED: Stworzony
+    NORECENTLYCREATEDPAGES: 'Żadne strony utworzonych w ciągu ostatnich sześciu miesięcy.'
+    PANELTITLE: 'Ostatnio utworzone strony'
+    TITLE: Tytuł
+  RecentlyEditedPagesPanel:
+    EDITED: Zmieniono
+    NORECENTLYEDITEDPAGES: 'Żadne strony zmieniono w ciągu ostatnich sześciu miesięcy.'
+    PANELTITLE: 'Ostatnio zmieniono strony'
+    TITLE: Tytuł
+  SearchPanel:
+    NAME: Nazwa
+    NORESULTS: 'Niestety, nie znaleziono żadnych wyników.'
+    SEARCH: Szukanie
+    SEARCHINGFOR: 'Szukać'
+    SEARCHRESULTSFOR: 'Wyniki wyszukiwania dla'
+    TITLE: Tytuł
+    VIEWNEXTPAGE: 'Zobacz następną stronę'
+    VIEWPAGENUMBER: 'Zobacz numer strony'
+    VIEWPREVIOUSPAGE: 'Zobacz poprzednią stronę'
+  UpdatePanel:
+    BUGFIXES: 'Poprawki błędów'
+    IFYOUWOULDLIKETOUPDATE: 'Jeśli chcesz zaktualizować najnowszą wersję, skontaktuj się z {contactName}.'
+    IMPROVEDADMIN: 'Udoskonalona sekcja administratora'
+    LATESTVERSIONIS: 'Najnowsza wersja jest'
+    MAJORVERSIONMESSAGE: 'Dostępna aktualizacja jest duża aktualizacją wersji. Duża aktualizacja wersji składa się z:'
+    MINORVERSIONMESSAGE: 'Dostępna aktualizacja jest mniejszy aktualizacją wersji. Mniejszy aktualizacja wersji składa się z:'
+    NEWFEATURES: 'Nowe funkcje i ulepszenia'
+    NEWSILVERSTRIPEUPDATESAVAILABLE: 'Dostępne są nowe aktualizacje SilverStripe CMS.'
+    READMORE: 'Czytaj więcej'
+    SECURITYPATCHES: 'Poprawki zabezpieczeń'
+    SECURITYVERSIONMESSAGE: 'Dostępna aktualizacja jest bezpieczeństwo aktualizacją wersji. Bezpieczeństwo aktualizacja wersji składa się z:'
+    SITEPERFORMANCE: 'Poprawa skuteczności witryny'
+    YOURVERSIONIS: 'Twoja wersja jest'
+    YOURWEBDEVELOPER: 'twój programista'
+  UsefulLinksPanel:
+    GOOGLEANALYTICS: 'Google Analytics'
+    GOOGLEANALYTICSDESCRIPTION: 'Raporty o odwiedzinach witryny umożliwiają sprawdzenie, ile osób odwiedza Twoją witrynę.'
+    METADESCRIPTION: 'Meta Description Porady'
+    METADESCRIPTIONDESCRIPTION: 'Przydatne informacje o tym, jak najlepiej pisać meta descriptions na swoich stronach.'
+    PANELTITLE: 'Narzędzia i porady'
+    PIXLR: Pixlr
+    PIXLRDESCRIPTION: 'Aplikacja do edycji zdjęć online umożliwiająca zmianę rozmiaru i edytowanie zdjęć przed przesłaniem.'
+    SCREENSHOTSHARING: 'Udostępnianie screenshot '
+    SCREENSHOTSHARINGDESCRIPTION: 'Aplikacja online, która pomaga udostępnić screenshots swojej stronie internetowej, aby pomóc w ustaleniu błędów lub nowych funkcji.'
+    WHATSMYBROWSER: 'What''s my browser'
+    WHATSMYBROWSERDESCRIPTION: 'Informacje o tym, z czego browser obecnie korzystasz.'
