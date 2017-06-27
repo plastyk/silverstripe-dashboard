@@ -1,0 +1,53 @@
+it:
+  DashboardAdmin:
+    MENUTITLE: Cruscotto
+  MoreInformationPanel:
+    MOREINFORMATIONMESSAGE: 'Sono disponibili i pannelli cruscotto personalizzati. Contattare {contactName} se desideri discutere.'
+    YOURWEBDEVELOPER: 'tuo sviluppatore web'
+  RecentlyCreatedPagesPanel:
+    CREATED: Creato
+    NORECENTLYCREATEDPAGES: 'Nessuna pagina creata negli ultimi sei mesi.'
+    PANELTITLE: 'Pagine create di recente'
+    TITLE: Titolo
+  RecentlyEditedPagesPanel:
+    EDITED: Modificato
+    NORECENTLYEDITEDPAGES: 'Nessuna pagina modificata negli ultimi sei mesi.'
+    PANELTITLE: 'Pagine modificate di recente'
+    TITLE: Titolo
+  SearchPanel:
+    NAME: Nome
+    NORESULTS: 'Spiacenti, nessun risultato trovato.'
+    SEARCH: Ricerca
+    SEARCHINGFOR: 'Cercando'
+    SEARCHRESULTSFOR: 'Risultati della ricerca per'
+    TITLE: Titolo
+    VIEWNEXTPAGE: 'Visualizza la prossima pagina'
+    VIEWPAGENUMBER: 'Visualizza il numero di pagina'
+    VIEWPREVIOUSPAGE: 'Visualizza la pagina precedente'
+  UpdatePanel:
+    BUGFIXES: 'Correzioni di bug'
+    IFYOUWOULDLIKETOUPDATE: 'Se desideri aggiornare la versione più recente, contatta {contactName}.'
+    IMPROVEDADMIN: 'Migliorato sezione admin'
+    LATESTVERSIONIS: 'L''ultima versione è'
+    MAJORVERSIONMESSAGE: 'L''aggiornamento disponibile è un aggiornamento maggiore della versione. Un aggiornamento maggiore della versione consiste di:'
+    MINORVERSIONMESSAGE: 'L''aggiornamento disponibile è un aggiornamento minore della versione. Un aggiornamento minore della versione consiste di:'
+    NEWFEATURES: 'Nuove funzionalità e miglioramenti'
+    NEWSILVERSTRIPEUPDATESAVAILABLE: 'Sono disponibili nuovi aggiornamenti CMS SilverStripe.'
+    READMORE: 'Leggi di più'
+    SECURITYPATCHES: 'Patch di sicurezza'
+    SECURITYVERSIONMESSAGE: 'L''aggiornamento disponibile è un aggiornamento sicurezza della versione. Un aggiornamento sicurezza della versione consiste di:'
+    SITEPERFORMANCE: 'Miglioramenti delle prestazioni del sito'
+    YOURVERSIONIS: 'La tua versione è'
+    YOURWEBDEVELOPER: 'tuo sviluppatore web'
+  UsefulLinksPanel:
+    GOOGLEANALYTICS: 'Google Analytics'
+    GOOGLEANALYTICSDESCRIPTION: 'Report sul traffico del sito Web per vedere quante persone visitano il tuo sito web.'
+    METADESCRIPTION: 'Meta Descrizione Suggerimenti'
+    METADESCRIPTIONDESCRIPTION: 'Informazioni utili su come scrivere le descrizioni meta per le tue pagine.'
+    PANELTITLE: 'Strumenti e suggerimenti'
+    PIXLR: Pixlr
+    PIXLRDESCRIPTION: 'Applicazione per la modifica foto online per ridimensionare e modificare le immagini prima di caricare.'
+    SCREENSHOTSHARING: 'Condivisione di schermata'
+    SCREENSHOTSHARINGDESCRIPTION: 'App online per contribuire a condividere screenshot del tuo sito web per aiutare a risolvere i bug o per nuove funzionalità.'
+    WHATSMYBROWSER: 'Qual è il mio browser'
+    WHATSMYBROWSERDESCRIPTION: 'Informazioni sul browser che stai utilizzando.'
