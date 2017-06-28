@@ -12,5 +12,6 @@ This dashboard module provides a landing page for users logging into the CMS. Ou
 * [Index](https://plastyk.github.io/silverstripe-dashboard/en/)
 * [Installation](https://plastyk.github.io/silverstripe-dashboard/en/#installation-with-composer)
 * [Configuration](https://plastyk.github.io/silverstripe-dashboard/en/#configuration)
+* [Customisation](https://plastyk.github.io/silverstripe-dashboard/en/#customisation)
 
 ![Dashboard module screenshot](docs/en/images/dashboard-module-screenshot.png)
