@@ -14,6 +14,6 @@ class DashboardAdminTest extends FunctionalTest
 
         $nonPermittedUser = $this->objFromFixture('Member', 'user2');
         $this->logInAs($nonPermittedUser);
-        $this->assertNotTrue($dashboardAdmin->canView());
+        $this->assertFalse($dashboardAdmin->canView());
     }
 }
