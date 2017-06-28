@@ -131,7 +131,7 @@ class UpdatePanel extends DashboardPanel
         $versionItems = $versionJSON['package']['versions'];
         rsort($versionItems);
 
-        $result = [];
+        $result = array();
         foreach ($versionItems as $versionItem) {
             $versionNumber = $versionItem['version'];
             if (isset($versionNumber) && !preg_match('/[^0-9\.]/', $versionNumber)) {
