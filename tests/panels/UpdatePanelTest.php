@@ -8,11 +8,7 @@ class UpdatePanelTest extends FunctionalTest
     {
         $updatePanel = UpdatePanel::create();
 
-        $permittedUser = $this->objFromFixture('Member', 'user1');
-        $this->logInAs($permittedUser);
-        $this->assertTrue($updatePanel->canView());
-
-        $nonPermittedUser = $this->objFromFixture('Member', 'user2');
+        $nonPermittedUser = $this->objFromFixture('Member', 'user1');
         $this->logInAs($nonPermittedUser);
         $this->assertFalse($updatePanel->canView());
     }
