@@ -44,7 +44,7 @@ class RecentlyEditedPropertiesPanel extends DashboardPanel
 }
 ```
 
-In our `RecentlyEditedPropertiesPanel` class we have a `canView`, a`getData` and a `Results` function.
+In our `RecentlyEditedPropertiesPanel` class we have a `canView`, a `getData` and a `Results` function.
 
 * `canView` checks if the current user is able to view this panel by checking if they have permission to view the `Property` data.
 * `getData` fetches the results for the template.
