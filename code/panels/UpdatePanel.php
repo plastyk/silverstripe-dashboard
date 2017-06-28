@@ -143,7 +143,7 @@ class UpdatePanel extends DashboardPanel
         return $result;
     }
 
-    private function getVersionLevelDifference($currentVersion, $newVersion)
+    public function getVersionLevelDifference($currentVersion, $newVersion)
     {
         $currentVersionParts = explode('.', $currentVersion);
         $newVersionParts = explode('.', $newVersion);
