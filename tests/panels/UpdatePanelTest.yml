@@ -1,0 +1,17 @@
+Member:
+    user1:
+        FirstName: Permitted
+        Surname: User
+    user2:
+        FirstName: NonPermitted
+        Surname: User
+
+Group:
+    cmsadmin:
+        Title: CMS Access
+        Members: =>Member.user1
+
+Permission:
+    cmsadmin:
+        Code: CMS_ACCESS_ADMIN
+        Group: =>Group.cmsadmin

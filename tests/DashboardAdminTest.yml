@@ -1,0 +1,17 @@
+Member:
+    user1:
+        FirstName: Permitted
+        Surname: User
+    user2:
+        FirstName: NonPermitted
+        Surname: User
+
+Group:
+    dashboard:
+        Title: Dashboard Access
+        Members: =>Member.user1
+
+Permission:
+    dashboard:
+        Code: CMS_ACCESS_DASHBOARDADMIN
+        Group: =>Group.dashboard
