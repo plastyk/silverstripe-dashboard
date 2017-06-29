@@ -21,7 +21,7 @@ matrix:
 
 before_script:
   - git clone git://github.com/silverstripe/silverstripe-travis-support.git ~/travis-support
-  - php ~/travis-support/travis_setup.php --source `pwd` --target ~/builds/ss
+  - php ~/travis-support/travis_setup.php --source `pwd` --target ~/builds/ss --require "silverstripe/widgets"
   - cd ~/builds/ss
 
 script:
