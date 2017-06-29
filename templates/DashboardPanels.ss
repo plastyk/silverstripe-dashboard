@@ -1,7 +1,5 @@
 
-<% if $canViewPanel(UpdatePanel) %>
 $showPanel(UpdatePanel)
-<% end_if %>
 
 $showPanel(SearchPanel)
 
@@ -9,19 +7,14 @@ $showPanel(SearchPanel)
 
 $showPanel(QuickLinksPanel)
 
+<% if $canViewPanel(RecentlyEditedPagesPanel) || $canViewPanel(RecentlyCreatedPagesPanel) || $canViewPanel(UsefulLinksPanel) %>
 <div class="dashboard-row">
-	<% if $canViewPanel(RecentlyEditedPagesPanel) %>
-		$showPanel(RecentlyEditedPagesPanel)
-	<% end_if %>
+	$showPanel(RecentlyEditedPagesPanel)
 
-	<% if $canViewPanel(RecentlyCreatedPagesPanel) %>
-		$showPanel(RecentlyCreatedPagesPanel)
-	<% end_if %>
-
+	$showPanel(RecentlyCreatedPagesPanel)
 
 	$showPanel(UsefulLinksPanel)
 </div>
-
-<% if $canViewPanel(MoreInformationPanel) %>
-$showPanel(MoreInformationPanel)
 <% end_if %>
+
+$showPanel(MoreInformationPanel)

@@ -88,9 +88,7 @@ Next we create a template for our custom panel. In `dashboard-custom/templates/p
 Next we create a custom `DashboardPanels.ss` template to add our new panel to the dashboard. Copy the original `DashboardPanels.ss` to `dashboard-custom/templates/DashboardPanels.ss` and add `$showPanel(RecentlyEditedPropertiesPanel)` to where we want the new panel to display:
 
 ```html
-<% if $canViewPanel(UpdatePanel) %>
 $showPanel(UpdatePanel)
-<% end_if %>
 
 $showPanel(SearchPanel)
 
@@ -98,21 +96,17 @@ $showPanel(SearchPanel)
 
 $showPanel(QuickLinksPanel)
 
+<% if $canViewPanel(RecentlyEditedPropertiesPanel) || $canViewPanel(RecentlyEditedPagesPanel) || $canViewPanel(UsefulLinksPanel) %>
 <div class="dashboard-row">
-    <% if $canViewPanel(RecentlyEditedPropertiesPanel) %>
-        $showPanel(RecentlyEditedPropertiesPanel)
-    <% end_if %>
+	$showPanel(RecentlyEditedPropertiesPanel)
 
-    <% if $canViewPanel(RecentlyEditedPagesPanel) %>
-        $showPanel(RecentlyEditedPagesPanel)
-    <% end_if %>
+	$showPanel(RecentlyEditedPagesPanel)
 
-    $showPanel(UsefulLinksPanel)
+	$showPanel(UsefulLinksPanel)
 </div>
-
-<% if $canViewPanel(MoreInformationPanel) %>
-$showPanel(MoreInformationPanel)
 <% end_if %>
+
+$showPanel(MoreInformationPanel)
 ```
 
 We then call `?flush=all` in the browser URL to have the new templates and class picked up by SilverStripe.
