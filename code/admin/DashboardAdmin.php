@@ -56,11 +56,14 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
 
     public function showPanel($panelName)
     {
-        if (class_exists($panelName)) {
-            $panel = new $panelName($this);
-            return $panel->forTemplate();
+        if (!class_exists($panelName)) {
+            return false;
         }
 
+        $panel = new $panelName($this);
+        if ($panel->canView()) {
+            return $panel->forTemplate();
+        }
         return false;
     }
 
