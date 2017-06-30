@@ -8,14 +8,16 @@ abstract class DashboardSearchResultPanel extends Object
     protected $paginatedResults;
     protected $singular_name;
     protected $plural_name;
+    protected $searchFields = array('Title');
+    protected $sort = array('Created' => 'ASC');
+    protected $exclusions = array();
 
     /**
-     * @param string $className
+     * @param DasboardAdmin $controller
      */
-    public function __construct($controller, $className)
+    public function __construct($controller)
     {
         $this->controller = $controller;
-        $this->className = $className;
         $this->results = false;
         $this->paginatedResults = false;
     }
@@ -75,7 +77,7 @@ abstract class DashboardSearchResultPanel extends Object
         return $template->process($this->controller, $data);
     }
 
-    public function performSearch($searchValue, $paginationStart = 0, $searchFields = array('Title'), $sort = array('Created' => 'ASC'), $exclusions = array())
+    public function performSearch($searchValue, $paginationStart = 0)
     {
         $searchWhereClause = '';
         $searchWords = explode(' ', $searchValue);
@@ -84,7 +86,7 @@ abstract class DashboardSearchResultPanel extends Object
         $className = $this->className;
 
         $searchWhereClauseTemplate = '';
-        foreach ($searchFields as $searchField) {
+        foreach ($this->searchFields as $searchField) {
             $searchWhereClauseTemplate .= ($notFirstField ? ' OR ' : '') . $searchField . " LIKE '%[search-string]%' ";
             $notFirstField = true;
         }
@@ -101,14 +103,14 @@ abstract class DashboardSearchResultPanel extends Object
         // Search exact items
         $exactItems = $className::get()->where(
             str_replace('[search-string]', $searchValue, $searchWhereClauseTemplate)
-        )->exclude($exclusions)->sort($sort);
+        )->exclude($this->exclusions)->sort($this->sort);
         $exactItems = $exactItems->filterByCallback(function($item) use ($member) {
-            return $item->canEdit($member);
+            return $item->canView($member);
         });
 
-        $items = $className::get()->where($searchWhereClause)->exclude($exclusions)->sort($sort);
+        $items = $className::get()->where($searchWhereClause)->exclude($this->exclusions)->sort($this->sort);
         $items = $items->filterByCallback(function($item) use ($member) {
-            return $item->canEdit($member);
+            return $item->canView($member);
         });
 
         $exactItems->merge($items);

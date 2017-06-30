@@ -70,22 +70,30 @@ class DashboardSearchExtension extends Extension
         $searchResults = ArrayList::create();
         $singleSearchResultItem = null;
         foreach ($searchPanelNames as $searchPanelName) {
-            if (class_exists($searchPanelName)) {
-                $searchPanel = new $searchPanelName($this->owner);
-                if ($searchPanel->canView($member)) {
-                    $searchMessageClasses[] = $searchPanel->plural_name();
-                    $results = $searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
-                    if ($results->count()) {
-                        $searchResults->push(ArrayData::create(array(
-                            'Results' => $searchPanel->forTemplate()
-                        )));
-                        if ($results->count() === 1 && count($searchResults) === 1) {
-                            $singleSearchResultItem = $results->first();
-                        } else {
-                            $singleSearchResultItem = null;
-                        }
-                    }
-                }
+            if (!class_exists($searchPanelName)) {
+                continue;
+            }
+
+            $searchPanel = new $searchPanelName($this->owner);
+            if (!$searchPanel->canView($member)) {
+                continue;
+            }
+
+            $searchMessageClasses[] = $searchPanel->plural_name();
+
+            $results = $searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
+            if ($results->count() === 0) {
+                continue;
+            }
+
+            $searchResults->push(ArrayData::create(array(
+                'Results' => $searchPanel->forTemplate()
+            )));
+
+            if ($results->count() === 1 && count($searchResults) === 1) {
+                $singleSearchResultItem = $results->first();
+            } else {
+                $singleSearchResultItem = null;
             }
         }
 
