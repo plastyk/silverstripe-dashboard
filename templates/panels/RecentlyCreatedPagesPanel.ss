@@ -12,13 +12,13 @@
 			<% loop $Results %>
 			<tr>
 				<td class="link">
-					<a href="admin/pages/edit/show/{$ID}">
+					<a href="$CMSEditLink">
 						$Title
 						<div class="note">$Breadcrumbs(4, true)</div>
 					</a>
 				</td>
 				<td class="link date">
-					<a href="admin/pages/edit/show/{$ID}" title="$Created.Nice">$Created.Ago</a>
+					<a href="$CMSEditLink" title="$Created.Nice">$Created.Ago</a>
 				</td>
 			</tr>
 			<% end_loop %>
