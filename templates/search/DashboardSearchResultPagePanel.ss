@@ -11,7 +11,7 @@
 			<% loop $Results %>
 			<tr>
 				<td class="link">
-					<a href="$SearchResultCMSLink">
+					<a href="$CMSEditLink">
 						$Title
 						<div class="note">$Breadcrumbs(4, true)</div>
 					</a>
