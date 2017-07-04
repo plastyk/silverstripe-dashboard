@@ -17,6 +17,7 @@ First we create a `dashboard-custom` folder in our root directory to house our c
 Next we create a new PHP file `RecentlyEditedPropertiesPanel.php` in `dashboard-custom/code/panels/`. In our `dashboard-custom/code/panels/RecentlyEditedPropertiesPanel.php` file we create a `RecentlyEditedPropertiesPanel` class, which extends `DashboardPanel`:
 
 ```php
+<?php
 class RecentlyEditedPropertiesPanel extends DashboardPanel
 {
     public function canView($member = null)

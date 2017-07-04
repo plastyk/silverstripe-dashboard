@@ -70,6 +70,7 @@ First we create a `QuickLinksPanelExtension.php` extension class in `dashboard-c
 In our `dashboard-custom/code/extensions/QuickLinksPanelExtension.php` class we call the `QuickLinksPanel` `updateData` hook to add in our permission check:
 
 ```php
+<?php
 class QuickLinksPanelExtension extends Extension
 {
     public function updateData(&$data)

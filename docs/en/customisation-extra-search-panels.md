@@ -17,6 +17,7 @@ First we create a `dashboard-custom` folder in our root directory to house our c
 Next we create a new PHP file `DashboardSearchResultPropertyPanel.php` in `dashboard-custom/code/search/`. In our `dashboard-custom/code/search/DashboardSearchResultPropertyPanel.php` file we create a `DashboardSearchResultPropertyPanel` class, which extends `DashboardSearchResultPanel`:
 
 ```php
+<?php
 class DashboardSearchResultPropertyPanel extends DashboardSearchResultPanel
 {
     protected $className = 'Property';
