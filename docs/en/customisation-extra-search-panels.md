@@ -86,8 +86,8 @@ Location:
     - DashboardSearchResultExtension
 ```
 
-We then call `?flush=all` in the browser URL to have the new templates and class picked up by SilverStripe.
+We then call `?flush=all` in the browser URL to have the new template and class picked up by SilverStripe.
 
-We can now see we have a locations panel in our search results:
+We can now see the dashboard searches over locations:
 
 ![Dashboard module extra search panel screenshot](images/dashboard-module-extra-search-panel.png)
