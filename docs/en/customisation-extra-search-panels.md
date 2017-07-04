@@ -88,6 +88,6 @@ Location:
 
 We then call `?flush=all` in the browser URL to have the new template and class picked up by SilverStripe.
 
-We can now see the dashboard searches over locations:
+We can now see the dashboard searches for locations:
 
 ![Dashboard module extra search panel screenshot](images/dashboard-module-extra-search-panel.png)
