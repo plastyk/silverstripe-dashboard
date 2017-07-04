@@ -47,6 +47,7 @@ Page:
 
 ## Customisation
 * [Adding new panels](https://plastyk.github.io/silverstripe-dashboard/en/customisation-new-panels)
+* [Adding extra search panels](https://plastyk.github.io/silverstripe-dashboard/en/customisation-extra-search-panels)
 * [Quick Links Panel Customisation](https://plastyk.github.io/silverstripe-dashboard/en/customisation-quicklinks)
 
 ## Subsite compatibility
