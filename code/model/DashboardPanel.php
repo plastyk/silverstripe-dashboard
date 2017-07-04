@@ -26,8 +26,11 @@ abstract class DashboardPanel extends Object
             return false;
         }
 
-        $templateName = get_class($this);
-        $template = new SSViewer($templateName);
+        $class = get_class($this);
+        $ancestry = ClassInfo::ancestry($class);
+        $ancestry = array_slice($ancestry, 2);
+        array_reverse($ancestry);
+        $template = new SSViewer($ancestry);
 
         $data = $this->getData();
 

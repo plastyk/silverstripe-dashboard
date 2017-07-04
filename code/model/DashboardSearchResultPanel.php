@@ -58,19 +58,17 @@ abstract class DashboardSearchResultPanel extends Object
         return false;
     }
 
-    public function getPanelClassName()
-    {
-        return get_class($this);
-    }
-
     public function forTemplate()
     {
-        $panelClassName = $this->getPanelClassName();
-        $template = new SSViewer($panelClassName);
+        $class = get_class($this);
+        $ancestry = ClassInfo::ancestry($class);
+        $ancestry = array_slice($ancestry, 2);
+        array_reverse($ancestry);
+        $template = new SSViewer($ancestry);
 
         $data = array(
             'ClassName' => $this->getClassName(),
-            'PanelClassName' => $panelClassName,
+            'PanelClassName' => $class,
             'Results' => $this->paginatedResults
         );
 
@@ -120,9 +118,10 @@ abstract class DashboardSearchResultPanel extends Object
         $this->paginatedResults = $exactItems;
 
         if ($exactItems) {
-            $this->paginatedResults = new PaginatedList($exactItems, array('start' . $this->getPanelClassName() => $paginationStart));
+            $paginationStartLabel = 'start' . get_class($this);
+            $this->paginatedResults = new PaginatedList($exactItems, array($paginationStartLabel => $paginationStart));
             $this->paginatedResults->setPagelength(10);
-            $this->paginatedResults->setPaginationGetVar('start' . $this->getPanelClassName());
+            $this->paginatedResults->setPaginationGetVar($paginationStartLabel);
             return $this->paginatedResults;
         }
 
