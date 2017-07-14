@@ -67,12 +67,8 @@
 	margin: 0 calc(-10px);
 }
 .cms-content.DashboardAdmin .dashboard-row > .dashboard-panel {
-	-webkit-flex-basis: 32.3333%;
-	-ms-flex-basis: 32.3333%;
-	flex-basis: 32.3333%;
-	-webkit-flex-basis: calc(33.3333% - 20px);
-	-ms-flex-basis: calc(33.3333% - 20px);
-	flex-basis: calc(33.3333% - 20px);
+	width: 32.3333%;
+	width: calc(33.3333% - 20px);
 	margin: 0 0.5% 20px;
 	margin: 0 calc(10px) 20px;
 }
@@ -191,12 +187,8 @@
 
 @media screen and (max-width: 1440px) {
 	.cms-content.DashboardAdmin .dashboard-row > .dashboard-panel {
-		-webkit-flex-basis: 49%;
-		-ms-flex-basis: 49%;
-		flex-basis: 49%;
-		-webkit-flex-basis: calc(50% - 20px);
-		-ms-flex-basis: calc(50% - 20px);
-		flex-basis: calc(50% - 20px);
+		width: 49%;
+		width: calc(50% - 20px);
 		margin: 0 0.5% 20px;
 		margin: 0 calc(10px) 20px;
 	}
@@ -209,5 +201,6 @@
 	}
 	.cms-content.DashboardAdmin .dashboard-row > .dashboard-panel {
 		margin: 0 0 20px;
+		width: 100%;
 	}
 }
