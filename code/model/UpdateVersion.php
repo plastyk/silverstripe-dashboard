@@ -1,6 +1,6 @@
 <?php
 
-class Version extends Object
+class UpdateVersion extends Object
 {
     public $FullVersion;
     public $VersionCode;
@@ -15,10 +15,10 @@ class Version extends Object
     public static function get_version_difference($currentVersion, $newVersion)
     {
         if (is_string($currentVersion)) {
-            $currentVersion = Version::from_version_string($currentVersion);
+            $currentVersion = UpdateVersion::from_version_string($currentVersion);
         }
         if (is_string($newVersion)) {
-            $newVersion = Version::from_version_string($newVersion);
+            $newVersion = UpdateVersion::from_version_string($newVersion);
         }
 
         if ($currentVersion->VersionCode >= $newVersion->VersionCode) {
@@ -38,7 +38,7 @@ class Version extends Object
 
     public static function from_version_string($versionString)
     {
-        $result = Version::create();
+        $result = UpdateVersion::create();
         $result->FullVersion = $versionString;
         $result->VersionCode = 0;
         $result->Major = 255;

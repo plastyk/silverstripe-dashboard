@@ -1,12 +1,12 @@
 <?php
 
-class VersionList extends ArrayList
+class UpdateVersionList extends ArrayList
 {
     public function __construct(array $items = array())
     {
         for ($i = 0, $l = count($items); $i < $l; $i++) {
             if (is_string($items[$i])) {
-                $items[$i] = Version::from_version_string($items[$i]);
+                $items[$i] = UpdateVersion::from_version_string($items[$i]);
             }
         }
 
@@ -34,7 +34,7 @@ class VersionList extends ArrayList
     public function filterNewerVersions($version)
     {
         if (is_string($version)) {
-            $version = Version::from_version_string($version);
+            $version = UpdateVersion::from_version_string($version);
         }
         $result = $this->filterByCallback(function ($item) use ($version) {
             return $item->VersionCode > $version->VersionCode;
@@ -56,7 +56,7 @@ class VersionList extends ArrayList
         $result = $versionListCache->load('PackagistVersions');
         if ($result) {
             $result = json_decode($result);
-            return VersionList::create($result);
+            return UpdateVersionList::create($result);
         }
 
         $versionRequest = curl_init();
@@ -78,12 +78,12 @@ class VersionList extends ArrayList
 
         $result = array();
         foreach ($versionItems as $versionItem) {
-            $version = Version::from_version_string($versionItem['version']);
+            $version = UpdateVersion::from_version_string($versionItem['version']);
             $version->ReleaseDate = $versionItem['time'];
             $result[] = $version;
         }
 
         $versionListCache->save(json_encode($result), 'PackagistVersions');
-        return VersionList::create($result);
+        return UpdateVersionList::create($result);
     }
 }
