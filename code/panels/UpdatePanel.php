@@ -6,9 +6,8 @@ class UpdatePanel extends DashboardPanel
     {
         if (Permission::check('CMS_ACCESS_ADMIN')) {
             $currentVersion = $this->getCurrentSilverStripeVersion();
-            $latestVersion = $this->getLatestSilverStripeVersion();
-
-            return !$this->isNewestSilverStripeVersion($currentVersion, $latestVersion);
+            $versions = $this->getSilverStripeVersions()->filterNewerVersions($currentVersion);
+            return $versions->hasNewerVersion($currentVersion);
         }
         return false;
     }
@@ -18,10 +17,10 @@ class UpdatePanel extends DashboardPanel
         $data = parent::getData();
 
         $currentVersion = $this->getCurrentSilverStripeVersion();
-        $data['CurrentSilverStripeVersion'] = $currentVersion;
+        $data['CurrentSilverStripeVersion'] = $currentVersion->FullVersion;
         $latestVersion = $this->getLatestSilverStripeVersion();
-        $data['LatestSilverStripeVersion'] = $latestVersion;
-        $data['UpdateVersionLevel'] = $this->getVersionLevelDifference($currentVersion, $latestVersion);
+        $data['LatestSilverStripeVersion'] = $latestVersion->FullVersion;
+        $data['UpdateVersionLevel'] = Version::get_version_difference($currentVersion, $latestVersion);
 
         $data['ContactEmail'] = DashboardAdmin::config()->contact_email ?: false;
         $data['ContactName'] = DashboardAdmin::config()->contact_name ?: _t('UpdatePanel.YOURWEBDEVELOPER', 'your web developer');
@@ -61,7 +60,7 @@ class UpdatePanel extends DashboardPanel
         $updatePanelCache = SS_Cache::factory('DashboardUpdatePanel');
         $result = $updatePanelCache->load('CurrentSilverStripeVersion');
         if ($result) {
-            return $result;
+            return Version::from_version_string($result);
         }
 
         $versions = explode(', ', Injector::inst()->get('LeftAndMain')->CMSVersion());
@@ -75,94 +74,42 @@ class UpdatePanel extends DashboardPanel
         }
 
         $updatePanelCache->save($result, 'CurrentSilverStripeVersion');
-        return $result;
+        return Version::from_version_string($result);
+    }
+
+    protected function getSilverStripeVersions()
+    {
+        $versions = VersionList::get_packagist_versions()->filter(array(
+            'PreRelease' => false
+        ))->sortByVersion('DESC');
+
+        $ignoreMajorUpdates = UpdatePanel::config()->ignore_major_updates;
+        if (isset($ignoreMajorUpdates)) {
+            $currentVersion = $this->getCurrentSilverStripeVersion();
+            if (is_bool($ignoreMajorUpdates)) {
+                if ($ignoreMajorUpdates) {
+                    $versions = $versions->filter('Major', $currentVersion->Major);
+                }
+            } elseif (is_string($ignoreMajorUpdates) && strtotime($ignoreMajorUpdates)) {
+                $currentTime = new DateTime(SS_DateTime::now()->Value);
+                $versions = $versions->filterByCallback(function ($item) use ($currentTime, $currentVersion, $ignoreMajorUpdates) {
+                    if ($item->Major > $currentVersion->Major) {
+                        $releaseDate = new DateTime($item->ReleaseDate);
+                        $waitAfterRelease = $releaseDate->modify($ignoreMajorUpdates);
+                        return $currentTime > $waitAfterRelease;
+                    }
+                    return true;
+                });
+            } else {
+                user_error('Invalid config value for UpdatePanel::ignore_major_updates', E_USER_WARNING);
+            }
+        }
+
+        return $versions;
     }
 
     public function getLatestSilverStripeVersion()
     {
-        $versions = $this->getSilverStripeVersions();
-        if ($versions && count($versions) > 0) {
-            return $versions[0];
-        }
-        return false;
-    }
-
-    public function isNewestSilverStripeVersion($versionNumber, $latestVersionNumber)
-    {
-        if ($versionNumber == $latestVersionNumber) {
-            return true;
-        }
-        $versionNumberParts = explode('.', $versionNumber);
-        $latestVersionNumberParts = explode('.', $latestVersionNumber);
-
-        for ($versionNumberIndex = 0; $versionNumberIndex < count($versionNumberParts) && $versionNumberIndex < count($latestVersionNumberParts); $versionNumberIndex++) {
-            if ($versionNumberParts[$versionNumberIndex] > $latestVersionNumberParts[$versionNumberIndex]) {
-                return true;
-            } elseif ($versionNumberParts[$versionNumberIndex] < $latestVersionNumberParts[$versionNumberIndex]) {
-                break;
-            }
-        }
-        return false;
-    }
-
-    private function getSilverStripeVersions()
-    {
-        $updatePanelCache = SS_Cache::factory('DashboardUpdatePanel');
-        $result = $updatePanelCache->load('SilverStripeVersions');
-        if ($result) {
-            return json_decode($result);
-        }
-
-        $versionRequest = curl_init();
-        curl_setopt($versionRequest, CURLOPT_URL, 'https://packagist.org/packages/silverstripe/framework.json');
-        curl_setopt($versionRequest, CURLOPT_RETURNTRANSFER, 1);
-        $versionFeed = curl_exec($versionRequest);
-        curl_close($versionRequest);
-
-        if (!$versionFeed) {
-            return false;
-        }
-
-        $versionJSON = json_decode($versionFeed, true);
-        if (!$versionJSON || !isset($versionJSON['package']['versions'])) {
-            return false;
-        }
-
-        $versionItems = $versionJSON['package']['versions'];
-        rsort($versionItems);
-
-        $result = array();
-        foreach ($versionItems as $versionItem) {
-            $versionNumber = $versionItem['version'];
-            if (isset($versionNumber) && !preg_match('/[^0-9\.]/', $versionNumber)) {
-                $result[] = $versionNumber;
-            }
-        }
-
-        $updatePanelCache->save(json_encode($result), 'SilverStripeVersions');
-        return $result;
-    }
-
-    public function getVersionLevelDifference($currentVersion, $newVersion)
-    {
-        $currentVersionParts = explode('.', $currentVersion);
-        $newVersionParts = explode('.', $newVersion);
-
-        if ($this->isNewestSilverStripeVersion($currentVersion, $newVersion)) {
-            return false;
-        }
-
-        if (count($currentVersionParts) === 3 && count($newVersionParts) === 3) {
-            if ($newVersionParts[0] > $currentVersionParts[0]) {
-                return 'major';
-            }
-            if ($newVersionParts[1] > $currentVersionParts[1]) {
-                return 'minor';
-            }
-            if ($newVersionParts[2] > $currentVersionParts[2]) {
-                return 'security';
-            }
-        }
-        return false;
+        return $this->getSilverStripeVersions()->first();
     }
 }

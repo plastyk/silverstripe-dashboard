@@ -30,7 +30,7 @@
 			<li><% _t('UpdatePanel.NEWFEATURES', 'New features and enhancements') %></li>
 			<li><% _t('UpdatePanel.SITEPERFORMANCE', 'Site performance improvements') %></li>
 		</ul>
-		<% else_if $UpdateVersionLevel == 'security' %>
+		<% else_if $UpdateVersionLevel == 'patch' %>
 		<p><% _t('UpdatePanel.SECURITYVERSIONMESSAGE', 'The available update is a security release. A security release consists of:') %></p>
 		<ul class="list">
 			<li><% _t('UpdatePanel.SECURITYPATCHES', 'Security patches') %></li>
