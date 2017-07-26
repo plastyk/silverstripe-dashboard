@@ -20,7 +20,7 @@ class UpdatePanel extends DashboardPanel
         $data['CurrentSilverStripeVersion'] = $currentVersion->FullVersion;
         $latestVersion = $this->getLatestSilverStripeVersion();
         $data['LatestSilverStripeVersion'] = $latestVersion->FullVersion;
-        $data['UpdateVersionLevel'] = Version::get_version_difference($currentVersion, $latestVersion);
+        $data['UpdateVersionLevel'] = UpdateVersion::get_version_difference($currentVersion, $latestVersion);
 
         $data['ContactEmail'] = DashboardAdmin::config()->contact_email ?: false;
         $data['ContactName'] = DashboardAdmin::config()->contact_name ?: _t('UpdatePanel.YOURWEBDEVELOPER', 'your web developer');
@@ -60,7 +60,7 @@ class UpdatePanel extends DashboardPanel
         $updatePanelCache = SS_Cache::factory('DashboardUpdatePanel');
         $result = $updatePanelCache->load('CurrentSilverStripeVersion');
         if ($result) {
-            return Version::from_version_string($result);
+            return UpdateVersion::from_version_string($result);
         }
 
         $versions = explode(', ', Injector::inst()->get('LeftAndMain')->CMSVersion());
@@ -74,12 +74,12 @@ class UpdatePanel extends DashboardPanel
         }
 
         $updatePanelCache->save($result, 'CurrentSilverStripeVersion');
-        return Version::from_version_string($result);
+        return UpdateVersion::from_version_string($result);
     }
 
     protected function getSilverStripeVersions()
     {
-        $versions = VersionList::get_packagist_versions()->filter(array(
+        $versions = UpdateVersionList::get_packagist_versions()->filter(array(
             'PreRelease' => false
         ))->sortByVersion('DESC');
 
