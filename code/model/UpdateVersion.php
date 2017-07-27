@@ -2,15 +2,20 @@
 
 class UpdateVersion extends Object
 {
-    public $FullVersion;
-    public $VersionCode;
-    public $Major;
-    public $Minor;
-    public $Patch;
-    public $Build;
-    public $PreRelease;
-    public $PreReleaseType;
-    public $ReleaseDate;
+    public $FullVersion = null;
+    public $VersionCode = 16777215;
+    public $Major = 255;
+    public $Minor = 255;
+    public $Patch = 255;
+    public $Build = null;
+    public $PreRelease = true;
+    public $PreReleaseType = null;
+    public $ReleaseDate = null;
+
+    public static function get_version_code($major, $minor, $patch)
+    {
+        return ($major << 16) + ($minor << 8) + $patch;
+    }
 
     public static function get_version_difference($currentVersion, $newVersion)
     {
@@ -31,21 +36,15 @@ class UpdateVersion extends Object
             return 'minor';
         } elseif ($newVersion->Patch > $currentVersion->Patch) {
             return 'patch';
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     public static function from_version_string($versionString)
     {
         $result = UpdateVersion::create();
         $result->FullVersion = $versionString;
-        $result->VersionCode = 0;
-        $result->Major = 255;
-        $result->Minor = 255;
-        $result->Patch = 255;
-        $result->Build = null;
-        $result->PreRelease = true;
         $result->PreReleaseType = $versionString;
 
         if (strpos($versionString, 'dev') !== 0) {
@@ -82,10 +81,9 @@ class UpdateVersion extends Object
             if ($result->Major === 0) {
                 $result->PreRelease = true;
             }
-        }
 
-        //Create a unique version code using the various version numbers
-        $result->VersionCode = ($result->Major << 16) + ($result->Minor << 8) + $result->Patch;
+            $result->VersionCode = UpdateVersion::get_version_code($result->Major, $result->Minor, $result->Patch);
+        }
 
         return $result;
     }

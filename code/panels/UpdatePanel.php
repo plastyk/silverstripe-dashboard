@@ -6,8 +6,10 @@ class UpdatePanel extends DashboardPanel
     {
         if (Permission::check('CMS_ACCESS_ADMIN')) {
             $currentVersion = $this->getCurrentSilverStripeVersion();
-            $versions = $this->getSilverStripeVersions()->filterNewerVersions($currentVersion);
-            return $versions->hasNewerVersion($currentVersion);
+            if (!$currentVersion->PreRelease) {
+                $versions = $this->getSilverStripeVersions()->filterNewerVersions($currentVersion);
+                return $versions->hasNewerVersion($currentVersion);
+            }
         }
         return false;
     }
@@ -58,7 +60,7 @@ class UpdatePanel extends DashboardPanel
     public function getCurrentSilverStripeVersion()
     {
         $updatePanelCache = SS_Cache::factory('DashboardUpdatePanel');
-        $result = $updatePanelCache->load('CurrentSilverStripeVersion');
+        $result = $updatePanelCache->load('CurrentSilverStripeVersion1');
         if ($result) {
             return UpdateVersion::from_version_string($result);
         }
