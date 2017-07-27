@@ -6,8 +6,10 @@ class UpdatePanel extends DashboardPanel
     {
         if (Permission::check('CMS_ACCESS_ADMIN')) {
             $currentVersion = $this->getCurrentSilverStripeVersion();
-            $versions = $this->getSilverStripeVersions()->filterNewerVersions($currentVersion);
-            return $versions->hasNewerVersion($currentVersion);
+            if (!$currentVersion->PreRelease) {
+                $versions = $this->getSilverStripeVersions()->filterNewerVersions($currentVersion);
+                return $versions->hasNewerVersion($currentVersion);
+            }
         }
         return false;
     }
