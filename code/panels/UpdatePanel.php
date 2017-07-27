@@ -60,7 +60,7 @@ class UpdatePanel extends DashboardPanel
     public function getCurrentSilverStripeVersion()
     {
         $updatePanelCache = SS_Cache::factory('DashboardUpdatePanel');
-        $result = $updatePanelCache->load('CurrentSilverStripeVersion1');
+        $result = $updatePanelCache->load('CurrentSilverStripeVersion');
         if ($result) {
             return UpdateVersion::from_version_string($result);
         }
