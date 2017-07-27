@@ -37,8 +37,10 @@ class DashboardSearchExtension extends Extension
         Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-search-panel.css');
         Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-search-panel.js');
 
-        $searchValue = $this->owner->getRequest()->getVar('Search');
+        $request = $this->owner->getRequest();
+        $searchValue = $request->getVar('Search');
         $member = Member::CurrentUser();
+        $searchPanelNames = DashboardAdmin::config()->search_panels;
 
         $data = array(
             'SearchValue' => Convert::html2raw($searchValue)
@@ -51,75 +53,77 @@ class DashboardSearchExtension extends Extension
             return $this->owner;
         }
 
-        $request = $this->owner->getRequest();
-
-        if ($searchPanelName = $request->getVar('panel-class')) {
-            if (Director::is_ajax()) {
-                if (class_exists($searchPanelName)) {
-                    $searchPanel = new $searchPanelName($this->owner);
-                    $searchPanel->performSearch($searchValue);
-                    $paginationStart = $request->getVar('start' . $searchPanelName);
-                    return $searchPanel->forTemplate($paginationStart);
-                }
-                return false;
+        if (Director::is_ajax() && $specificSearchPanel = $request->getVar('panel-class')) {
+            $searchPanel = $this->doPanelSearch($specificSearchPanel, $member, $searchValue);
+            if ($searchPanel) {
+                return $searchPanel->Panel;
             }
+            return false;
         }
 
-        $searchPanelNames = DashboardAdmin::config()->search_panels;
-        $searchClassNames = array();
         $searchResultPanels = ArrayList::create();
-        $singleSearchResultItem = null;
         foreach ($searchPanelNames as $searchPanelName) {
-            if (!class_exists($searchPanelName)) {
-                continue;
-            }
-
-            $searchPanel = new $searchPanelName($this->owner);
-            if (!$searchPanel->canView($member)) {
-                continue;
-            }
-
-            $paginationStart = $request->getVar('start' . $searchPanelName);
-            $searchClassNames[] = $searchPanel->plural_name();
-
-            $results = $searchPanel->performSearch($searchValue);
-            if ($results->count() === 0) {
-                continue;
-            }
-
-            $searchResultPanels->push(ArrayData::create(array(
-                'Results' => $searchPanel->forTemplate($paginationStart)
-            )));
-
-            if ($results->count() === 1 && count($searchResultPanels) === 1) {
-                $singleSearchResultItem = $results->first();
-            } else {
-                $singleSearchResultItem = null;
+            $searchPanel = $this->doPanelSearch($searchPanelName, $member, $searchValue);
+            if ($searchPanel) {
+                $searchResultPanels->push($searchPanel);
             }
         }
 
-        if ($singleSearchResultItem && $singleSearchResultItem->config()->dashboard_automatic_search_redirect) {
-            if ($searchResultCMSLink = $singleSearchResultItem->getSearchResultCMSLink()) {
+        $singleResultPanels = $searchResultPanels->filterByCallback(function ($item) {
+            return $item->ResultCount == 1 && $item->FirstResult->config()->dashboard_automatic_search_redirect;
+        });
+        if ($singleResultPanels->count() == 1) {
+            $searchResultItem = $singleResultPanels->first()->FirstResult;
+            if ($searchResultCMSLink = $searchResultItem->getSearchResultCMSLink()) {
                 return $this->owner->redirect($searchResultCMSLink);
             }
         }
 
-        if (count($searchClassNames)) {
-            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ';
+        $searchClassNames = $searchResultPanels->column('SearchName');
+        if (count($searchClassNames) > 1) {
             $lastClassName = array_pop($searchClassNames);
-            if (count($searchClassNames)) {
-                $data['SearchMessage'] .= implode(', ', $searchClassNames) . ' &amp; ' . $lastClassName;
-            } else {
-                $data['SearchMessage'] .= $lastClassName;
-            }
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . implode(', ', $searchClassNames) . ' &amp; ' . $lastClassName;
+        } elseif (count($searchClassNames) == 1) {
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . $searchClassNames;
         }
-        $data['SearchResults'] = $searchResultPanels;
+
+        $data['SearchResultPanels'] = $searchResultPanels;
         $this->owner->customise($data);
+        $this->owner->customise(array(
+            'DashboardPanels' => $this->owner->renderWith('SearchPanel')
+        ));
 
         if (Director::is_ajax()) {
-            return $this->owner->customise(array('DashboardPanels' => $this->owner->renderWith('SearchPanel')))->renderWith('DashboardContent');
+            return $this->owner->renderWith('DashboardContent');
         }
 
-        return $this->owner->customise(array('DashboardPanels' => $this->owner->renderWith('SearchPanel')));
+        return $this->owner;
+    }
+
+    private function doPanelSearch($searchPanelName, $member, $searchValue)
+    {
+        if (!class_exists($searchPanelName)) {
+            return false;
+        }
+
+        $searchPanel = $searchPanelName::create($this->owner);
+        if (!$searchPanel->canView($member)) {
+            return false;
+        }
+
+        $paginationStart = $this->owner->getRequest()->getVar('start' . $searchPanelName);
+        $results = $searchPanel->performSearch($searchValue);
+
+        $resultCount = $results->count();
+        if ($resultCount == 0) {
+            return false;
+        }
+
+        return ArrayData::create(array(
+            'SearchName' => $searchPanel->plural_name(),
+            'ResultCount' => $resultCount,
+            'FirstResult' => $results->first(),
+            'Panel' => $searchPanel->forTemplate($paginationStart)
+        ));
     }
 }

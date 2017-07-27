@@ -10,10 +10,10 @@
 <% end_if %>
 
 <div class="dashboard-row">
-	<% if $SearchResults %>
-		<% loop $SearchResults %>
-		<% if $Results %>
-			$Results
+	<% if $SearchResultPanels %>
+		<% loop $SearchResultPanels %>
+		<% if $Panel %>
+			$Panel
 		<% end_if %>
 		<% end_loop %>
 	<% else %>
