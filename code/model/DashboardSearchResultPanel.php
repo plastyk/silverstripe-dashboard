@@ -5,7 +5,6 @@ abstract class DashboardSearchResultPanel extends Object
     protected $controller;
     protected $className;
     protected $results;
-    protected $paginatedResults;
     protected $singular_name;
     protected $plural_name;
     protected $searchFields = array('Title');
@@ -37,10 +36,9 @@ abstract class DashboardSearchResultPanel extends Object
         if ($this->singular_name) {
             return $this->singular_name;
         }
-        $resultsSearchClassName = $this->className;
-        if (class_exists($resultsSearchClassName)) {
-            $resultsSearchClass = new $resultsSearchClassName();
-            return $resultsSearchClass->singular_name();
+        $searchResultClass = Object::singleton($this->getClassName());
+        if (method_exists($searchResultClass, 'singular_name')) {
+            return $searchResultClass->singular_name();
         }
         return false;
     }
@@ -50,15 +48,14 @@ abstract class DashboardSearchResultPanel extends Object
         if ($this->plural_name) {
             return $this->plural_name;
         }
-        $resultsSearchClassName = $this->className;
-        if (class_exists($resultsSearchClassName)) {
-            $resultsSearchClass = new $resultsSearchClassName();
-            return $resultsSearchClass->plural_name();
+        $searchResultClass = Object::singleton($this->getClassName());
+        if (method_exists($searchResultClass, 'plural_name')) {
+            return $searchResultClass->plural_name();
         }
         return false;
     }
 
-    public function forTemplate()
+    public function forTemplate($paginationStart = 0)
     {
         $class = get_class($this);
         $ancestry = ClassInfo::ancestry($class);
@@ -69,62 +66,68 @@ abstract class DashboardSearchResultPanel extends Object
         $data = array(
             'ClassName' => $this->getClassName(),
             'PanelClassName' => $class,
-            'Results' => $this->paginatedResults
+            'Results' => $this->getPaginatedResults($paginationStart)
         );
 
         return $template->process($this->controller, $data);
     }
 
-    public function performSearch($searchValue, $paginationStart = 0)
+    public function getResults()
     {
-        $searchWhereClause = '';
-        $searchWords = explode(' ', $searchValue);
-        $notFirstWord = false;
-        $notFirstField = false;
-        $className = $this->className;
+        return $this->results;
+    }
 
-        $searchWhereClauseTemplate = '';
-        foreach ($this->searchFields as $searchField) {
-            $searchWhereClauseTemplate .= ($notFirstField ? ' OR ' : '') . $searchField . " LIKE '%[search-string]%' ";
-            $notFirstField = true;
-        }
+    private function getPaginatedResults($paginationStart = 0)
+    {
+        $paginationStartLabel = 'start' . get_class($this);
+        $paginatedResults = new PaginatedList($this->getResults(), array($paginationStartLabel => $paginationStart));
+        $paginatedResults->setPagelength(DashboardAdmin::config()->search_results_page_length);
+        $paginatedResults->setPaginationGetVar($paginationStartLabel);
+        return $paginatedResults;
+    }
 
-        foreach ($searchWords as $searchWord) {
-            $searchWhereClause .= ($notFirstWord ? ' AND ' : '') . ' ( ';
-            $searchWhereClause .= str_replace('[search-string]', $searchWord, $searchWhereClauseTemplate);
-            $searchWhereClause .= ' ) ';
-            $notFirstWord = true;
-        }
-
+    public function performSearch($searchValue)
+    {
+        $searchValue = Convert::raw2sql($searchValue);
+        $className = $this->getClassName();
         $member = Member::currentUser();
 
-        // Search exact items
-        $exactItems = $className::get()->where(
-            str_replace('[search-string]', $searchValue, $searchWhereClauseTemplate)
-        )->exclude($this->exclusions)->sort($this->sort);
-        $exactItems = $exactItems->filterByCallback(function($item) use ($member) {
-            return $item->canView($member);
-        });
-
-        $items = $className::get()->where($searchWhereClause)->exclude($this->exclusions)->sort($this->sort);
-        $items = $items->filterByCallback(function($item) use ($member) {
-            return $item->canView($member);
-        });
-
-        $exactItems->merge($items);
-        $exactItems->removeDuplicates();
-
-        $this->results = $exactItems;
-        $this->paginatedResults = $exactItems;
-
-        if ($exactItems) {
-            $paginationStartLabel = 'start' . get_class($this);
-            $this->paginatedResults = new PaginatedList($exactItems, array($paginationStartLabel => $paginationStart));
-            $this->paginatedResults->setPagelength(10);
-            $this->paginatedResults->setPaginationGetVar($paginationStartLabel);
-            return $this->paginatedResults;
+        // Get the where-clause template for the search fields
+        $searchWhereFields = array();
+        foreach ($this->searchFields as $searchField) {
+            $searchWhereFields[] = $searchField . " LIKE '%[search-string]%'";
         }
+        $searchWhereFieldsTemplate = implode(' OR ', $searchWhereFields);
+        $searchExactMatch = str_replace('[search-string]', $searchValue, $searchWhereFieldsTemplate);
 
-        return $exactItems;
+        $searchWords = explode(' ', $searchValue);
+        $searchWhereList = array();
+        foreach ($searchWords as $searchWord) {
+            $searchWhereList[] = '(' . str_replace('[search-string]', $searchWord, $searchWhereFieldsTemplate) . ')';
+        }
+        $searchWordMatch = implode(' AND ', $searchWhereList);
+
+        // Perform exact match search
+        $exactItems = $className::get()->where($searchExactMatch)
+            ->exclude($this->exclusions)
+            ->sort($this->sort);
+        $exactItems = $exactItems->filterByCallback(function ($item) use ($member) {
+            return $item->canView($member);
+        });
+
+        // Perform word match search
+        $likeItems = $className::get()->where($searchWordMatch)
+            ->exclude($this->exclusions)
+            ->exclude(array(
+                'Id' => $exactItems->column('ID')
+            ))
+            ->sort($this->sort);
+        $likeItems->filterByCallback(function ($item) use ($member) {
+            return $item->canView($member);
+        });
+
+        $exactItems->merge($likeItems);
+        $this->results = $exactItems;
+        return $this->results;
     }
 }

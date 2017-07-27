@@ -16,15 +16,12 @@ class DashboardSearchExtension extends Extension
             FormAction::create('doDashboardSearch', _t('SearchForm.SEARCH', 'Search'))
         );
 
-        $requiredFields = RequiredFields::create(
-        );
-
         $form = Form::create(
             $this->owner,
             'DashboardSearchForm',
             $fields,
             $actions,
-            $requiredFields
+            RequiredFields::create()
         );
         $form->setFormMethod('get');
         $form->setTemplate('DashboardSearchForm');
@@ -40,7 +37,7 @@ class DashboardSearchExtension extends Extension
         Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-search-panel.css');
         Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-search-panel.js');
 
-        $searchValue = Convert::raw2sql($this->owner->getRequest()->getVar('Search'));
+        $searchValue = $this->owner->getRequest()->getVar('Search');
         $member = Member::CurrentUser();
 
         $data = array(
@@ -54,20 +51,23 @@ class DashboardSearchExtension extends Extension
             return $this->owner;
         }
 
-        if ($searchPanelName = $this->owner->getRequest()->getVar('panel-class')) {
+        $request = $this->owner->getRequest();
+
+        if ($searchPanelName = $request->getVar('panel-class')) {
             if (Director::is_ajax()) {
                 if (class_exists($searchPanelName)) {
                     $searchPanel = new $searchPanelName($this->owner);
-                    $searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
-                    return $searchPanel->forTemplate();
+                    $searchPanel->performSearch($searchValue);
+                    $paginationStart = $request->getVar('start' . $searchPanelName);
+                    return $searchPanel->forTemplate($paginationStart);
                 }
                 return false;
             }
         }
 
         $searchPanelNames = DashboardAdmin::config()->search_panels;
-        $searchMessageClasses = array();
-        $searchResults = ArrayList::create();
+        $searchClassNames = array();
+        $searchResultPanels = ArrayList::create();
         $singleSearchResultItem = null;
         foreach ($searchPanelNames as $searchPanelName) {
             if (!class_exists($searchPanelName)) {
@@ -79,37 +79,41 @@ class DashboardSearchExtension extends Extension
                 continue;
             }
 
-            $searchMessageClasses[] = $searchPanel->plural_name();
+            $paginationStart = $request->getVar('start' . $searchPanelName);
+            $searchClassNames[] = $searchPanel->plural_name();
 
-            $results = $searchPanel->performSearch($searchValue, $this->owner->request->getVar('start' . $searchPanelName));
+            $results = $searchPanel->performSearch($searchValue);
             if ($results->count() === 0) {
                 continue;
             }
 
-            $searchResults->push(ArrayData::create(array(
-                'Results' => $searchPanel->forTemplate()
+            $searchResultPanels->push(ArrayData::create(array(
+                'Results' => $searchPanel->forTemplate($paginationStart)
             )));
 
-            if ($results->count() === 1 && count($searchResults) === 1) {
+            if ($results->count() === 1 && count($searchResultPanels) === 1) {
                 $singleSearchResultItem = $results->first();
             } else {
                 $singleSearchResultItem = null;
             }
         }
 
-        if ($singleSearchResultItem) {
-            if ($singleSearchResultItem->config()->dashboard_automatic_search_redirect) {
-                if ($searchResultCMSLink = $singleSearchResultItem->getSearchResultCMSLink()) {
-                    return $this->owner->redirect($searchResultCMSLink);
-                }
+        if ($singleSearchResultItem && $singleSearchResultItem->config()->dashboard_automatic_search_redirect) {
+            if ($searchResultCMSLink = $singleSearchResultItem->getSearchResultCMSLink()) {
+                return $this->owner->redirect($searchResultCMSLink);
             }
         }
 
-        if (count($searchMessageClasses)) {
-            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . strrev(implode(strrev(' &amp; '), explode(strrev(', '), strrev(implode(', ', $searchMessageClasses)), 2)));
+        if (count($searchClassNames)) {
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ';
+            $lastClassName = array_pop($searchClassNames);
+            if (count($searchClassNames)) {
+                $data['SearchMessage'] .= implode(', ', $searchClassNames) . ' &amp; ' . $lastClassName;
+            } else {
+                $data['SearchMessage'] .= $lastClassName;
+            }
         }
-        $data['SearchResults'] = $searchResults;
-
+        $data['SearchResults'] = $searchResultPanels;
         $this->owner->customise($data);
 
         if (Director::is_ajax()) {
