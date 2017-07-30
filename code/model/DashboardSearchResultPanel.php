@@ -18,7 +18,6 @@ abstract class DashboardSearchResultPanel extends Object
     {
         $this->controller = $controller;
         $this->results = false;
-        $this->paginatedResults = false;
     }
 
     public function canView($member = null)
@@ -33,24 +32,23 @@ abstract class DashboardSearchResultPanel extends Object
 
     public function singular_name()
     {
-        if ($this->singular_name) {
-            return $this->singular_name;
-        }
-        $searchResultClass = Object::singleton($this->getClassName());
-        if (method_exists($searchResultClass, 'singular_name')) {
-            return $searchResultClass->singular_name();
-        }
-        return false;
+        return $this->getName('singular');
     }
 
     public function plural_name()
     {
-        if ($this->plural_name) {
-            return $this->plural_name;
+        return $this->getName('plural');
+    }
+
+    private function getName($nameType)
+    {
+        $nameType .= '_name';
+        if ($this->$nameType) {
+            return $this->$nameType;
         }
         $searchResultClass = Object::singleton($this->getClassName());
-        if (method_exists($searchResultClass, 'plural_name')) {
-            return $searchResultClass->plural_name();
+        if (method_exists($searchResultClass, $nameType)) {
+            return $searchResultClass->$nameType();
         }
         return false;
     }
@@ -74,6 +72,9 @@ abstract class DashboardSearchResultPanel extends Object
 
     public function getResults()
     {
+        if (!$this->results) {
+            return ArrayList::create();
+        }
         return $this->results;
     }
 
