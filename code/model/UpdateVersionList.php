@@ -66,12 +66,12 @@ class UpdateVersionList extends ArrayList
         curl_close($versionRequest);
 
         if (!$versionFeed) {
-            return false;
+            return UpdateVersionList::create();
         }
 
         $versionJSON = json_decode($versionFeed, true);
         if (!$versionJSON || !isset($versionJSON['package']['versions'])) {
-            return false;
+            return UpdateVersionList::create();
         }
 
         $versionItems = $versionJSON['package']['versions'];
