@@ -87,7 +87,7 @@ class DashboardSearchExtension extends Extension
             $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . $searchClassNames[0];
         }
 
-        $data['SearchResultPanels'] = $searchResultPanels;
+        $data['SearchResultPanels'] = $searchResultPanels->exclude('ResultCount', 0);
         $this->owner->customise($data);
         $this->owner->customise(array(
             'DashboardPanels' => $this->owner->renderWith('SearchPanel')
@@ -114,14 +114,9 @@ class DashboardSearchExtension extends Extension
         $paginationStart = $this->owner->getRequest()->getVar('start' . $searchPanelName);
         $results = $searchPanel->performSearch($searchValue);
 
-        $resultCount = $results->count();
-        if ($resultCount == 0) {
-            return false;
-        }
-
         return ArrayData::create(array(
             'SearchName' => $searchPanel->plural_name(),
-            'ResultCount' => $resultCount,
+            'ResultCount' => $results->count(),
             'FirstResult' => $results->first(),
             'Panel' => $searchPanel->forTemplate($paginationStart)
         ));
