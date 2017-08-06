@@ -120,7 +120,7 @@ abstract class DashboardSearchResultPanel extends Object
         $likeItems = $className::get()->where($searchWordMatch)
             ->exclude($this->exclusions)
             ->exclude(array(
-                $className . '.ID' => $exactItems->column('ID')
+                'ID' => $exactItems->column('ID')
             ))
             ->sort($this->sort);
         $likeItems->filterByCallback(function ($item) use ($member) {
