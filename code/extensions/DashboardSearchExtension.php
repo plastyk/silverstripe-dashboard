@@ -84,7 +84,7 @@ class DashboardSearchExtension extends Extension
             $lastClassName = array_pop($searchClassNames);
             $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . implode(', ', $searchClassNames) . ' &amp; ' . $lastClassName;
         } elseif (count($searchClassNames) == 1) {
-            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . $searchClassNames;
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . $searchClassNames[0];
         }
 
         $data['SearchResultPanels'] = $searchResultPanels;
