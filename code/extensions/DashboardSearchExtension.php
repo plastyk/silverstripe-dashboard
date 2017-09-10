@@ -42,6 +42,10 @@ class DashboardSearchExtension extends Extension
         $member = Member::CurrentUser();
         $searchPanelNames = DashboardAdmin::config()->search_panels;
 
+        if (!$searchPanelNames) {
+            $searchPanelNames = DashboardAdmin::config()->default_search_panels;
+        }
+
         $data = array(
             'SearchValue' => Convert::html2raw($searchValue)
         );
