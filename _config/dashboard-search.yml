@@ -3,7 +3,7 @@ Name: dashboard-search
 After: 'framework/*','cms/*'
 ---
 DashboardAdmin:
-  search_panels:
+  default_search_panels:
     - DashboardSearchResultPagePanel
     - DashboardSearchResultMemberPanel
     - DashboardSearchResultFilePanel
