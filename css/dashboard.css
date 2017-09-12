@@ -11,6 +11,7 @@
 .cms-content.DashboardAdmin .dashboard-main-content {
 	padding: 16px;
 }
+
 .cms-content.DashboardAdmin .dashboard-main-content:after {
 	content: '';
 	clear: both;
@@ -23,8 +24,9 @@
 	background: #ffffff;
 	border-top: 4px solid #333;
 	margin: 0 0 20px 0;
-	box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0 0 rgba(0, 0, 0, 0.02);
 	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -37,19 +39,23 @@
 .cms-content.DashboardAdmin .dashboard-panel p:last-child {
 	margin-bottom: 0;
 }
+
 .cms-content.DashboardAdmin h1 {
 	margin: 0 0 20px 0;
 	font-size: 40px;
 	line-height: 1.1;
-	text-shadow: 0 0px 8px rgba(255, 255, 255, 0.2), 0 1px 0px rgba(255, 255, 255, 0.2);
+	text-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 1px 0 rgba(255, 255, 255, 0.2);
 }
+
 .cms-content.DashboardAdmin .dashboard-panel h3 {
 	margin: 0 0 20px 0;
 }
+
 .cms-content.DashboardAdmin .dashboard-panel h3 a {
 	color: inherit;
 	transition: color 250ms;
 }
+
 .cms-content.DashboardAdmin .dashboard-panel h3 a:hover {
 	color: #0071c4;
 	text-decoration: none;
@@ -66,16 +72,19 @@
 	margin: 0 -0.5%;
 	margin: 0 calc(-10px);
 }
+
 .cms-content.DashboardAdmin .dashboard-row > .dashboard-panel {
 	width: 32.3333%;
 	width: calc(33.3333% - 20px);
 	margin: 0 0.5% 20px;
 	margin: 0 calc(10px) 20px;
 }
+
 .cms-content.DashboardAdmin .fixed-height-table {
 	max-height: 300px;
 	overflow: auto;
 }
+
 .cms-content.DashboardAdmin .table {
 	width: 100%;
 }
@@ -86,39 +95,48 @@
 	padding: 8px;
 	transition: background-color 250ms;
 }
+
 .cms-content.DashboardAdmin .table thead th {
 	border-bottom: 2px solid #dddddd;
-	border-bottom: 2px solid rgba(0,0,0,0.05);
+	border-bottom: 2px solid rgba(0, 0, 0, 0.05);
 	font-weight: bold;
 }
+
 .cms-content.DashboardAdmin .table th.link > a,
 .cms-content.DashboardAdmin .table td.link > a {
 	padding: 8px;
 }
+
 .cms-content.DashboardAdmin .note {
 	font-size: 11px;
 	color: #999999;
 	font-style: italic;
 }
+
 .cms-content.DashboardAdmin .table td > a {
 	display: block;
 }
+
 .cms-content.DashboardAdmin .table th.link,
 .cms-content.DashboardAdmin .table td.link {
-	padding: 0px;
+	padding: 0;
 }
+
 .cms-content.DashboardAdmin .table th.date,
 .cms-content.DashboardAdmin .table td.date {
 	white-space: nowrap;
 }
+
 .cms-content.DashboardAdmin .table tr + tr > td {
 	border-top: 1px solid #dddddd;
-	border-top: 1px solid rgba(0,0,0,0.05);
+	border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .cms-content.DashboardAdmin .table tr:hover > td {
 	background: #f9f9f9;
-	background: rgba(0,0,0,0.05);
+	background: rgba(0, 0, 0, 0.05);
 }
+
 .cms-content.DashboardAdmin .table td a:hover {
 	text-decoration: none;
 }
@@ -133,9 +151,11 @@
 .cms-content.DashboardAdmin .pagination:last-child {
 	margin-bottom: 0;
 }
+
 .cms-content.DashboardAdmin .pagination > li {
 	display: inline;
 }
+
 .cms-content.DashboardAdmin .pagination > li > a,
 .cms-content.DashboardAdmin .pagination > li > span {
 	position: relative;
@@ -149,15 +169,18 @@
 	border: 1px solid #ddd;
 	transition: background-color 250ms;
 }
+
 .cms-content.DashboardAdmin .pagination > li > span {
 	padding: 5px 7px;
 }
+
 .cms-content.DashboardAdmin .pagination > li:first-child > a,
 .cms-content.DashboardAdmin .pagination > li:first-child > span {
 	margin-left: 0;
 	border-top-left-radius: 3px;
 	border-bottom-left-radius: 3px;
 }
+
 .cms-content.DashboardAdmin .pagination > li:last-child > a,
 .cms-content.DashboardAdmin .pagination > li:last-child > span {
 	border-top-right-radius: 3px;
@@ -199,6 +222,7 @@
 		display: block;
 		margin: 0;
 	}
+
 	.cms-content.DashboardAdmin .dashboard-row > .dashboard-panel {
 		margin: 0 0 20px;
 		width: 100%;
