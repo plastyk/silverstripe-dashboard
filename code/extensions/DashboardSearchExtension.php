@@ -73,12 +73,12 @@ class DashboardSearchExtension extends Extension
             }
         }
 
-        $singleResultPanels = $searchResultPanels->filterByCallback(function ($item) {
-            return $item->ResultCount == 1 && $item->FirstResult->config()->dashboard_automatic_search_redirect;
-        });
-        if ($singleResultPanels->count() == 1) {
-            $searchResultItem = $singleResultPanels->first()->FirstResult;
-            if ($searchResultCMSLink = $searchResultItem->getSearchResultCMSLink()) {
+        $numberOfResultsAcrossPanels = array_sum($searchResultPanels->column('ResultCount'));
+        if ($numberOfResultsAcrossPanels == 1) {
+            $singleResultPanel = $searchResultPanels->filterByCallback(function ($item) {
+                return $item->ResultCount == 1 && $item->FirstResult->config()->dashboard_automatic_search_redirect;
+            })->first();
+            if ($singleResultPanel && $searchResultCMSLink = $singleResultPanel->FirstResult->getSearchResultCMSLink()) {
                 return $this->owner->redirect($searchResultCMSLink);
             }
         }
