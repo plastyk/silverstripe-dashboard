@@ -1,34 +1,36 @@
-(function($) {
-	$.entwine('ss', function($) {
+(function ($) {
+	$.entwine('ss', function ($) {
 
 		$('.cms-content.DashboardAdmin .dashboard-search-form').entwine({
-			onsubmit: function(e) {
+			onsubmit: function () {
 				// Remove empty elements and make the URL prettier
-				var nonEmptyInputs,
-					url;
+				var nonEmptyInputs;
+				var url;
 
-				nonEmptyInputs = this.find(':input:not(:submit)').filter(function() {
+				nonEmptyInputs = this.find(':input:not(:submit)').filter(function () {
 					// Use fieldValue() from jQuery.form plugin rather than jQuery.val(),
 					// as it handles checkbox values more consistently
-					var vals = $.grep($(this).fieldValue(), function(val) { return (val);});
+					var vals = $.grep($(this).fieldValue(), function (val) {
+						return (val);
+					});
 					return (vals.length);
 				});
 
 				url = this.attr('action');
 
-				if(nonEmptyInputs.length) {
+				if (nonEmptyInputs.length) {
 					url = $.path.addSearchParams(url, nonEmptyInputs.serialize());
 				}
 
 				var container = this.closest('.cms-container');
-				container.loadPanel(url, "", {}, true);
+				container.loadPanel(url);
 
 				return false;
 			}
 		});
 
 		$('.cms-content.DashboardAdmin .dashboard-search.dashboard-panel[data-panel-class] .pagination a').entwine({
-			onclick: function(e) {
+			onclick: function (e) {
 				e.preventDefault();
 
 				var panelClass = $(this).parents('.dashboard-panel[data-panel-class]').first().data('panel-class');

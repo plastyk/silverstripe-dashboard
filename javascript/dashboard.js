@@ -1,10 +1,10 @@
-(function($) {
-	$.entwine('ss', function($) {
+(function ($) {
+	$.entwine('ss', function ($) {
 
 		$('.cms-content.DashboardAdmin .dashboard-panel a').entwine({
-			onclick: function(e) {
+			onclick: function (e) {
 				var isExternal = $.path.isExternal(this.attr('href'));
-				if (e.which > 1 || isExternal || this.attr('target') == "_blank" || !this.attr('href')) {
+				if (e.which > 1 || isExternal || this.attr('target') === '_blank' || !this.attr('href')) {
 					return;
 				}
 
@@ -22,8 +22,6 @@
 					}
 					return false;
 				}
-
-				item.select();
 			}
 		});
 	});
