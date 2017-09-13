@@ -9,7 +9,9 @@ class DashboardSearchExtension extends Extension
     public function DashboardSearchForm()
     {
         $fields = FieldList::create(
-            TextField::create('Search', _t('SearchForm.SEARCH', 'Search'))->setAttribute('placeholder', _t('SearchForm.SEARCH', 'Search'))
+            TextField::create('Search', _t('SearchForm.SEARCH', 'Search'))
+                ->setAttribute('placeholder', _t('SearchForm.SEARCH', 'Search'))
+                ->addExtraClass('search-query')
         );
 
         $actions = FieldList::create(
