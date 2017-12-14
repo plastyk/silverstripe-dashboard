@@ -11,7 +11,6 @@
 .cms-content.DashboardAdmin .dashboard-main-content {
 	padding: 16px;
 }
-
 .cms-content.DashboardAdmin .dashboard-main-content:after {
 	content: '';
 	clear: both;
@@ -19,11 +18,13 @@
 }
 
 .cms-content.DashboardAdmin .dashboard-panel {
+	flex-grow:1;
 	padding: 20px;
 	border-radius: 5px;
 	background: #ffffff;
 	border-top: 4px solid #333;
-	margin: 0 0 20px 0;
+	margin-top:10px;
+	margin-bottom:10px;
 	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0 0 rgba(0, 0, 0, 0.02);
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -41,7 +42,7 @@
 }
 
 .cms-content.DashboardAdmin h1 {
-	margin: 0 0 20px 0;
+	margin: 0 0 10px 0;
 	font-size: 40px;
 	line-height: 1.1;
 	text-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -59,25 +60,6 @@
 .cms-content.DashboardAdmin .dashboard-panel h3 a:hover {
 	color: #0071c4;
 	text-decoration: none;
-}
-
-.cms-content.DashboardAdmin .dashboard-row {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
-	margin: 0 -0.5%;
-	margin: 0 calc(-10px);
-}
-
-.cms-content.DashboardAdmin .dashboard-row > .dashboard-panel {
-	width: 32.3333%;
-	width: calc(33.3333% - 20px);
-	margin: 0 0.5% 20px;
-	margin: 0 calc(10px) 20px;
 }
 
 .cms-content.DashboardAdmin .fixed-height-table {

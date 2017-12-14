@@ -9,16 +9,20 @@
 <p class="note">$SearchMessage</p>
 <% end_if %>
 
-<div class="dashboard-row">
+<div class="row">
 	<% if $SearchResultPanels %>
 		<% loop $SearchResultPanels %>
 		<% if $Panel %>
-			$Panel
+			<div class="col-4">
+				$Panel
+			</div>
 		<% end_if %>
 		<% end_loop %>
 	<% else %>
-	<div class="dashboard-panel">
-		<p><% _t('SearchPanel.NORESULTS', 'Sorry, no results found.') %></p>
+	<div class="col-4">
+		<div class="dashboard-panel">
+			<p><% _t('SearchPanel.NORESULTS', 'Sorry, no results found.') %></p>
+		</div>
 	</div>
 	<% end_if %>
 </div>

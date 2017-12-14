@@ -10,6 +10,7 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
     {
         parent::init();
         Requirements::css('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+        Requirements::css(DASHBOARD_ADMIN_DIR . '/css/grid.css');
         Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard.css');
         Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard.js');
     }
