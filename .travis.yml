@@ -7,6 +7,7 @@ language: php
 matrix:
   include:
     - php: 5.3
+      dist: precise
       env: DB=MYSQL CORE_RELEASE=3.2
     - php: 5.5
       env: DB=MYSQL CORE_RELEASE=3.4
