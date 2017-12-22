@@ -95,19 +95,33 @@ $showPanel(SearchPanel)
 
 <h1>$SiteConfig.Title</h1>
 
-$showPanel(QuickLinksPanel)
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			$showPanel(QuickLinksPanel)
+		</div>
+	</div>
 
-<% if $canViewPanel(RecentlyEditedPropertiesPanel) || $canViewPanel(RecentlyEditedPagesPanel) || $canViewPanel(UsefulLinksPanel) %>
-<div class="dashboard-row">
-	$showPanel(RecentlyEditedPropertiesPanel)
+	<% if $canViewPanel(RecentlyEditedPropertiesPanel) || $canViewPanel(RecentlyEditedPagesPanel) || $canViewPanel(UsefulLinksPanel) %>
+	<div class="row">
+		<div class="col-4">
+			$showPanel(RecentlyEditedPropertiesPanel)
+		</div>
+		<div class="col-4">
+			$showPanel(RecentlyEditedPagesPanel)
+		</div>
+		<div class="col-4">
+			$showPanel(UsefulLinksPanel)
+		</div>
+	</div>
+	<% end_if %>
 
-	$showPanel(RecentlyEditedPagesPanel)
-
-	$showPanel(UsefulLinksPanel)
+	<div class="row">
+		<div class="col-12">
+			$showPanel(MoreInformationPanel)
+		</div>
+	</div>
 </div>
-<% end_if %>
-
-$showPanel(MoreInformationPanel)
 ```
 
 We then call `?flush=all` in the browser URL to have the new templates and class picked up by SilverStripe.
