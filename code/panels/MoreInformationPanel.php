@@ -4,7 +4,7 @@ class MoreInformationPanel extends DashboardPanel
 {
     public function canView($member = null)
     {
-        return Permission::check('CMS_ACCESS_ADMIN');
+        return Permission::checkMember($member, 'CMS_ACCESS_ADMIN');
     }
 
     public function init()

@@ -22,7 +22,7 @@ abstract class DashboardSearchResultPanel extends Object
 
     public function canView($member = null)
     {
-        return Permission::check('CMS_ACCESS_DASHBOARDADMIN') && class_exists($this->className);
+        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN') && class_exists($this->className);
     }
 
     public function getClassName()
