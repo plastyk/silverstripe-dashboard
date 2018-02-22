@@ -39,6 +39,6 @@ abstract class DashboardPanel extends Object
 
     public function canView($member = null)
     {
-        return Permission::check('CMS_ACCESS_DASHBOARDADMIN');
+        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN');
     }
 }

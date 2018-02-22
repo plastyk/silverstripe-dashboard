@@ -4,11 +4,7 @@ class RecentlyEditedPagesPanel extends DashboardPanel
 {
     public function canView($member = null)
     {
-        if (!Permission::check('CMS_ACCESS_CMSMain') || !class_exists('CMSPagesController')) {
-            return false;
-        }
-
-        return parent::canView($member);
+        return Permission::checkMember($member, 'CMS_ACCESS_CMSMain') && class_exists('CMSPagesController') && parent::canView($member);
     }
 
     public function getData()

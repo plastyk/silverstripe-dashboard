@@ -29,10 +29,7 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
 
     public function canView($member = null)
     {
-        if (Permission::check('CMS_ACCESS_DASHBOARDADMIN')) {
-            return true;
-        }
-        return false;
+        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN');
     }
 
     public function DashboardContent()

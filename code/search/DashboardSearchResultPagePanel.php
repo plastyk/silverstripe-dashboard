@@ -8,6 +8,6 @@ class DashboardSearchResultPagePanel extends DashboardSearchResultPanel
 
     public function canView($member = null)
     {
-        return parent::canView($member) && Permission::check('CMS_ACCESS_CMSMain') && class_exists('CMSPagesController');
+        return Permission::checkMember($member, 'CMS_ACCESS_CMSMain') && class_exists('CMSPagesController') && parent::canView($member);
     }
 }

@@ -9,6 +9,6 @@ class DashboardSearchResultFilePanel extends DashboardSearchResultPanel
 
     public function canView($member = null)
     {
-        return parent::canView($member) && Permission::check('CMS_ACCESS_AssetAdmin') && class_exists('AssetAdmin');
+        return Permission::checkMember($member, 'CMS_ACCESS_AssetAdmin') && class_exists('AssetAdmin') && parent::canView($member);
     }
 }

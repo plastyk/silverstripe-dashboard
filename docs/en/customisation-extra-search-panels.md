@@ -27,7 +27,7 @@ class DashboardSearchResultPropertyPanel extends DashboardSearchResultPanel
 
     public function canView($member = null)
     {
-        return parent::canView($member) && Permission::check('CMS_ACCESS_PropertyAdmin') && class_exists('PropertyAdmin');
+        return Permission::checkMember($member, 'CMS_ACCESS_PropertyAdmin') && class_exists('PropertyAdmin') && parent::canView($member);
     }
 }
 ```
