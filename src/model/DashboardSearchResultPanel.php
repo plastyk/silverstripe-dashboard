@@ -1,6 +1,19 @@
 <?php
 
-abstract class DashboardSearchResultPanel extends Object
+namespace Plastyk\Dashboard\Model;
+
+use Plastyk\Dashboard\Admin\DashboardAdmin;
+use SilverStripe\Core\ClassInfo;
+use SilverStripe\Core\Convert;
+use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\PaginatedList;
+use SilverStripe\Security\Member;
+use SilverStripe\Security\Permission;
+use SilverStripe\View\SSViewer;
+
+class DashboardSearchResultPanel extends DataObject
 {
     protected $controller;
     protected $className;
@@ -14,7 +27,7 @@ abstract class DashboardSearchResultPanel extends Object
     /**
      * @param DasboardAdmin $controller
      */
-    public function __construct($controller)
+    public function __construct($controller = null)
     {
         $this->controller = $controller;
         $this->results = false;
@@ -46,8 +59,8 @@ abstract class DashboardSearchResultPanel extends Object
         if ($this->$nameType) {
             return $this->$nameType;
         }
-        $searchResultClass = Object::singleton($this->getClassName());
-        if (method_exists($searchResultClass, $nameType)) {
+        $searchResultClass = Injectable::singleton($this->getClassName());
+        if (method_exists($this, $nameType)) {
             return $searchResultClass->$nameType();
         }
         return false;

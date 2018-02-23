@@ -1,5 +1,11 @@
 <?php
 
+namespace Plastyk\Dashboard\Model;
+
+use Psr\SimpleCache\CacheInterface;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\ORM\ArrayList;
+
 class UpdateVersionList extends ArrayList
 {
     public function __construct(array $items = array())
@@ -52,8 +58,8 @@ class UpdateVersionList extends ArrayList
 
     public static function get_packagist_versions()
     {
-        $versionListCache = SS_Cache::factory('VersionList');
-        $result = $versionListCache->load('PackagistVersions');
+        $versionListCache = Injector::inst()->get(CacheInterface::class . '.myCache');
+        $result = $versionListCache->get('PackagistVersions');
         if ($result) {
             $result = json_decode($result);
             return UpdateVersionList::create($result);
@@ -83,7 +89,7 @@ class UpdateVersionList extends ArrayList
             $result[] = $version;
         }
 
-        $versionListCache->save(json_encode($result), 'PackagistVersions');
+        $versionListCache->set('PackagistVersions', json_encode($result));
         return UpdateVersionList::create($result);
     }
 }

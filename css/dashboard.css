@@ -9,7 +9,7 @@
 }
 
 .cms-content.DashboardAdmin .dashboard-main-content {
-	padding: 16px;
+	padding: 16px 0;
 }
 .cms-content.DashboardAdmin .dashboard-main-content:after {
 	content: '';

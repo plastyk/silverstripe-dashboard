@@ -1,6 +1,10 @@
 <?php
 
-class UpdateVersion extends Object
+namespace Plastyk\Dashboard\Model;
+
+use SilverStripe\ORM\DataObject;
+
+class UpdateVersion extends DataObject
 {
     public $FullVersion = null;
     public $VersionCode = 16777215;

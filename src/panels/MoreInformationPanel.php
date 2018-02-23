@@ -1,5 +1,13 @@
 <?php
 
+namespace Plastyk\Dashboard\Panels;
+
+use Plastyk\Dashboard\Admin\DashboardAdmin;
+use Plastyk\Dashboard\Model\DashboardPanel;
+use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\Security\Permission;
+use SilverStripe\View\Requirements;
+
 class MoreInformationPanel extends DashboardPanel
 {
     public function canView($member = null)
@@ -10,7 +18,7 @@ class MoreInformationPanel extends DashboardPanel
     public function init()
     {
         parent::init();
-        Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-more-information-panel.css');
+        Requirements::css('plastyk/dashboard:css/dashboard-more-information-panel.css');
     }
 
     public function getData()

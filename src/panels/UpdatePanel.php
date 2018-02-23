@@ -1,5 +1,15 @@
 <?php
 
+namespace Plastyk\Dashboard\Panels;
+
+use Plastyk\Dashboard\Model\DashboardPanel;
+use Plastyk\Dashboard\Model\UpdateVersion;
+use Plastyk\Dashboard\Model\UpdateVersionList;
+use Psr\SimpleCache\CacheInterface;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Security\Permission;
+use SilverStripe\View\Requirements;
+
 class UpdatePanel extends DashboardPanel
 {
     public function canView($member = null)
@@ -34,8 +44,8 @@ class UpdatePanel extends DashboardPanel
     public function init()
     {
         parent::init();
-        Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-update-panel.css');
-        Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-update-panel.js');
+        Requirements::css('plastyk/dashboard:css/dashboard-update-panel.css');
+        Requirements::javascript('plastyk/dashboard:javascript/dashboard-update-panel.js');
     }
 
     public function getContactContent()
@@ -59,23 +69,22 @@ class UpdatePanel extends DashboardPanel
 
     public function getCurrentSilverStripeVersion()
     {
-        $updatePanelCache = SS_Cache::factory('DashboardUpdatePanel');
-        $result = $updatePanelCache->load('CurrentSilverStripeVersion');
-        if ($result) {
-            return UpdateVersion::from_version_string($result);
+        $updatePanelCache = Injector::inst()->get(CacheInterface::class . '.myCache');
+
+        if ($updatePanelCache->has('CurrentSilverStripeVersion')) {
+            return UpdateVersion::from_version_string($updatePanelCache->get('CurrentSilverStripeVersion'));
         }
 
-        $versions = explode(', ', Injector::inst()->get('LeftAndMain')->CMSVersion());
+        $versions = explode(', ', Injector::inst()->get('SilverStripe\Admin\LeftAndMain')->CMSVersion());
         if (!empty($versions)) {
             foreach ($versions as $version) {
-                if (strpos($version, 'Framework: ') !== false) {
-                    $result = substr($version, 11);
+                if (strpos($version, 'CMS: ') !== false) {
+                    $result = substr($version, 5);
                     break;
                 }
             }
         }
-
-        $updatePanelCache->save($result, 'CurrentSilverStripeVersion');
+        $updatePanelCache->set('CurrentSilverStripeVersion', $result);
         return UpdateVersion::from_version_string($result);
     }
 

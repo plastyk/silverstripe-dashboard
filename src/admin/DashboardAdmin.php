@@ -1,18 +1,37 @@
 <?php
 
+namespace Plastyk\Dashboard\Admin;
+
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Security\Permission;
+use SilverStripe\Security\PermissionProvider;
+use SilverStripe\View\Requirements;
+
 class DashboardAdmin extends LeftAndMain implements PermissionProvider
 {
     private static $url_segment = 'dashboard';
     private static $menu_title = 'Dashboard';
     private static $menu_priority = 1000;
+    private static $menu_icon = 'plastyk/dashboard:images/treeicons/dashboard.png';
+
+    private static $required_permission_codes = 'CMS_ACCESS_DASHBOARDADMIN';
+
 
     public function init()
     {
         parent::init();
         Requirements::css('https://use.fontawesome.com/releases/v5.0.6/css/all.css');
-        Requirements::css(DASHBOARD_ADMIN_DIR . '/css/grid.css');
-        Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard.css');
-        Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard.js');
+        Requirements::css('plastyk/dashboard:css/dashboard.css');
+        Requirements::javascript('plastyk/dashboard:javascript/dashboard.js');
+
+        if ($panelAccentColor = DashboardAdmin::config()->panel_accent_color) {
+            Requirements::customCSS(<<<CSS
+.cms-content.DashboardAdmin .dashboard-panel {
+	border-top-color: $panelAccentColor;
+}
+CSS
+);
+        }
     }
 
     public function providePermissions()
@@ -27,14 +46,9 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
         );
     }
 
-    public function canView($member = null)
-    {
-        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN');
-    }
-
     public function DashboardContent()
     {
-        return $this->renderWith('DashboardContent');
+        return $this->renderWith('Includes/DashboardContent');
     }
 
     public function DashboardPanels()
@@ -63,10 +77,5 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
             return $panel->forTemplate();
         }
         return false;
-    }
-
-    public function getPanelAccentColor()
-    {
-        return DashboardAdmin::config()->panel_accent_color;
     }
 }

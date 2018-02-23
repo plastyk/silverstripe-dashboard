@@ -1,5 +1,21 @@
 <?php
 
+namespace Plastyk\Dashboard\Extensions;
+
+use Plastyk\Dashboard\Admin\DashboardAdmin;
+use SilverStripe\Control\Director;
+use SilverStripe\Core\Convert;
+use SilverStripe\Core\Extension;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\Form;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Forms\RequiredFields;
+use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\Security\Member;
+use SilverStripe\View\ArrayData;
+use SilverStripe\View\Requirements;
+
 class DashboardSearchExtension extends Extension
 {
     private static $allowed_actions = array(
@@ -11,7 +27,7 @@ class DashboardSearchExtension extends Extension
         $fields = FieldList::create(
             TextField::create('Search', _t('SearchForm.SEARCH', 'Search'))
                 ->setAttribute('placeholder', _t('SearchForm.SEARCH', 'Search'))
-                ->addExtraClass('search-query')
+                ->addExtraClass('search-query form-group--no-label')
         );
 
         $actions = FieldList::create(
@@ -26,7 +42,7 @@ class DashboardSearchExtension extends Extension
             RequiredFields::create()
         );
         $form->setFormMethod('get');
-        $form->setTemplate('DashboardSearchForm');
+        $form->setTemplate('Includes/DashboardSearchForm');
         $form->addExtraClass('dashboard-search-form');
         $form->disableSecurityToken();
         $form->loadDataFrom($this->owner->getRequest()->getVars());
@@ -36,8 +52,8 @@ class DashboardSearchExtension extends Extension
 
     public function doDashboardSearch()
     {
-        Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-search-panel.css');
-        Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-search-panel.js');
+        Requirements::css('plastyk/dashboard:css/dashboard-search-panel.css');
+        Requirements::javascript('plastyk/dashboard:javascript/dashboard-search-panel.js');
 
         $request = $this->owner->getRequest();
         $searchValue = $request->getVar('Search');

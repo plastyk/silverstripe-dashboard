@@ -1,6 +1,15 @@
 <?php
 
-abstract class DashboardPanel extends Object
+namespace Plastyk\Dashboard\Model;
+
+use SilverStripe\Core\ClassInfo;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Permission;
+use SilverStripe\View\ArrayData;
+use SilverStripe\View\Requirements;
+use SilverStripe\View\SSViewer;
+
+class DashboardPanel extends DataObject
 {
     protected $controller;
 
