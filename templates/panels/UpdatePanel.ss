@@ -1,6 +1,6 @@
 <div class="dashboard-panel update-panel closed">
 	<div class="panel-head">
-		<span class="fa fa-exclamation-triangle" aria-hidden="true"></span>
+		<span class="dashboard-icon fa fa-exclamation-triangle" aria-hidden="true"></span>
 		<strong><% _t('UpdatePanel.NEWSILVERSTRIPEUPDATESAVAILABLE', 'New SilverStripe CMS updates are available.') %></strong>
 		<% if $CurrentSilverStripeVersion %>
 		<% _t('UpdatePanel.YOURVERSIONIS', 'Your version is') %> {$CurrentSilverStripeVersion}.
@@ -9,7 +9,7 @@
 		<% _t('UpdatePanel.LATESTVERSIONIS', 'The latest version is') %> {$LatestSilverStripeVersion}.
 		<% end_if %>
 		<a class="read-more-link"><% _t('UpdatePanel.READMORE', 'Read more') %></a>
-		<span class="fa fa-angle-right" aria-hidden="true"></span>
+		<span class="dashboard-icon fa fa-chevron-right" aria-hidden="true"></span>
 	</div>
 
 	<div class="panel-body">

@@ -10,6 +10,6 @@
 	<% end_loop %>
 
 	<button class="submit">
-		<span class="fa fa-search" aria-hidden="true"></span>
+		<span class="dashboard-icon fa fa-search" aria-hidden="true"></span>
 	</button>
 </form>
