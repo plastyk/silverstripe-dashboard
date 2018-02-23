@@ -23,31 +23,31 @@ In our `dashboard-custom/templates/panels/QuickLinksPanel.ss` template we add th
 
     <% if $CanViewPages %>
     <a href="admin/pages/">
-        <span class="fa fa-sitemap" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-sitemap" aria-hidden="true"></span>
         <% _t('CMSPagesController.MENUTITLE','Pages') %>
     </a>
     <% end_if %>
 
     <% if $CanViewUsers %>
     <a href="admin/security/">
-        <span class="fa fa-users" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-users" aria-hidden="true"></span>
         <% _t('SecurityAdmin.MENUTITLE','Security') %>
     </a>
     <% end_if %>
 
     <a href="admin/properties/">
-        <span class="fa fa-building" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-building" aria-hidden="true"></span>
         Properties
     </a>
 
     <a href="admin/properties/Property/EditForm/field/Property/item/new">
-        <span class="fa fa-plus" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-plus" aria-hidden="true"></span>
         New Property
     </a>
 
     <% if $CanViewSettings %>
     <a href="admin/settings/">
-        <span class="fa fa-cogs" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-cogs" aria-hidden="true"></span>
         <% _t('CMSSettingsController.MENUTITLE','Settings') %>
     </a>
     <% end_if %>
@@ -102,33 +102,33 @@ Then in our template we wrap our property buttons in a `$CanViewProperties` chec
 
     <% if $CanViewPages %>
     <a href="admin/pages/">
-        <span class="fa fa-sitemap" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-sitemap" aria-hidden="true"></span>
         <% _t('CMSPagesController.MENUTITLE','Pages') %>
     </a>
     <% end_if %>
 
     <% if $CanViewUsers %>
     <a href="admin/security/">
-        <span class="fa fa-users" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-users" aria-hidden="true"></span>
         <% _t('SecurityAdmin.MENUTITLE','Security') %>
     </a>
     <% end_if %>
 
     <% if $CanViewProperties %>
     <a href="admin/properties/">
-        <span class="fa fa-building" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-building" aria-hidden="true"></span>
         Properties
     </a>
 
     <a href="admin/properties/Property/EditForm/field/Property/item/new">
-        <span class="fa fa-plus" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-plus" aria-hidden="true"></span>
         New Property
     </a>
     <% end_if %>
 
     <% if $CanViewSettings %>
     <a href="admin/settings/">
-        <span class="fa fa-cogs" aria-hidden="true"></span>
+        <span class="dashboard-icon fa fa-cogs" aria-hidden="true"></span>
         <% _t('CMSSettingsController.MENUTITLE','Settings') %>
     </a>
     <% end_if %>
@@ -140,4 +140,4 @@ Now our buttons will only display to users who can view those sections.
 
 ## Customising icons
 
-When adding new buttons we can make use of the range of [font awesome icons](http://fontawesome.io/icons/) that are included with the dashboard module.
+When adding new buttons we can make use of the range of [Font Awesome icons](https://fontawesome.com/icons) that are included with the dashboard module.

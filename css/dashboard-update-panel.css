@@ -24,14 +24,14 @@
 	margin-right: 10px;
 }
 
-.cms-content.DashboardAdmin .dashboard-panel.update-panel .fa-angle-right {
+.cms-content.DashboardAdmin .dashboard-panel.update-panel .fa-chevron-right {
 	position: absolute;
-	top: 8px;
+	top: 14px;
 	right: 16px;
-	font-size: 30px;
+	font-size: 20px;
 }
 
-.cms-content.DashboardAdmin .dashboard-panel.update-panel.open .fa-angle-right {
+.cms-content.DashboardAdmin .dashboard-panel.update-panel.open .fa-chevron-right {
 	-webkit-transform: rotate(90deg);
 	-moz-transform: rotate(90deg);
 	-ms-transform: rotate(90deg);
