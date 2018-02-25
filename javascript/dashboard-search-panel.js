@@ -29,23 +29,26 @@
 			}
 		});
 
-		$('.cms-content.DashboardAdmin .dashboard-search.dashboard-panel[data-panel-class] .pagination a').entwine({
+		$('.cms-content.DashboardAdmin .dashboard-search.dashboard-panel[data-panel-class] .dashboard-pagination a').entwine({
 			onclick: function (e) {
 				e.preventDefault();
 
 				var panelClass = $(this).parents('.dashboard-panel[data-panel-class]').first().data('panel-class');
+				var panelClassWithSlashes = panelClass.replace(/-/g, '\\');
 				var url = $(this).attr('href');
-				if (url.indexOf('&panel-class=' + panelClass) === -1) {
-					url = url + '&panel-class=' + panelClass;
+				if (url.indexOf('&panel-class=' + panelClassWithSlashes) === -1) {
+					url = url + '&panel-class=' + panelClassWithSlashes;
 				}
 
 				$.ajax(url)
 					.done(function (response) {
-						var panelSelector = '.dashboard-search.dashboard-panel[data-panel-class="' + panelClass + '"]';
-						$('.cms-content.DashboardAdmin ' + panelSelector).html($(response).html());
-						$('html, body').animate({
-							scrollTop: $('.cms-content.DashboardAdmin ' + panelSelector).offset().top
-						});
+						if (response) {
+							var panelSelector = '.dashboard-search.dashboard-panel[data-panel-class="' + panelClass + '"]';
+							$('.cms-content.DashboardAdmin ' + panelSelector).html($(response).html());
+							$('html, body').animate({
+								scrollTop: $('.cms-content.DashboardAdmin ' + panelSelector).offset().top
+							});
+						}
 						$('.cms-content').removeClass('loading');
 					})
 					.fail(function (xhr) {

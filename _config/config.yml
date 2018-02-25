@@ -1,8 +1,10 @@
 ---
 Name: dashboardconfig
+After:
+    - '#cmsdefaultadmin'
 ---
 SilverStripe\Admin\AdminRootController:
-  default_panel: 'Plastyk\Dashboard\Admin\DashboardAdmin'
+  default_panel: Plastyk\Dashboard\Admin\DashboardAdmin
 
 Plastyk\Dashboard\Admin\DashboardAdmin:
   extensions:

@@ -1,17 +1,17 @@
 <% if $Results.MoreThanOnePage %>
-	<ul class="pagination">
+	<div class="dashboard-pagination">
 		<% if $Results.NotFirstPage %>
-		<li><a href="$Results.PrevLink" aria-label="<% _t('SearchPanel.VIEWPREVIOUSPAGE', 'View the previous page') %>">&laquo;</a></li>
+		<a href="$Results.PrevLink" aria-label="<% _t('SearchPanel.VIEWPREVIOUSPAGE', 'View the previous page') %>">&laquo;</a>
 		<% end_if %>
 		<% loop $Results.PaginationSummary %>
 			<% if $PageNum %>
-			<li<% if $CurrentBool %> class="active"<% end_if %>><a href="$Link" aria-label="<% _t('SearchPanel.VIEWPAGENUMBER', 'View page number') %> $PageNum" class="go-to-page">$PageNum</a></li>
+			<a href="$Link" aria-label="<% _t('SearchPanel.VIEWPAGENUMBER', 'View page number') %> $PageNum" class="go-to-page<% if $CurrentBool %> active<% end_if %>">$PageNum</a>
 			<% else %>
-			<li><span>&hellip;</span></li>
+			<span>&hellip;</span>
 			<% end_if %>
 		<% end_loop %>
 		<% if $Results.NotLastPage %>
-		<li><a href="$Results.NextLink" aria-label="<% _t('SearchPanel.VIEWNEXTPAGE', 'View the next page') %>">&raquo;</a></li>
+		<a href="$Results.NextLink" aria-label="<% _t('SearchPanel.VIEWNEXTPAGE', 'View the next page') %>">&raquo;</a>
 		<% end_if %>
-	</ul>
+	</div>
 <% end_if %>

@@ -76,7 +76,7 @@ class DashboardSearchResultPanel extends DataObject
 
         $data = array(
             'ClassName' => $this->getClassName(),
-            'PanelClassName' => $class,
+            'PanelClassName' => str_replace('\\', '-', $class),
             'Results' => $this->getPaginatedResults($paginationStart)
         );
 

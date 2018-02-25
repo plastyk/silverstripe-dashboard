@@ -70,7 +70,7 @@ class DashboardSearchExtension extends Extension
 
         if (!$searchValue) {
             if (Director::is_ajax()) {
-                return $this->owner->renderWith('DashboardContent');
+                return $this->owner->renderWith('Includes/DashboardContent');
             }
             return $this->owner;
         }
@@ -104,7 +104,7 @@ class DashboardSearchExtension extends Extension
         $searchClassNames = $searchResultPanels->column('SearchName');
         if (count($searchClassNames) > 1) {
             $lastClassName = array_pop($searchClassNames);
-            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . implode(', ', $searchClassNames) . ' &amp; ' . $lastClassName;
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . implode(', ', $searchClassNames) . ' & ' . $lastClassName;
         } elseif (count($searchClassNames) == 1) {
             $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . $searchClassNames[0];
         }
@@ -116,7 +116,7 @@ class DashboardSearchExtension extends Extension
         ));
 
         if (Director::is_ajax()) {
-            return $this->owner->renderWith('DashboardContent');
+            return $this->owner->renderWith('Includes/DashboardContent');
         }
 
         return $this->owner;
