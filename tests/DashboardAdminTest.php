@@ -1,5 +1,8 @@
 <?php
 
+use Plastyk\Dashboard\Admin\DashboardAdmin;
+use SilverStripe\Dev\FunctionalTest;
+
 class DashboardAdminTest extends FunctionalTest
 {
     protected static $fixture_file = 'dashboard/tests/DashboardAdminTest.yml';

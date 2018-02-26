@@ -1,5 +1,8 @@
 <?php
 
+use Plastyk\Dashboard\Panels\UpdatePanel;
+use SilverStripe\Dev\FunctionalTest;
+
 class UpdatePanelTest extends FunctionalTest
 {
     protected static $fixture_file = 'dashboard/tests/panels/UpdatePanelTest.yml';

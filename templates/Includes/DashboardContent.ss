@@ -2,6 +2,7 @@
 
 	<div class="flexbox-area-grow cms-content-fields ui-widget-content" data-layout-type="border">
 		<div class="dashboard-main-content">
+			<ul><li></li></ul>
 
 			$DashboardPanels
 

@@ -1,5 +1,8 @@
 <?php
 
+use Plastyk\Dashboard\Model\UpdateVersionList;
+use SilverStripe\Dev\FunctionalTest;
+
 class UpdateVersionListTest extends FunctionalTest
 {
     public function testHasNewerVersion()

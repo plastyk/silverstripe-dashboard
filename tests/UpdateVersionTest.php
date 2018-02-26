@@ -1,5 +1,8 @@
 <?php
 
+use Plastyk\Dashboard\Model\UpdateVersion;
+use SilverStripe\Dev\FunctionalTest;
+
 class UpdateVersionTest extends FunctionalTest
 {
     public function testVersionDifference()

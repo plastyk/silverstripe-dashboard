@@ -2,11 +2,13 @@
 
 namespace Plastyk\Dashboard\Panels;
 
+use Plastyk\Dashboard\Admin\DashboardAdmin;
 use Plastyk\Dashboard\Model\DashboardPanel;
 use Plastyk\Dashboard\Model\UpdateVersion;
 use Plastyk\Dashboard\Model\UpdateVersionList;
 use Psr\SimpleCache\CacheInterface;
 use SilverStripe\Core\Injector\Injector;
+use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Security\Permission;
 use SilverStripe\View\Requirements;
 
