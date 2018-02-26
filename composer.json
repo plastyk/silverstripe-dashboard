@@ -19,7 +19,7 @@
 		}
 	],
 	"require": {
-		"silverstripe/framework": "~3.2"
+		"silverstripe/framework": "~4.0"
 	},
 	"extra": {
 		"installer-name": "dashboard"
