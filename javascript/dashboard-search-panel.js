@@ -4,22 +4,15 @@
 		$('.cms-content.DashboardAdmin .dashboard-search-form').entwine({
 			onsubmit: function () {
 				// Remove empty elements and make the URL prettier
-				var nonEmptyInputs;
 				var url;
-
-				nonEmptyInputs = this.find(':input:not(:submit)').filter(function () {
-					// Use fieldValue() from jQuery.form plugin rather than jQuery.val(),
-					// as it handles checkbox values more consistently
-					var vals = $.grep($(this).fieldValue(), function (val) {
-						return (val);
-					});
-					return (vals.length);
-				});
+				var searchInput;
 
 				url = this.attr('action');
 
-				if (nonEmptyInputs.length) {
-					url = $.path.addSearchParams(url, nonEmptyInputs.serialize());
+				searchInput = this.find('input[name="Search"]');
+
+				if (searchInput.length) {
+					url = $.path.addSearchParams(url, {Search: searchInput.val()});
 				}
 
 				var container = this.closest('.cms-container');

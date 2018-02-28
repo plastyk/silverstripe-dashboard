@@ -130,12 +130,18 @@ class DashboardSearchResultPanel extends DataObject
         });
 
         // Perform word match search
-        $likeItems = $className::get()->where($searchWordMatch)
-            ->exclude($this->exclusions)
-            ->exclude(array(
-                'ID' => $exactItems->column('ID')
-            ))
-            ->sort($this->sort);
+        if ($exactItems->count()) {
+            $likeItems = $className::get()->where($searchWordMatch)
+                ->exclude($this->exclusions)
+                ->exclude(array(
+                    'ID' => $exactItems->column('ID')
+                ))
+                ->sort($this->sort);
+        } else {
+            $likeItems = $className::get()->where($searchWordMatch)
+                ->exclude($this->exclusions)
+                ->sort($this->sort);
+        }
         $likeItems->filterByCallback(function ($item) use ($member) {
             return $item->canView($member);
         });
