@@ -58,7 +58,7 @@ class UpdateVersionList extends ArrayList
 
     public static function get_packagist_versions()
     {
-        $versionListCache = Injector::inst()->get(CacheInterface::class . '.myCache');
+        $versionListCache = Injector::inst()->get(CacheInterface::class . '.plastykDashboardCache');
         $result = $versionListCache->get('PackagistVersions');
         if ($result) {
             $result = json_decode($result);

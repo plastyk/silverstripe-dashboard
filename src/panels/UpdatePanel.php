@@ -71,7 +71,7 @@ class UpdatePanel extends DashboardPanel
 
     public function getCurrentSilverStripeVersion()
     {
-        $updatePanelCache = Injector::inst()->get(CacheInterface::class . '.myCache');
+        $updatePanelCache = Injector::inst()->get(CacheInterface::class . '.plastykDashboardCache');
 
         if ($updatePanelCache->has('CurrentSilverStripeVersion')) {
             return UpdateVersion::from_version_string($updatePanelCache->get('CurrentSilverStripeVersion'));

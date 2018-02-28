@@ -11,7 +11,7 @@ Plastyk\Dashboard\Admin\DashboardAdmin:
     - Plastyk\Dashboard\Extensions\DashboardSearchExtension
 
 SilverStripe\Core\Injector\Injector:
-  Psr\SimpleCache\CacheInterface.myCache:
+  Psr\SimpleCache\CacheInterface.plastykDashboardCache:
     factory: SilverStripe\Core\Cache\CacheFactory
     constructor:
-      namespace: "myCache"
+      namespace: "plastykDashboardCache"
