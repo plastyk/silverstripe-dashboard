@@ -1,5 +1,7 @@
 <?php
 
+namespace Plastyk\Dashboard\Tests;
+
 use Plastyk\Dashboard\Model\UpdateVersion;
 use SilverStripe\Dev\FunctionalTest;
 

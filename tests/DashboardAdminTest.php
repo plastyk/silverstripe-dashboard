@@ -1,5 +1,7 @@
 <?php
 
+namespace Plastyk\Dashboard\Tests;
+
 use Plastyk\Dashboard\Admin\DashboardAdmin;
 use SilverStripe\Dev\FunctionalTest;
 

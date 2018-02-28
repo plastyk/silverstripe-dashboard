@@ -1,5 +1,7 @@
 <?php
 
+namespace Plastyk\Dashboard\Tests\Panels;
+
 use Plastyk\Dashboard\Panels\UpdatePanel;
 use SilverStripe\Dev\FunctionalTest;
 
