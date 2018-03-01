@@ -13,11 +13,11 @@ class DashboardAdminTest extends FunctionalTest
     {
         $dashboardAdmin = DashboardAdmin::create();
 
-        $permittedUser = $this->objFromFixture('Member', 'user1');
+        $permittedUser = $this->objFromFixture('SilverStripe\Security\Member', 'user1');
         $this->logInAs($permittedUser);
         $this->assertTrue($dashboardAdmin->canView());
 
-        $nonPermittedUser = $this->objFromFixture('Member', 'user2');
+        $nonPermittedUser = $this->objFromFixture('SilverStripe\Security\Member', 'user2');
         $this->logInAs($nonPermittedUser);
         $this->assertFalse($dashboardAdmin->canView());
     }

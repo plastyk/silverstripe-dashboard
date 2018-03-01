@@ -13,7 +13,7 @@ class UpdatePanelTest extends FunctionalTest
     {
         $updatePanel = UpdatePanel::create();
 
-        $nonPermittedUser = $this->objFromFixture('Member', 'user1');
+        $nonPermittedUser = $this->objFromFixture('SilverStripe\Security\Member', 'user1');
         $this->logInAs($nonPermittedUser);
         $this->assertFalse($updatePanel->canView());
     }

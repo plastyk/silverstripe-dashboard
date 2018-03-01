@@ -9,9 +9,9 @@ SilverStripe\Security\Member:
 SilverStripe\Security\Group:
     dashboard:
         Title: Dashboard Access
-        Members: =>Member.user1
+        Members: =>SilverStripe\Security\Member.user1
 
 SilverStripe\Security\Permission:
     dashboard:
         Code: CMS_ACCESS_DASHBOARDADMIN
-        Group: =>Group.dashboard
+        Group: =>SilverStripe\Security\Group.dashboard
