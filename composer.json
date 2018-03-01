@@ -1,27 +1,35 @@
 {
-	"name": "plastyk/dashboard",
-	"description": "An extendable dashboard for SilverStripe",
-	"type": "silverstripe-module",
-	"keywords": ["silverstripe", "dashboard"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "3dgoo",
-			"email": "michael@3dgoo.com"
-		},
-		{
-			"name": "Turnerj",
-			"email": "git@turnerj.com"
-		},
-		{
-			"name": "Plastyk Studios",
-			"email": "howdy@plastyk.com.au"
-		}
-	],
-	"require": {
-		"silverstripe/framework": "^4.0"
-	},
-	"extra": {
-		"installer-name": "dashboard"
-	}
+    "name": "plastyk/dashboard",
+    "description": "An extendable dashboard for SilverStripe",
+    "type": "silverstripe-module",
+    "keywords": ["silverstripe", "dashboard"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "3dgoo",
+            "email": "michael@3dgoo.com"
+        },
+        {
+            "name": "Turnerj",
+            "email": "git@turnerj.com"
+        },
+        {
+            "name": "Plastyk Studios",
+            "email": "howdy@plastyk.com.au"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": "^4.0"
+    },
+    "extra": {
+        "installer-name": "dashboard"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "squizlabs/php_codesniffer": "*"
+    },
+    "scripts": {
+        "lint": "vendor/bin/phpcs src/ tests/",
+        "lint-clean": "vendor/bin/phpcbf src/ tests/"
+    }
 }
