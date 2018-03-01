@@ -18,14 +18,12 @@ matrix:
       env: DB=MYSQL PHPUNIT_TEST=1
 
 before_script:
-# Init PHP
   - phpenv rehash
   - phpenv config-rm xdebug.ini
   - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
-# Install composer dependencies
   - composer validate
-  - composer require --no-update silverstripe/installer:4.0.x-dev silverstripe/widgets:2.x-dev
+  - composer require --no-update silverstripe/installer:4.0.x-dev
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev; fi
   - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
