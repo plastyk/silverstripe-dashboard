@@ -31,7 +31,7 @@
     "scripts": {
         "lint": "vendor/bin/phpcs src/ tests/",
         "lint-clean": "vendor/bin/phpcbf src/ tests/"
-    }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
