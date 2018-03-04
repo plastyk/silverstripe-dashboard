@@ -27,6 +27,9 @@ before_script:
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev; fi
   - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
+# Log constants to CI for debugging purposes
+  - php ./vendor/silverstripe/framework/tests/dump_constants.php
+  
 script:
   - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit tests/; fi
   - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml tests/; fi
