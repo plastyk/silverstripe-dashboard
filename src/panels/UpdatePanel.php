@@ -77,6 +77,7 @@ class UpdatePanel extends DashboardPanel
             return UpdateVersion::from_version_string($updatePanelCache->get('CurrentSilverStripeVersion'));
         }
 
+        $result = false;
         $versions = explode(', ', Injector::inst()->get('SilverStripe\Admin\LeftAndMain')->CMSVersion());
         if (!empty($versions)) {
             foreach ($versions as $version) {
