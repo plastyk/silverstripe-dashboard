@@ -4,6 +4,7 @@ namespace Plastyk\Dashboard\Tests\Panels;
 
 use Plastyk\Dashboard\Panels\UpdatePanel;
 use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\Security\Member;
 
 class UpdatePanelTest extends FunctionalTest
 {
@@ -13,7 +14,7 @@ class UpdatePanelTest extends FunctionalTest
     {
         $updatePanel = UpdatePanel::create();
 
-        $nonPermittedUser = $this->objFromFixture('SilverStripe\Security\Member', 'user1');
+        $nonPermittedUser = $this->objFromFixture(Member::class, 'user1');
         $this->logInAs($nonPermittedUser);
         $this->assertFalse($updatePanel->canView());
     }

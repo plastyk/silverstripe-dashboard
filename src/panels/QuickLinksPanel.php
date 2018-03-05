@@ -3,8 +3,8 @@
 namespace Plastyk\Dashboard\Panels;
 
 use Plastyk\Dashboard\Model\DashboardPanel;
-use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
+use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
 
 class QuickLinksPanel extends DashboardPanel
@@ -27,7 +27,7 @@ class QuickLinksPanel extends DashboardPanel
 
     public function getData()
     {
-        $member = Member::currentUserID();
+        $member = Security::getCurrentUser();
 
         $data = parent::getData();
 

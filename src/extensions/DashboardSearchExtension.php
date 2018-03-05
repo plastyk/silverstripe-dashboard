@@ -12,7 +12,7 @@ use SilverStripe\Forms\FormAction;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\ArrayList;
-use SilverStripe\Security\Member;
+use SilverStripe\Security\Security;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\Requirements;
 
@@ -57,7 +57,7 @@ class DashboardSearchExtension extends Extension
 
         $request = $this->owner->getRequest();
         $searchValue = $request->getVar('Search');
-        $member = Member::CurrentUser();
+        $member = Security::getCurrentUser();
         $searchPanelNames = DashboardAdmin::config()->search_panels;
 
         if (!$searchPanelNames) {

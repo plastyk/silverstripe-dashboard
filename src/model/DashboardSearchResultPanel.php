@@ -9,8 +9,8 @@ use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\PaginatedList;
-use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
+use SilverStripe\Security\Security;
 use SilverStripe\View\SSViewer;
 
 class DashboardSearchResultPanel extends DataObject
@@ -104,7 +104,7 @@ class DashboardSearchResultPanel extends DataObject
     {
         $searchValue = Convert::raw2sql($searchValue);
         $className = $this->getClassName();
-        $member = Member::currentUser();
+        $member = Security::getCurrentUser();
 
         // Get the where-clause template for the search fields
         $searchWhereFields = array();
