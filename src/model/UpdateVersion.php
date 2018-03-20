@@ -2,10 +2,18 @@
 
 namespace Plastyk\Dashboard\Model;
 
+
+use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Extensible;
+use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\ORM\DataObject;
 
-class UpdateVersion extends DataObject
+class UpdateVersion
 {
+    use Extensible;
+    use Injectable;
+    use Configurable;
+
     public $FullVersion = null;
     public $VersionCode = 16777215;
     public $Major = 255;

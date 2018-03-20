@@ -5,6 +5,8 @@ namespace Plastyk\Dashboard\Model;
 use Plastyk\Dashboard\Admin\DashboardAdmin;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Convert;
+use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
@@ -13,8 +15,12 @@ use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
 use SilverStripe\View\SSViewer;
 
-class DashboardSearchResultPanel extends DataObject
+abstract class DashboardSearchResultPanel
 {
+    use Extensible;
+    use Injectable;
+    use Configurable;
+
     protected $controller;
     protected $className;
     protected $results;
@@ -70,7 +76,6 @@ class DashboardSearchResultPanel extends DataObject
     {
         $class = get_class($this);
         $ancestry = ClassInfo::ancestry($class);
-        $ancestry = array_slice($ancestry, 2);
         array_reverse($ancestry);
         $template = new SSViewer($ancestry);
 

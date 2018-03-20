@@ -3,19 +3,25 @@
 namespace Plastyk\Dashboard\Model;
 
 use SilverStripe\Core\ClassInfo;
+use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Extensible;
+use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Permission;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
 
-class DashboardPanel extends DataObject
+abstract class DashboardPanel
 {
+    use Extensible;
+    use Injectable;
+    use Configurable;
+
     protected $controller;
 
     public function __construct($controller = null)
     {
-        parent::__construct();
         $this->controller = $controller;
         $this->init();
     }
@@ -37,7 +43,6 @@ class DashboardPanel extends DataObject
 
         $class = get_class($this);
         $ancestry = ClassInfo::ancestry($class);
-        $ancestry = array_slice($ancestry, 2);
         array_reverse($ancestry);
         $template = new SSViewer($ancestry);
 
