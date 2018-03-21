@@ -9,7 +9,7 @@ use SilverStripe\Assets\File;
 class DashboardSearchResultFilePanel extends DashboardSearchResultPanel
 {
     protected $className = 'SilverStripe\Assets\File';
-    protected $searchFields = array('Title', 'Name', 'Content', 'Filename');
+    protected $searchFields = array('Title', 'Name', 'FileFilename');
     protected $sort = array('Title' => 'ASC');
     protected $exclusions = array('ClassName' => 'Folder');
 

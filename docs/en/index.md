@@ -20,10 +20,10 @@ By default the `UpdatePanel` and `MoreInformationPanel` tell the user to contact
 
 We can also adjust the panel accent colour to match the colour scheme of the website.
 
-In our `mysite/_config/config.yml` add:
+In our `mysite/_config/mysite.yml` add:
 
 ```yml
-DashboardAdmin:
+Plastyk\Dashboard\Admin\DashboardAdmin:
   contact_email: 'email@example.com'
   contact_name: 'Developer Name'
   panel_accent_color: '#efbc2a'
@@ -38,7 +38,7 @@ For example, if the user searches for "contact" and only one result is found acr
 
 By default this functionality is turned off but can be enabled through a config variable per search class.
 
-In our `mysite/_config/config.yml` add the following to turn automatic redirection on for the `Page` class:
+In our `mysite/_config/mysite.yml` add the following to turn automatic redirection on for the `Page` class:
 
 ```yml
 Page:
@@ -53,10 +53,10 @@ Page:
 
 ## Subsite compatibility
 
-If using the [SilverStripe Subsites Module](https://github.com/silverstripe/silverstripe-subsites/) the dashboard menu item will not display on subsites by default. To fix this we can apply the `SubsiteMenuExtension` to our `DashboardAdmin`. In our `mysite/_config/config.yml` add:
+If using the [SilverStripe Subsites Module](https://github.com/silverstripe/silverstripe-subsites/) the dashboard menu item will not display on subsites by default. To fix this we can apply the `SubsiteMenuExtension` to our `DashboardAdmin`. In our `mysite/_config/mysite.yml` add:
 
 ```yml
-DashboardAdmin:
+Plastyk\Dashboard\Admin\DashboardAdmin:
   extensions:
-    - SubsiteMenuExtension
+    - SilverStripe\Subsites\Extensions\SubsiteMenuExtension
 ```

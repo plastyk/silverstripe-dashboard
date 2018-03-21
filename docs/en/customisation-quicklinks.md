@@ -65,9 +65,9 @@ We can now see we have a link to the properties admin and a link to create a new
 
 We can improve on this code to check if the user has permission to view the properties section before displaying the buttons to the user.
 
-First we create a `QuickLinksPanelExtension.php` extension class in `dashboard-custom/code/extensions/`.
+First we create a `QuickLinksPanelExtension.php` extension class in `dashboard-custom/src/extensions/`.
 
-In our `dashboard-custom/code/extensions/QuickLinksPanelExtension.php` class we call the `QuickLinksPanel` `updateData` hook to add in our permission check:
+In our `dashboard-custom/src/extensions/QuickLinksPanelExtension.php` class we call the `QuickLinksPanel` `updateData` hook to add in our permission check:
 
 ```php
 <?php

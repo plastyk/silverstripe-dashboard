@@ -14,7 +14,7 @@ Say we have a custom `DataObject` named `Property`. We would like to search for 
 
 First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside `dashboard-custom`.
 
-Next we create a new PHP file `DashboardSearchResultPropertyPanel.php` in `dashboard-custom/code/search/`. In our `dashboard-custom/code/search/DashboardSearchResultPropertyPanel.php` file we create a `DashboardSearchResultPropertyPanel` class, which extends `DashboardSearchResultPanel`:
+Next we create a new PHP file `DashboardSearchResultPropertyPanel.php` in `dashboard-custom/src/search/`. In our `dashboard-custom/src/search/DashboardSearchResultPropertyPanel.php` file we create a `DashboardSearchResultPropertyPanel` class, which extends `DashboardSearchResultPanel`:
 
 ```php
 <?php
