@@ -12,23 +12,30 @@ In this example we will change the main dashboard template to display only a few
 
 Say we would like to remove some of the default panels, change the order of panels and change some panel widths.
 
+First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside `dashboard-custom`.
+
 We create a custom `DashboardPanels.ss` template to modify the dashboard. Copy the original `DashboardPanels.ss` to `dashboard-custom/templates/DashboardPanels.ss` and edit the template as desired:
 
 ```html
-$showPanel(UpdatePanel)
+$showPanel(Plastyk\Dashboard\Panels\UpdatePanel)
 
-$showPanel(SearchPanel)
-
-<h1>$SiteConfig.Title</h1>
 
 <div class="container-fluid">
-	<% if $canViewPanel(RecentlyEditedPagesPanel) || $canViewPanel(RecentlyCreatedPagesPanel) %>
 	<div class="row">
-		<div class="col-4">
-			$showPanel(RecentlyCreatedPagesPanel)
+		<div class="col-12">
+			$showPanel(Plastyk\Dashboard\Panels\SearchPanel)
+
+			<h1>$SiteConfig.Title</h1>
 		</div>
-		<div class="col-8">
-			$showPanel(RecentlyEditedPagesPanel)
+	</div>
+
+	<% if $canViewPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\RecentlyCreatedPagesPanel) %>
+	<div class="row">
+		<div class="col-6">
+			$showPanel(Plastyk\Dashboard\Panels\RecentlyCreatedPagesPanel)
+		</div>
+		<div class="col-6">
+			$showPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel)
 		</div>
 	</div>
 	<% end_if %>

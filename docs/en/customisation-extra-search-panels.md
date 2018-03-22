@@ -18,6 +18,12 @@ Next we create a new PHP file `DashboardSearchResultPropertyPanel.php` in `dashb
 
 ```php
 <?php
+
+namespace Plastyk\Dashboard\Search;
+
+use Plastyk\Dashboard\Model\DashboardSearchResultPanel;
+use SilverStripe\Security\Permission;
+
 class DashboardSearchResultPropertyPanel extends DashboardSearchResultPanel
 {
     protected $className = 'Property';
@@ -27,7 +33,7 @@ class DashboardSearchResultPropertyPanel extends DashboardSearchResultPanel
 
     public function canView($member = null)
     {
-        return parent::canView($member) && Permission::check('CMS_ACCESS_PropertyAdmin') && class_exists('PropertyAdmin');
+        return Permission::checkMember($member, 'CMS_ACCESS_PropertyAdmin') && class_exists('PropertyAdmin') && parent::canView($member);
     }
 }
 ```
@@ -40,7 +46,7 @@ In our `DashboardSearchResultPropertyPanel` class we declare a `canView` functio
 * `$sort` sets the results to sort by `Title`.
 * `$exclusions` excludes properties with a `Title` of `Mordor`.
 
-Next we create a template for our custom search panel. In `dashboard-custom/templates/search/` we create a `DashboardSearchResultPropertyPanel.ss` template with the following code:
+Next we create a template for our custom search panel. In `dashboard-custom/templates/Plastyk/Dashboard/Search/` we create a `DashboardSearchResultPropertyPanel.ss` template with the following code:
 
 ```html
 <% if $Results %>
@@ -77,14 +83,14 @@ Next we create a `config.yml` in our `dashboard-custom/_config/` directory to ad
 Name: dashboard-custom
 After: '#dashboard-search'
 ---
-DashboardAdmin:
+Plastyk\Dashboard\Admin\DashboardAdmin:
   search_panels:
-    - DashboardSearchResultLocationPanel
+    - Plastyk\Dashboard\Search\DashboardSearchResultLocationPanel
 
 Location:
   dashboard_admin_link: 'admin/locations/Location/EditForm/field/Location/item/$ID/edit'
   extensions:
-    - DashboardSearchResultExtension
+    - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
 ```
 
 We then call `?flush=all` in the browser URL to have the new template and class picked up by SilverStripe.

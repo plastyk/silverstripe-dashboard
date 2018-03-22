@@ -14,9 +14,9 @@ We can add, remove or modify these links by extending the `QuickLinksPanel`.
 
 Say we have a custom `DataObject` named `Property` that is controlled through a custom `ModelAdmin` called `PropertiesAdmin`. We would like to add a quick link that links to the `PropertiesAdmin` as well a quick link to add a new `Property`.
 
-First we create a `dashboard-custom` folder in our root directory to house our dashboard customisation code. Next we create a copy of the `QuickLinksPanel.ss` template and place this in `dashboard-custom/templates/panels/`.
+First we create a `dashboard-custom` folder in our root directory to house our dashboard customisation code. Next we create a copy of the `QuickLinksPanel.ss` template and place this in `dashboard-custom/templates/Plastyk/Dashboard/Panels/`.
 
-In our `dashboard-custom/templates/panels/QuickLinksPanel.ss` template we add the new links we want:
+In our `dashboard-custom/templates/Plastyk/Dashboard/Panels/QuickLinksPanel.ss` template we add the new links we want:
 
 ```html
 <div class="dashboard-panel quick-links-panel">
@@ -71,6 +71,10 @@ In our `dashboard-custom/src/extensions/QuickLinksPanelExtension.php` class we c
 
 ```php
 <?php
+
+use SilverStripe\Core\Extension;
+use SilverStripe\Security\Permission;
+
 class QuickLinksPanelExtension extends Extension
 {
     public function updateData(&$data)
@@ -88,7 +92,7 @@ We enable our extension by adding the following to our `dashboard-custom/_config
 Name: dashboard-custom
 After: '#dashboard'
 ---
-QuickLinksPanel:
+Plastyk\Dashboard\Panels\QuickLinksPanel:
   extensions:
     - QuickLinksPanelExtension
 ```
