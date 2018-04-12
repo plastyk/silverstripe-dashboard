@@ -74,12 +74,15 @@ In our `dashboard-custom/src/extensions/QuickLinksPanelExtension.php` class we c
 
 use SilverStripe\Core\Extension;
 use SilverStripe\Security\Permission;
+use SilverStripe\Security\Security;
 
 class QuickLinksPanelExtension extends Extension
 {
     public function updateData(&$data)
     {
-        $data['CanViewProperties'] = Permission::check('CMS_ACCESS_PropertiesAdmin') && class_exists('PropertiesAdmin');
+        $member = Security::getCurrentUser();
+
+        $data['CanViewProperties'] = Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') && class_exists('PropertiesAdmin');
         $data['CanView'] = $data['CanView'] || $data['CanViewProperties'];
     }
 }
