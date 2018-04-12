@@ -22,7 +22,12 @@
         "silverstripe/framework": "^4.0"
     },
     "extra": {
-        "installer-name": "dashboard"
+        "installer-name": "dashboard",
+        "expose": [
+            "css",
+            "images",
+            "javascript"
+        ]
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
