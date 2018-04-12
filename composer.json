@@ -1,7 +1,7 @@
 {
     "name": "plastyk/dashboard",
     "description": "An extendable dashboard for SilverStripe",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "keywords": ["silverstripe", "dashboard"],
     "license": "MIT",
     "authors": [
