@@ -76,7 +76,7 @@ Next we create a template for our custom search panel. In `dashboard-custom/temp
 <% end_if %>
 ```
 
-Next we create a `config.yml` in our `dashboard-custom/_config/` directory to add `DashboardSearchResultLocationPanel` to the `DashboardAdmin` list of `search_panels`. We also declare a `dashboard_admin_link` on the `Location` class and add the `DashboardSearchResultExtension` so we can make use of the `$SearchResultCMSLink` variable in our template.
+Next we create a `config.yml` in our `dashboard-custom/_config/` directory to add `DashboardSearchResultPropertyPanel` to the `DashboardAdmin` list of `search_panels`. We also declare a `dashboard_admin_link` on the `Property` class and add the `DashboardSearchResultExtension` so we can make use of the `$SearchResultCMSLink` variable in our template.
 
 ```yml
 ---
@@ -85,10 +85,10 @@ After: '#dashboard-search'
 ---
 Plastyk\Dashboard\Admin\DashboardAdmin:
   search_panels:
-    - Plastyk\Dashboard\Search\DashboardSearchResultLocationPanel
+    - Plastyk\Dashboard\Search\DashboardSearchResultPropertyPanel
 
-Location:
-  dashboard_admin_link: 'admin/locations/Location/EditForm/field/Location/item/$ID/edit'
+Property:
+  dashboard_admin_link: 'admin/locations/Property/EditForm/field/Property/item/$ID/edit'
   extensions:
     - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
 ```
