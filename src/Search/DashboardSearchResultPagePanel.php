@@ -7,7 +7,7 @@ use SilverStripe\Security\Permission;
 
 class DashboardSearchResultPagePanel extends DashboardSearchResultPanel
 {
-    protected $className = 'Page';
+    protected $className = \Page::class;
     protected $searchFields = array('Title', 'Content');
     protected $sort = array('Title' => 'ASC');
 

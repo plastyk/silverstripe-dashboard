@@ -8,7 +8,7 @@ use SilverStripe\Security\Member;
 
 class DashboardSearchResultMemberPanel extends DashboardSearchResultPanel
 {
-    protected $className = 'SilverStripe\Security\Member';
+    protected $className = Member::class;
     protected $searchFields = array('FirstName', 'Surname', 'Email');
     protected $sort = array('FirstName' => 'ASC', 'Surname' => 'ASC', 'Email' => 'ASC');
 
