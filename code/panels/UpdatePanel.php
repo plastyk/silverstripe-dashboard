@@ -66,16 +66,23 @@ class UpdatePanel extends DashboardPanel
         }
 
         $versions = explode(', ', Injector::inst()->get('LeftAndMain')->CMSVersion());
+        
         if (!empty($versions)) {
-            foreach ($versions as $version) {
-                if (strpos($version, 'Framework: ') !== false) {
-                    $result = substr($version, 11);
-                    break;
+            $versionKeys = array('Framework: ', 'CMS: ');
+            foreach ($versionKeys as $versionKey) {
+                foreach ($versions as $version) {
+                    if (strpos($version, $versionKey) !== false) {
+                        $result = substr($version, strlen($versionKey));
+                        break;
+                    }
                 }
             }
         }
 
-        $updatePanelCache->save($result, 'CurrentSilverStripeVersion');
+        if (is_string($result)) {
+            $updatePanelCache->save($result, 'CurrentSilverStripeVersion');
+        }
+
         return UpdateVersion::from_version_string($result);
     }
 
