@@ -3,10 +3,10 @@
 namespace Plastyk\Dashboard\Tests;
 
 use Plastyk\Dashboard\Admin\DashboardAdmin;
-use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Security\Member;
 
-class DashboardAdminTest extends FunctionalTest
+class DashboardAdminTest extends SapphireTest
 {
     protected static $fixture_file = 'DashboardAdminTest.yml';
 

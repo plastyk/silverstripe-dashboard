@@ -3,9 +3,9 @@
 namespace Plastyk\Dashboard\Tests;
 
 use Plastyk\Dashboard\Model\UpdateVersion;
-use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\Dev\SapphireTest;
 
-class UpdateVersionTest extends FunctionalTest
+class UpdateVersionTest extends SapphireTest
 {
     protected static $fixture_file = 'DashboardAdminTest.yml';
 
