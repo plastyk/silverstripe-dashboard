@@ -8,7 +8,7 @@ use SilverStripe\Security\Member;
 
 class UpdatePanelTest extends FunctionalTest
 {
-    protected static $fixture_file = 'dashboard/tests/panels/UpdatePanelTest.yml';
+    protected static $fixture_file = 'UpdatePanelTest.yml';
 
     public function testPermission()
     {

@@ -8,7 +8,7 @@ use SilverStripe\Security\Member;
 
 class DashboardAdminTest extends FunctionalTest
 {
-    protected static $fixture_file = 'dashboard/tests/DashboardAdminTest.yml';
+    protected static $fixture_file = 'DashboardAdminTest.yml';
 
     public function testPermission()
     {
