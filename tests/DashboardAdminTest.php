@@ -10,20 +10,6 @@ class DashboardAdminTest extends SapphireTest
 {
     protected static $fixture_file = 'DashboardAdminTest.yml';
 
-    protected $usesDatabase = true;
-
-    protected function setUp()
-    {
-        DashboardAdmin::create();
-
-        parent::setUp();
-    }
-
-    protected function tearDown()
-    {
-        parent::tearDown();
-    }
-
     public function testPermission()
     {
         $dashboardAdmin = DashboardAdmin::create();
