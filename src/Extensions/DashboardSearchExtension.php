@@ -18,9 +18,9 @@ use SilverStripe\View\Requirements;
 
 class DashboardSearchExtension extends Extension
 {
-    private static $allowed_actions = array(
+    private static $allowed_actions = [
         'DashboardSearchForm'
-    );
+    ];
 
     public function DashboardSearchForm()
     {
@@ -64,9 +64,9 @@ class DashboardSearchExtension extends Extension
             $searchPanelNames = DashboardAdmin::config()->default_search_panels;
         }
 
-        $data = array(
+        $data = [
             'SearchValue' => Convert::html2raw($searchValue)
-        );
+        ];
 
         if (!$searchValue) {
             if (Director::is_ajax()) {
@@ -94,9 +94,13 @@ class DashboardSearchExtension extends Extension
         $numberOfResultsAcrossPanels = array_sum($searchResultPanels->column('ResultCount'));
         if ($numberOfResultsAcrossPanels == 1) {
             $singleResultPanel = $searchResultPanels->filterByCallback(function ($item) {
-                return $item->ResultCount == 1 && $item->FirstResult->config()->dashboard_automatic_search_redirect;
+                return $item->ResultCount == 1
+                    && $item->FirstResult->config()->dashboard_automatic_search_redirect;
             })->first();
-            if ($singleResultPanel && $searchResultCMSLink = $singleResultPanel->FirstResult->getSearchResultCMSLink()) {
+
+            $searchResultCMSLink = $singleResultPanel->FirstResult->getSearchResultCMSLink();
+
+            if ($singleResultPanel && $searchResultCMSLink) {
                 return $this->owner->redirect($searchResultCMSLink);
             }
         }
@@ -104,16 +108,18 @@ class DashboardSearchExtension extends Extension
         $searchClassNames = $searchResultPanels->column('SearchName');
         if (count($searchClassNames) > 1) {
             $lastClassName = array_pop($searchClassNames);
-            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . implode(', ', $searchClassNames) . ' & ' . $lastClassName;
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for')
+                . ' ' . implode(', ', $searchClassNames) . ' & ' . $lastClassName;
         } elseif (count($searchClassNames) == 1) {
-            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . $searchClassNames[0];
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for')
+                . ' ' . $searchClassNames[0];
         }
 
         $data['SearchResultPanels'] = $searchResultPanels->exclude('ResultCount', 0);
         $this->owner->customise($data);
-        $this->owner->customise(array(
+        $this->owner->customise([
             'DashboardPanels' => $this->owner->renderWith('SearchPanel')
-        ));
+        ]);
 
         if (Director::is_ajax()) {
             return $this->owner->renderWith('Includes/DashboardContent');
@@ -136,11 +142,11 @@ class DashboardSearchExtension extends Extension
         $paginationStart = $this->owner->getRequest()->getVar('start' . $searchPanelName);
         $results = $searchPanel->performSearch($searchValue);
 
-        return ArrayData::create(array(
-            'SearchName' => $searchPanel->plural_name(),
+        return ArrayData::create([
+            'SearchName' => $searchPanel->getPluralName(),
             'ResultCount' => $results->count(),
             'FirstResult' => $results->first(),
             'Panel' => $searchPanel->forTemplate($paginationStart)
-        ));
+        ]);
     }
 }

@@ -27,9 +27,9 @@ use SilverStripe\Security\Permission;
 class DashboardSearchResultPropertyPanel extends DashboardSearchResultPanel
 {
     protected $className = Property::class;
-    protected $searchFields = array('Title', 'Address', 'Content');
-    protected $sort = array('Title' => 'ASC');
-    protected $exclusions = array('Title' => 'Mordor');
+    protected $searchFields = ['Title', 'Address', 'Content'];
+    protected $sort = ['Title' => 'ASC'];
+    protected $exclusions = ['Title' => 'Mordor'];
 
     public function canView($member = null)
     {

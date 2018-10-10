@@ -9,12 +9,14 @@ use SilverStripe\Assets\File;
 class DashboardSearchResultFilePanel extends DashboardSearchResultPanel
 {
     protected $className = File::class;
-    protected $searchFields = array('Title', 'Name', 'FileFilename');
-    protected $sort = array('Title' => 'ASC');
-    protected $exclusions = array('ClassName' => 'Folder');
+    protected $searchFields = ['Title', 'Name', 'FileFilename'];
+    protected $sort = ['Title' => 'ASC'];
+    protected $exclusions = ['ClassName' => 'Folder'];
 
     public function canView($member = null)
     {
-        return Permission::checkMember($member, 'CMS_ACCESS_AssetAdmin') && class_exists('SilverStripe\AssetAdmin\Controller\AssetAdmin') && parent::canView($member);
+        return Permission::checkMember($member, 'CMS_ACCESS_AssetAdmin')
+            && class_exists('SilverStripe\AssetAdmin\Controller\AssetAdmin')
+            && parent::canView($member);
     }
 }

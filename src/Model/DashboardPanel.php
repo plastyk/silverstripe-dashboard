@@ -32,7 +32,7 @@ abstract class DashboardPanel
 
     public function getData()
     {
-        return array();
+        return [];
     }
 
     public function forTemplate()
@@ -48,7 +48,7 @@ abstract class DashboardPanel
 
         $data = $this->getData();
 
-        return $template->process(new ArrayData(array()), $data);
+        return $template->process(new ArrayData([]), $data);
     }
 
     public function canView($member = null)

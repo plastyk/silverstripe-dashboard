@@ -39,14 +39,14 @@ class RecentlyEditedPropertiesPanel extends DashboardPanel
     {
         $data = parent::getData();
 
-        $data['Results'] = $this->Results();
+        $data['Results'] = $this->getResults();
 
         return $data;
     }
 
-    public function Results()
+    public function getResults()
     {
-        return Property::get()->filter('LastEdited:GreaterThan', date('c', strtotime('-6 months')))->sort('LastEdited DESC')->limit(8);
+        return Property::get()->filter(['LastEdited:GreaterThan' => date('c', strtotime('-6 months'))])->sort('LastEdited DESC')->limit(8);
     }
 }
 ```

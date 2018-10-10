@@ -2,7 +2,6 @@
 
 namespace Plastyk\Dashboard\Model;
 
-
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
@@ -24,18 +23,18 @@ class UpdateVersion
     public $PreReleaseType = null;
     public $ReleaseDate = null;
 
-    public static function get_version_code($major, $minor, $patch)
+    public static function getVersionCode($major, $minor, $patch)
     {
         return ($major << 16) + ($minor << 8) + $patch;
     }
 
-    public static function get_version_difference($currentVersion, $newVersion)
+    public static function getVersionDifference($currentVersion, $newVersion)
     {
         if (is_string($currentVersion)) {
-            $currentVersion = UpdateVersion::from_version_string($currentVersion);
+            $currentVersion = UpdateVersion::fromVersionString($currentVersion);
         }
         if (is_string($newVersion)) {
-            $newVersion = UpdateVersion::from_version_string($newVersion);
+            $newVersion = UpdateVersion::fromVersionString($newVersion);
         }
 
         if ($currentVersion->VersionCode >= $newVersion->VersionCode) {
@@ -53,7 +52,7 @@ class UpdateVersion
         return false;
     }
 
-    public static function from_version_string($versionString)
+    public static function fromVersionString($versionString)
     {
         $result = UpdateVersion::create();
         $result->FullVersion = $versionString;
@@ -94,7 +93,11 @@ class UpdateVersion
                 $result->PreRelease = true;
             }
 
-            $result->VersionCode = UpdateVersion::get_version_code($result->Major, $result->Minor, $result->Patch);
+            $result->VersionCode = UpdateVersion::getVersionCode(
+                $result->Major,
+                $result->Minor,
+                $result->Patch
+            );
         }
 
         return $result;

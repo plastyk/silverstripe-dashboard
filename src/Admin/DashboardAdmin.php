@@ -16,7 +16,6 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
 
     private static $required_permission_codes = 'CMS_ACCESS_DASHBOARDADMIN';
 
-
     public function init()
     {
         parent::init();
@@ -27,31 +26,31 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
         if ($panelAccentColor = DashboardAdmin::config()->panel_accent_color) {
             Requirements::customCSS(<<<CSS
 .cms-content.DashboardAdmin .dashboard-panel {
-	border-top-color: $panelAccentColor;
+    border-top-color: $panelAccentColor;
 }
 CSS
-);
+            );
         }
     }
 
     public function providePermissions()
     {
         $title = _t('DashboardAdmin.MENUTITLE', LeftAndMain::menu_title_for_class('DashboardAdmin'));
-        return array(
-            'CMS_ACCESS_DASHBOARDADMIN' => array(
-                'name' => _t('CMSMain.ACCESS', "Access to '{title}' section", 'Permissions Label', array('title' => $title)),
+        return [
+            'CMS_ACCESS_DASHBOARDADMIN' => [
+                'name' => _t('CMSMain.ACCESS', "Access to '{title}' section", 'Permissions Label', ['title' => $title]),
                 'category' => $title,
                 'help' => 'Allow use of the CMS Dashboard'
-            )
-        );
+            ]
+        ];
     }
 
-    public function DashboardContent()
+    public function getDashboardContent()
     {
         return $this->renderWith('Includes/DashboardContent');
     }
 
-    public function DashboardPanels()
+    public function getDashboardPanels()
     {
         return $this->renderWith('DashboardPanels');
     }

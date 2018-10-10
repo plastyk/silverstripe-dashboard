@@ -10,20 +10,24 @@ class RecentlyEditedPagesPanel extends DashboardPanel
 {
     public function canView($member = null)
     {
-        return Permission::checkMember($member, 'CMS_ACCESS_CMSMain') && class_exists('SilverStripe\CMS\Controllers\CMSPagesController') && parent::canView($member);
+        return Permission::checkMember($member, 'CMS_ACCESS_CMSMain')
+            && class_exists('SilverStripe\CMS\Controllers\CMSPagesController')
+            && parent::canView($member);
     }
 
     public function getData()
     {
         $data = parent::getData();
 
-        $data['Results'] = $this->Results();
+        $data['Results'] = $this->getResults();
 
         return $data;
     }
 
-    public function Results()
+    public function getResults()
     {
-        return \Page::get()->filter('LastEdited:GreaterThan', date('c', strtotime('-6 months')))->sort('LastEdited DESC')->limit(8);
+        return \Page::get()->filter([
+            'LastEdited:GreaterThan' => date('c', strtotime('-6 months'))
+        ])->sort('LastEdited DESC')->limit(8);
     }
 }

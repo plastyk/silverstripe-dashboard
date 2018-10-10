@@ -24,11 +24,9 @@ abstract class DashboardSearchResultPanel
     protected $controller;
     protected $className;
     protected $results;
-    protected $singular_name;
-    protected $plural_name;
-    protected $searchFields = array('Title');
-    protected $sort = array('Created' => 'ASC');
-    protected $exclusions = array();
+    protected $searchFields = ['Title'];
+    protected $sort = ['Created' => 'ASC'];
+    protected $exclusions = [];
 
     /**
      * @param DasboardAdmin $controller
@@ -49,12 +47,12 @@ abstract class DashboardSearchResultPanel
         return $this->className;
     }
 
-    public function singular_name()
+    public function getSingularName()
     {
         return $this->getName('singular');
     }
 
-    public function plural_name()
+    public function getPluralName()
     {
         return $this->getName('plural');
     }
@@ -79,11 +77,11 @@ abstract class DashboardSearchResultPanel
         array_reverse($ancestry);
         $template = new SSViewer($ancestry);
 
-        $data = array(
+        $data = [
             'ClassName' => $this->getClassName(),
             'PanelClassName' => str_replace('\\', '-', $class),
             'Results' => $this->getPaginatedResults($paginationStart)
-        );
+        ];
 
         return $template->process($this->controller, $data);
     }
@@ -99,7 +97,7 @@ abstract class DashboardSearchResultPanel
     private function getPaginatedResults($paginationStart = 0)
     {
         $paginationStartLabel = 'start' . get_class($this);
-        $paginatedResults = new PaginatedList($this->getResults(), array($paginationStartLabel => $paginationStart));
+        $paginatedResults = new PaginatedList($this->getResults(), [$paginationStartLabel => $paginationStart]);
         $paginatedResults->setPagelength(DashboardAdmin::config()->search_results_page_length);
         $paginatedResults->setPaginationGetVar($paginationStartLabel);
         return $paginatedResults;
@@ -112,7 +110,7 @@ abstract class DashboardSearchResultPanel
         $member = Security::getCurrentUser();
 
         // Get the where-clause template for the search fields
-        $searchWhereFields = array();
+        $searchWhereFields = [];
         foreach ($this->searchFields as $searchField) {
             $searchWhereFields[] = $searchField . " LIKE '%[search-string]%'";
         }
@@ -120,7 +118,7 @@ abstract class DashboardSearchResultPanel
         $searchExactMatch = str_replace('[search-string]', $searchValue, $searchWhereFieldsTemplate);
 
         $searchWords = explode(' ', $searchValue);
-        $searchWhereList = array();
+        $searchWhereList = [];
         foreach ($searchWords as $searchWord) {
             $searchWhereList[] = '(' . str_replace('[search-string]', $searchWord, $searchWhereFieldsTemplate) . ')';
         }
@@ -138,9 +136,9 @@ abstract class DashboardSearchResultPanel
         if ($exactItems->count()) {
             $likeItems = $className::get()->where($searchWordMatch)
                 ->exclude($this->exclusions)
-                ->exclude(array(
+                ->exclude([
                     'ID' => $exactItems->column('ID')
-                ))
+                ])
                 ->sort($this->sort);
         } else {
             $likeItems = $className::get()->where($searchWordMatch)

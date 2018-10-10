@@ -8,11 +8,11 @@ use SilverStripe\ORM\ArrayList;
 
 class UpdateVersionList extends ArrayList
 {
-    public function __construct(array $items = array())
+    public function __construct(array $items = [])
     {
         for ($i = 0, $l = count($items); $i < $l; $i++) {
             if (is_string($items[$i])) {
-                $items[$i] = UpdateVersion::from_version_string($items[$i]);
+                $items[$i] = UpdateVersion::fromVersionString($items[$i]);
             }
         }
 
@@ -21,10 +21,10 @@ class UpdateVersionList extends ArrayList
 
     public function filterMajorReleases($includePreRelease = false)
     {
-        $args = array(
+        $args = [
             'Minor' => 0,
             'Patch' => 0
-        );
+        ];
         if (!$includePreRelease) {
             $args['PreRelease'] = false;
         }
@@ -40,7 +40,7 @@ class UpdateVersionList extends ArrayList
     public function filterNewerVersions($version)
     {
         if (is_string($version)) {
-            $version = UpdateVersion::from_version_string($version);
+            $version = UpdateVersion::fromVersionString($version);
         }
         $result = $this->filterByCallback(function ($item) use ($version) {
             return $item->VersionCode > $version->VersionCode;
@@ -50,13 +50,13 @@ class UpdateVersionList extends ArrayList
 
     public function sortByVersion($direction = 'ASC')
     {
-        return $this->sort(array(
+        return $this->sort([
             'VersionCode' => $direction,
             'ReleaseDate' => $direction
-        ));
+        ]);
     }
 
-    public static function get_packagist_versions()
+    public static function getPackagistVersions()
     {
         $versionListCache = Injector::inst()->get(CacheInterface::class . '.plastykDashboardCache');
         $result = $versionListCache->get('PackagistVersions');
@@ -82,9 +82,9 @@ class UpdateVersionList extends ArrayList
 
         $versionItems = $versionJSON['package']['versions'];
 
-        $result = array();
+        $result = [];
         foreach ($versionItems as $versionItem) {
-            $version = UpdateVersion::from_version_string($versionItem['version']);
+            $version = UpdateVersion::fromVersionString($versionItem['version']);
             $version->ReleaseDate = $versionItem['time'];
             $result[] = $version;
         }

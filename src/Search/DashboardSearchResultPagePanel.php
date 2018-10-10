@@ -8,11 +8,13 @@ use SilverStripe\Security\Permission;
 class DashboardSearchResultPagePanel extends DashboardSearchResultPanel
 {
     protected $className = \Page::class;
-    protected $searchFields = array('Title', 'Content');
-    protected $sort = array('Title' => 'ASC');
+    protected $searchFields = ['Title', 'Content'];
+    protected $sort = ['Title' => 'ASC'];
 
     public function canView($member = null)
     {
-        return Permission::checkMember($member, 'CMS_ACCESS_CMSMain') && class_exists('SilverStripe\CMS\Controllers\CMSPagesController') && parent::canView($member);
+        return Permission::checkMember($member, 'CMS_ACCESS_CMSMain')
+            && class_exists('SilverStripe\CMS\Controllers\CMSPagesController')
+            && parent::canView($member);
     }
 }
