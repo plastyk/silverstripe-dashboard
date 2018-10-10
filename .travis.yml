@@ -1,10 +1,8 @@
-sudo: false
-
 language: php
 
 env:
   global:
-    - COMPOSER_ROOT_VERSION="4.0.x-dev"
+    - COMPOSER_ROOT_VERSION=5.0.x-dev
 
 matrix:
   include:
@@ -20,20 +18,17 @@ matrix:
 before_script:
   - phpenv rehash
   - phpenv config-rm xdebug.ini
-  - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - echo 'memory_limit=2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
   - composer validate
   - composer require --no-update silverstripe/installer:$INSTALLER_VERSION
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev; fi
   - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
-# Log constants to CI for debugging purposes
-  - php ./vendor/silverstripe/framework/tests/dump_constants.php
-
 script:
-  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit tests/; fi
-  - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml tests/; fi
-  - if [[ $PHPCS_TEST ]]; then composer run-script lint; fi
+  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit; fi
+  - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml -vvv; fi
+  - if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs code/ tests/; fi
 
 after_success:
   - if [[ $PHPUNIT_COVERAGE_TEST ]]; then bash <(curl -s https://codecov.io/bash) -f coverage.xml; fi
