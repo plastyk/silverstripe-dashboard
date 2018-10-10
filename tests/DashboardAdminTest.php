@@ -12,6 +12,8 @@ class DashboardAdminTest extends SapphireTest
 
     protected function setUp()
     {
+        DashboardAdmin::create();
+
         parent::setUp();
     }
 
