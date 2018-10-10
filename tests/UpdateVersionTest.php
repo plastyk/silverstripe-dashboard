@@ -7,8 +7,6 @@ use SilverStripe\Dev\SapphireTest;
 
 class UpdateVersionTest extends SapphireTest
 {
-    protected static $fixture_file = 'DashboardAdminTest.yml';
-
     public function testVersionDifference()
     {
         $this->assertEquals('major', UpdateVersion::get_version_difference('3.0.0', '4.0.0'));

@@ -7,8 +7,6 @@ use SilverStripe\Dev\SapphireTest;
 
 class UpdateVersionListTest extends SapphireTest
 {
-    protected static $fixture_file = 'DashboardAdminTest.yml';
-
     public function testHasNewerVersion()
     {
         $versionList = UpdateVersionList::create(['4.0.0']);
