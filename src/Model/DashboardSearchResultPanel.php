@@ -59,8 +59,9 @@ abstract class DashboardSearchResultPanel
 
     private function getName($nameType)
     {
-        $nameType .= '_name';
-        if ($this->$nameType) {
+        $nameType .= 'Name';
+
+        if (property_exists($this, $nameType)) {
             return $this->$nameType;
         }
         $searchResultClass = Injectable::singleton($this->getClassName());
