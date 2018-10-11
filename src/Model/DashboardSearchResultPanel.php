@@ -8,6 +8,7 @@ use SilverStripe\Core\Convert;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\PaginatedList;
@@ -59,13 +60,14 @@ abstract class DashboardSearchResultPanel
 
     private function getName($nameType)
     {
-        $nameType .= 'Name';
+        $nameType .= '_name';
 
-        if (property_exists($this, $nameType)) {
-            return $this->$nameType;
+        $searchResultClass = Injector::inst()->get($this->getClassName());
+
+        if (property_exists($searchResultClass, $nameType) && $searchResultClass->$nameType) {
+            return $searchResultClass->$nameType;
         }
-        $searchResultClass = Injectable::singleton($this->getClassName());
-        if (method_exists($this, $nameType)) {
+        if (method_exists($searchResultClass, $nameType)) {
             return $searchResultClass->$nameType();
         }
         return false;
