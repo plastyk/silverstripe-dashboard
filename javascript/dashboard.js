@@ -12,17 +12,8 @@
 				}
 
 				e.preventDefault();
-
-				if (url.indexOf(baseAdminHref) === -1) {
-					url = $('base').attr('href') + url;
-				}
-
-				if (!$('.cms-container').loadPanel(url)) {
-					if (url.indexOf('admin/pages/') !== -1) {
-						$('.cms-menu__list li#Menu-SilverStripe-CMS-Controllers-CMSPagesController').select();
-					}
-					return false;
-				}
+				$('.cms-content').addClass('loading');
+				window.location.href = this.attr('href');
 			}
 		});
 	});

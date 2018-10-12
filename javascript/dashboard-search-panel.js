@@ -11,7 +11,7 @@
 
 				searchInput = this.find('input[name="Search"]');
 
-				if (searchInput.length) {
+				if (searchInput.val().length) {
 					url = $.path.addSearchParams(url, {Search: searchInput.val()});
 				}
 
