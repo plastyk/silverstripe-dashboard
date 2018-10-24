@@ -8,6 +8,10 @@
 
 This dashboard module provides a landing page for users logging into the CMS. Out of the box, allows viewing the state of recently created or modified pages, searching for pages & files as well as letting the user know whether the SilverStripe install is out of date.
 
+## Requirements
+
+* SilverStripe Framework 4.0+
+
 ## Documentation
 * [Index](https://plastyk.github.io/silverstripe-dashboard/en/)
 * [Installation](https://plastyk.github.io/silverstripe-dashboard/en/#installation-with-composer)
