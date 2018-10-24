@@ -1,20 +1,38 @@
 <?php
 
-abstract class DashboardSearchResultPanel extends Object
+namespace Plastyk\Dashboard\Model;
+
+use Plastyk\Dashboard\Admin\DashboardAdmin;
+use SilverStripe\Core\ClassInfo;
+use SilverStripe\Core\Convert;
+use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Extensible;
+use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\PaginatedList;
+use SilverStripe\Security\Permission;
+use SilverStripe\Security\Security;
+use SilverStripe\View\SSViewer;
+
+abstract class DashboardSearchResultPanel
 {
+    use Extensible;
+    use Injectable;
+    use Configurable;
+
     protected $controller;
     protected $className;
     protected $results;
-    protected $singular_name;
-    protected $plural_name;
-    protected $searchFields = array('Title');
-    protected $sort = array('Created' => 'ASC');
-    protected $exclusions = array();
+    protected $searchFields = ['Title'];
+    protected $sort = ['Created' => 'ASC'];
+    protected $exclusions = [];
 
     /**
      * @param DasboardAdmin $controller
      */
-    public function __construct($controller)
+    public function __construct($controller = null)
     {
         $this->controller = $controller;
         $this->results = false;
@@ -30,12 +48,12 @@ abstract class DashboardSearchResultPanel extends Object
         return $this->className;
     }
 
-    public function singular_name()
+    public function getSingularName()
     {
         return $this->getName('singular');
     }
 
-    public function plural_name()
+    public function getPluralName()
     {
         return $this->getName('plural');
     }
@@ -43,10 +61,12 @@ abstract class DashboardSearchResultPanel extends Object
     private function getName($nameType)
     {
         $nameType .= '_name';
-        if ($this->$nameType) {
-            return $this->$nameType;
+
+        $searchResultClass = Injector::inst()->get($this->getClassName());
+
+        if (property_exists($searchResultClass, $nameType) && $searchResultClass->$nameType) {
+            return $searchResultClass->$nameType;
         }
-        $searchResultClass = Object::singleton($this->getClassName());
         if (method_exists($searchResultClass, $nameType)) {
             return $searchResultClass->$nameType();
         }
@@ -57,15 +77,14 @@ abstract class DashboardSearchResultPanel extends Object
     {
         $class = get_class($this);
         $ancestry = ClassInfo::ancestry($class);
-        $ancestry = array_slice($ancestry, 2);
         array_reverse($ancestry);
         $template = new SSViewer($ancestry);
 
-        $data = array(
+        $data = [
             'ClassName' => $this->getClassName(),
-            'PanelClassName' => $class,
+            'PanelClassName' => str_replace('\\', '-', $class),
             'Results' => $this->getPaginatedResults($paginationStart)
-        );
+        ];
 
         return $template->process($this->controller, $data);
     }
@@ -81,7 +100,7 @@ abstract class DashboardSearchResultPanel extends Object
     private function getPaginatedResults($paginationStart = 0)
     {
         $paginationStartLabel = 'start' . get_class($this);
-        $paginatedResults = new PaginatedList($this->getResults(), array($paginationStartLabel => $paginationStart));
+        $paginatedResults = new PaginatedList($this->getResults(), [$paginationStartLabel => $paginationStart]);
         $paginatedResults->setPagelength(DashboardAdmin::config()->search_results_page_length);
         $paginatedResults->setPaginationGetVar($paginationStartLabel);
         return $paginatedResults;
@@ -91,10 +110,10 @@ abstract class DashboardSearchResultPanel extends Object
     {
         $searchValue = Convert::raw2sql($searchValue);
         $className = $this->getClassName();
-        $member = Member::currentUser();
+        $member = Security::getCurrentUser();
 
         // Get the where-clause template for the search fields
-        $searchWhereFields = array();
+        $searchWhereFields = [];
         foreach ($this->searchFields as $searchField) {
             $searchWhereFields[] = $searchField . " LIKE '%[search-string]%'";
         }
@@ -102,7 +121,7 @@ abstract class DashboardSearchResultPanel extends Object
         $searchExactMatch = str_replace('[search-string]', $searchValue, $searchWhereFieldsTemplate);
 
         $searchWords = explode(' ', $searchValue);
-        $searchWhereList = array();
+        $searchWhereList = [];
         foreach ($searchWords as $searchWord) {
             $searchWhereList[] = '(' . str_replace('[search-string]', $searchWord, $searchWhereFieldsTemplate) . ')';
         }
@@ -117,12 +136,18 @@ abstract class DashboardSearchResultPanel extends Object
         });
 
         // Perform word match search
-        $likeItems = $className::get()->where($searchWordMatch)
-            ->exclude($this->exclusions)
-            ->exclude(array(
-                'ID' => $exactItems->column('ID')
-            ))
-            ->sort($this->sort);
+        if ($exactItems->count()) {
+            $likeItems = $className::get()->where($searchWordMatch)
+                ->exclude($this->exclusions)
+                ->exclude([
+                    'ID' => $exactItems->column('ID')
+                ])
+                ->sort($this->sort);
+        } else {
+            $likeItems = $className::get()->where($searchWordMatch)
+                ->exclude($this->exclusions)
+                ->sort($this->sort);
+        }
         $likeItems->filterByCallback(function ($item) use ($member) {
             return $item->canView($member);
         });

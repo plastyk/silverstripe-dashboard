@@ -14,16 +14,22 @@ Say we have a custom `DataObject` named `Property`. We would like to search for 
 
 First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside `dashboard-custom`.
 
-Next we create a new PHP file `DashboardSearchResultPropertyPanel.php` in `dashboard-custom/code/search/`. In our `dashboard-custom/code/search/DashboardSearchResultPropertyPanel.php` file we create a `DashboardSearchResultPropertyPanel` class, which extends `DashboardSearchResultPanel`:
+Next we create a new PHP file `DashboardSearchResultPropertyPanel.php` in `dashboard-custom/src/Search/`. In our `dashboard-custom/src/Search/DashboardSearchResultPropertyPanel.php` file we create a `DashboardSearchResultPropertyPanel` class, which extends `DashboardSearchResultPanel`:
 
 ```php
 <?php
+
+namespace Plastyk\Dashboard\Search;
+
+use Plastyk\Dashboard\Model\DashboardSearchResultPanel;
+use SilverStripe\Security\Permission;
+
 class DashboardSearchResultPropertyPanel extends DashboardSearchResultPanel
 {
-    protected $className = 'Property';
-    protected $searchFields = array('Title', 'Address', 'Content');
-    protected $sort = array('Title' => 'ASC');
-    protected $exclusions = array('Title' => 'Mordor');
+    protected $className = Property::class;
+    protected $searchFields = ['Title', 'Address', 'Content'];
+    protected $sort = ['Title' => 'ASC'];
+    protected $exclusions = ['Title' => 'Mordor'];
 
     public function canView($member = null)
     {
@@ -40,7 +46,7 @@ In our `DashboardSearchResultPropertyPanel` class we declare a `canView` functio
 * `$sort` sets the results to sort by `Title`.
 * `$exclusions` excludes properties with a `Title` of `Mordor`.
 
-Next we create a template for our custom search panel. In `dashboard-custom/templates/search/` we create a `DashboardSearchResultPropertyPanel.ss` template with the following code:
+Next we create a template for our custom search panel. In `dashboard-custom/templates/Plastyk/Dashboard/Search/` we create a `DashboardSearchResultPropertyPanel.ss` template with the following code:
 
 ```html
 <% if $Results %>
@@ -70,25 +76,25 @@ Next we create a template for our custom search panel. In `dashboard-custom/temp
 <% end_if %>
 ```
 
-Next we create a `config.yml` in our `dashboard-custom/_config/` directory to add `DashboardSearchResultLocationPanel` to the `DashboardAdmin` list of `search_panels`. We also declare a `dashboard_admin_link` on the `Location` class and add the `DashboardSearchResultExtension` so we can make use of the `$SearchResultCMSLink` variable in our template.
+Next we create a `config.yml` in our `dashboard-custom/_config/` directory to add `DashboardSearchResultPropertyPanel` to the `DashboardAdmin` list of `search_panels`. We also declare a `dashboard_admin_link` on the `Property` class and add the `DashboardSearchResultExtension` so we can make use of the `$SearchResultCMSLink` variable in our template.
 
 ```yml
 ---
 Name: dashboard-custom
 After: '#dashboard-search'
 ---
-DashboardAdmin:
+Plastyk\Dashboard\Admin\DashboardAdmin:
   search_panels:
-    - DashboardSearchResultLocationPanel
+    - Plastyk\Dashboard\Search\DashboardSearchResultPropertyPanel
 
-Location:
-  dashboard_admin_link: 'admin/locations/Location/EditForm/field/Location/item/$ID/edit'
+Property:
+  dashboard_admin_link: 'admin/properties/Property/EditForm/field/Property/item/$ID/edit'
   extensions:
-    - DashboardSearchResultExtension
+    - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
 ```
 
 We then call `?flush=all` in the browser URL to have the new template and class picked up by SilverStripe.
 
-We can now see the dashboard searches for locations:
+We can now see the dashboard searches for properties:
 
 ![Dashboard module extra search panel screenshot](images/dashboard-module-extra-search-panel.png)

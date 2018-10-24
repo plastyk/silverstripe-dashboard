@@ -1,17 +1,33 @@
 <?php
 
+namespace Plastyk\Dashboard\Extensions;
+
+use Plastyk\Dashboard\Admin\DashboardAdmin;
+use SilverStripe\Control\Director;
+use SilverStripe\Core\Convert;
+use SilverStripe\Core\Extension;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\Form;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Forms\RequiredFields;
+use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\Security\Security;
+use SilverStripe\View\ArrayData;
+use SilverStripe\View\Requirements;
+
 class DashboardSearchExtension extends Extension
 {
-    private static $allowed_actions = array(
+    private static $allowed_actions = [
         'DashboardSearchForm'
-    );
+    ];
 
     public function DashboardSearchForm()
     {
         $fields = FieldList::create(
             TextField::create('Search', _t('SearchForm.SEARCH', 'Search'))
                 ->setAttribute('placeholder', _t('SearchForm.SEARCH', 'Search'))
-                ->addExtraClass('search-query')
+                ->addExtraClass('search-query form-group--no-label')
         );
 
         $actions = FieldList::create(
@@ -26,7 +42,7 @@ class DashboardSearchExtension extends Extension
             RequiredFields::create()
         );
         $form->setFormMethod('get');
-        $form->setTemplate('DashboardSearchForm');
+        $form->setTemplate('Includes/DashboardSearchForm');
         $form->addExtraClass('dashboard-search-form');
         $form->disableSecurityToken();
         $form->loadDataFrom($this->owner->getRequest()->getVars());
@@ -36,25 +52,25 @@ class DashboardSearchExtension extends Extension
 
     public function doDashboardSearch()
     {
-        Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-search-panel.css');
-        Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-search-panel.js');
+        Requirements::css('plastyk/dashboard:css/dashboard-search-panel.css');
+        Requirements::javascript('plastyk/dashboard:javascript/dashboard-search-panel.js');
 
         $request = $this->owner->getRequest();
         $searchValue = $request->getVar('Search');
-        $member = Member::CurrentUser();
+        $member = Security::getCurrentUser();
         $searchPanelNames = DashboardAdmin::config()->search_panels;
 
         if (!$searchPanelNames) {
             $searchPanelNames = DashboardAdmin::config()->default_search_panels;
         }
 
-        $data = array(
+        $data = [
             'SearchValue' => Convert::html2raw($searchValue)
-        );
+        ];
 
         if (!$searchValue) {
             if (Director::is_ajax()) {
-                return $this->owner->renderWith('DashboardContent');
+                return $this->owner->renderWith('Includes/DashboardContent');
             }
             return $this->owner;
         }
@@ -78,9 +94,13 @@ class DashboardSearchExtension extends Extension
         $numberOfResultsAcrossPanels = array_sum($searchResultPanels->column('ResultCount'));
         if ($numberOfResultsAcrossPanels == 1) {
             $singleResultPanel = $searchResultPanels->filterByCallback(function ($item) {
-                return $item->ResultCount == 1 && $item->FirstResult->config()->dashboard_automatic_search_redirect;
+                return $item->ResultCount == 1
+                    && $item->FirstResult->config()->dashboard_automatic_search_redirect;
             })->first();
-            if ($singleResultPanel && $searchResultCMSLink = $singleResultPanel->FirstResult->getSearchResultCMSLink()) {
+
+            $searchResultCMSLink = $singleResultPanel->FirstResult->getSearchResultCMSLink();
+
+            if ($singleResultPanel && $searchResultCMSLink) {
                 return $this->owner->redirect($searchResultCMSLink);
             }
         }
@@ -88,19 +108,21 @@ class DashboardSearchExtension extends Extension
         $searchClassNames = $searchResultPanels->column('SearchName');
         if (count($searchClassNames) > 1) {
             $lastClassName = array_pop($searchClassNames);
-            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . implode(', ', $searchClassNames) . ' &amp; ' . $lastClassName;
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for')
+                . ' ' . implode(', ', $searchClassNames) . ' & ' . $lastClassName;
         } elseif (count($searchClassNames) == 1) {
-            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for') . ' ' . $searchClassNames[0];
+            $data['SearchMessage'] = _t('SearchPanel.SEARCHINGFOR', 'Searching for')
+                . ' ' . $searchClassNames[0];
         }
 
         $data['SearchResultPanels'] = $searchResultPanels->exclude('ResultCount', 0);
         $this->owner->customise($data);
-        $this->owner->customise(array(
+        $this->owner->customise([
             'DashboardPanels' => $this->owner->renderWith('SearchPanel')
-        ));
+        ]);
 
         if (Director::is_ajax()) {
-            return $this->owner->renderWith('DashboardContent');
+            return $this->owner->renderWith('Includes/DashboardContent');
         }
 
         return $this->owner;
@@ -120,11 +142,11 @@ class DashboardSearchExtension extends Extension
         $paginationStart = $this->owner->getRequest()->getVar('start' . $searchPanelName);
         $results = $searchPanel->performSearch($searchValue);
 
-        return ArrayData::create(array(
-            'SearchName' => $searchPanel->plural_name(),
+        return ArrayData::create([
+            'SearchName' => $searchPanel->getPluralName(),
             'ResultCount' => $results->count(),
             'FirstResult' => $results->first(),
             'Panel' => $searchPanel->forTemplate($paginationStart)
-        ));
+        ]);
     }
 }

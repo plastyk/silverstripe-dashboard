@@ -14,29 +14,39 @@ Say we have a custom `DataObject` named `Property` that is controlled through a 
 
 First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside `dashboard-custom`.
 
-Next we create a new PHP file `RecentlyEditedPropertiesPanel.php` in `dashboard-custom/code/panels/`. In our `dashboard-custom/code/panels/RecentlyEditedPropertiesPanel.php` file we create a `RecentlyEditedPropertiesPanel` class, which extends `DashboardPanel`:
+Next we create a new PHP file `RecentlyEditedPropertiesPanel.php` in `dashboard-custom/src/Panels/`. In our `dashboard-custom/src/Panels/RecentlyEditedPropertiesPanel.php` file we create a `RecentlyEditedPropertiesPanel` class, which extends `DashboardPanel`:
 
 ```php
 <?php
+
+namespace Plastyk\Dashboard\Panels;
+
+use Plastyk\Dashboard\Model\DashboardPanel;
+use SilverStripe\Security\Permission;
+
 class RecentlyEditedPropertiesPanel extends DashboardPanel
 {
     public function canView($member = null)
     {
-        return Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') && class_exists('Property') && parent::canView($member);
+        if (!Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') || !class_exists('Property')) {
+            return false;
+        }
+
+        return parent::canView($member);
     }
 
     public function getData()
     {
         $data = parent::getData();
 
-        $data['Results'] = $this->Results();
+        $data['Results'] = $this->getResults();
 
         return $data;
     }
 
-    public function Results()
+    public function getResults()
     {
-        return Property::get()->filter('LastEdited:GreaterThan', date('c', strtotime('-6 months')))->sort('LastEdited DESC')->limit(8);
+        return Property::get()->filter(['LastEdited:GreaterThan' => date('c', strtotime('-6 months'))])->sort('LastEdited DESC')->limit(8);
     }
 }
 ```
@@ -47,7 +57,7 @@ In our `RecentlyEditedPropertiesPanel` class we have a `canView`, a `getData` an
 * `getData` fetches the results for the template.
 * `Results` returns a list of properties that have been edited in the last six months, limited to a maximum of eight results.
 
-Next we create a template for our custom panel. In `dashboard-custom/templates/panels/` we create a `RecentlyEditedPropertiesPanel.ss` template with the following code:
+Next we create a template for our custom panel. In `dashboard-custom/templates/Plastyk/Dashboard/Panels/` we create a `RecentlyEditedPropertiesPanel.ss` template with the following code:
 
 ```html
 <div class="dashboard-panel">
@@ -82,39 +92,43 @@ Next we create a template for our custom panel. In `dashboard-custom/templates/p
 </div>
 ```
 
-Next we create a custom `DashboardPanels.ss` template to add our new panel to the dashboard. Copy the original `DashboardPanels.ss` to `dashboard-custom/templates/DashboardPanels.ss` and add `$showPanel(RecentlyEditedPropertiesPanel)` to where we want the new panel to display:
+Next we create a custom `DashboardPanels.ss` template to add our new panel to the dashboard. Copy the original `DashboardPanels.ss` to `dashboard-custom/templates/DashboardPanels.ss` and add `$showPanel(Plastyk\Dashboard\Panels\RecentlyEditedPropertiesPanel)` to where we want the new panel to display:
 
 ```html
-$showPanel(UpdatePanel)
-
-$showPanel(SearchPanel)
-
-<h1>$SiteConfig.Title</h1>
+$showPanel(Plastyk\Dashboard\Panels\UpdatePanel)
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-12">
-			$showPanel(QuickLinksPanel)
+			$showPanel(Plastyk\Dashboard\Panels\SearchPanel)
+
+			<h1>$SiteConfig.Title</h1>
 		</div>
 	</div>
 
-	<% if $canViewPanel(RecentlyEditedPropertiesPanel) || $canViewPanel(RecentlyEditedPagesPanel) || $canViewPanel(UsefulLinksPanel) %>
+	<div class="row">
+		<div class="col-12">
+			$showPanel(Plastyk\Dashboard\Panels\QuickLinksPanel)
+		</div>
+	</div>
+
+	<% if $canViewPanel(Plastyk\Dashboard\Panels\RecentlyEditedPropertiesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\UsefulLinksPanel) %>
 	<div class="row">
 		<div class="col-4">
-			$showPanel(RecentlyEditedPropertiesPanel)
+			$showPanel(Plastyk\Dashboard\Panels\RecentlyEditedPropertiesPanel)
 		</div>
 		<div class="col-4">
-			$showPanel(RecentlyEditedPagesPanel)
+			$showPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel)
 		</div>
 		<div class="col-4">
-			$showPanel(UsefulLinksPanel)
+			$showPanel(Plastyk\Dashboard\Panels\UsefulLinksPanel)
 		</div>
 	</div>
 	<% end_if %>
 
 	<div class="row">
 		<div class="col-12">
-			$showPanel(MoreInformationPanel)
+			$showPanel(Plastyk\Dashboard\Panels\MoreInformationPanel)
 		</div>
 	</div>
 </div>

@@ -1,18 +1,24 @@
 <?php
 
-class DashboardAdminTest extends FunctionalTest
+namespace Plastyk\Dashboard\Tests;
+
+use Plastyk\Dashboard\Admin\DashboardAdmin;
+use SilverStripe\Dev\SapphireTest;
+use SilverStripe\Security\Member;
+
+class DashboardAdminTest extends SapphireTest
 {
-    protected static $fixture_file = 'dashboard/tests/DashboardAdminTest.yml';
+    protected static $fixture_file = 'DashboardAdminTest.yml';
 
     public function testPermission()
     {
         $dashboardAdmin = DashboardAdmin::create();
 
-        $permittedUser = $this->objFromFixture('Member', 'user1');
+        $permittedUser = $this->objFromFixture(Member::class, 'user1');
         $this->logInAs($permittedUser);
         $this->assertTrue($dashboardAdmin->canView());
 
-        $nonPermittedUser = $this->objFromFixture('Member', 'user2');
+        $nonPermittedUser = $this->objFromFixture(Member::class, 'user2');
         $this->logInAs($nonPermittedUser);
         $this->assertFalse($dashboardAdmin->canView());
     }

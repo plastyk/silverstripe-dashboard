@@ -1,4 +1,4 @@
-Member:
+SilverStripe\Security\Member:
     user1:
         FirstName: NonPermitted
         Surname: User

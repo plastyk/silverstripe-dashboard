@@ -1,5 +1,17 @@
 <?php
 
+namespace Plastyk\Dashboard\Panels;
+
+use Plastyk\Dashboard\Admin\DashboardAdmin;
+use Plastyk\Dashboard\Model\DashboardPanel;
+use Plastyk\Dashboard\Model\UpdateVersion;
+use Plastyk\Dashboard\Model\UpdateVersionList;
+use Psr\SimpleCache\CacheInterface;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\Security\Permission;
+use SilverStripe\View\Requirements;
+
 class UpdatePanel extends DashboardPanel
 {
     public function canView($member = null)
@@ -22,10 +34,11 @@ class UpdatePanel extends DashboardPanel
         $data['CurrentSilverStripeVersion'] = $currentVersion->FullVersion;
         $latestVersion = $this->getLatestSilverStripeVersion();
         $data['LatestSilverStripeVersion'] = $latestVersion->FullVersion;
-        $data['UpdateVersionLevel'] = UpdateVersion::get_version_difference($currentVersion, $latestVersion);
+        $data['UpdateVersionLevel'] = UpdateVersion::getVersionDifference($currentVersion, $latestVersion);
 
         $data['ContactEmail'] = DashboardAdmin::config()->contact_email ?: false;
-        $data['ContactName'] = DashboardAdmin::config()->contact_name ?: _t('UpdatePanel.YOURWEBDEVELOPER', 'your web developer');
+        $data['ContactName'] =
+            DashboardAdmin::config()->contact_name ?: _t('UpdatePanel.YOURWEBDEVELOPER', 'your web developer');
         $data['ContactContent'] = $this->getContactContent();
 
         return $data;
@@ -34,14 +47,15 @@ class UpdatePanel extends DashboardPanel
     public function init()
     {
         parent::init();
-        Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard-update-panel.css');
-        Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard-update-panel.js');
+        Requirements::css('plastyk/dashboard:css/dashboard-update-panel.css');
+        Requirements::javascript('plastyk/dashboard:javascript/dashboard-update-panel.js');
     }
 
     public function getContactContent()
     {
         $contactEmail = DashboardAdmin::config()->contact_email ?: false;
-        $contactName = DashboardAdmin::config()->contact_name ?: _t('UpdatePanel.YOURWEBDEVELOPER', 'your web developer');
+        $contactName =
+            DashboardAdmin::config()->contact_name ?: _t('UpdatePanel.YOURWEBDEVELOPER', 'your web developer');
 
         if ($contactEmail) {
             $contactName = '<a href="mailto:' . $contactEmail . '">' . $contactName . '</a>';
@@ -51,7 +65,7 @@ class UpdatePanel extends DashboardPanel
             'UpdatePanel.IFYOUWOULDLIKETOUPDATE',
             'If you would like to update to the latest version please contact {contactName}.',
             'Update message',
-            array('contactName' => $contactName)
+            ['contactName' => $contactName]
         );
 
         return DBField::create_field('HTMLText', $content);
@@ -59,56 +73,51 @@ class UpdatePanel extends DashboardPanel
 
     public function getCurrentSilverStripeVersion()
     {
-        $updatePanelCache = SS_Cache::factory('DashboardUpdatePanel');
-        $result = $updatePanelCache->load('CurrentSilverStripeVersion');
-        if ($result) {
-            return UpdateVersion::from_version_string($result);
+        $updatePanelCache = Injector::inst()->get(CacheInterface::class . '.plastykDashboardCache');
+
+        if ($updatePanelCache->has('CurrentSilverStripeVersion')) {
+            return UpdateVersion::fromVersionString($updatePanelCache->get('CurrentSilverStripeVersion'));
         }
 
-        $versions = explode(', ', Injector::inst()->get('LeftAndMain')->CMSVersion());
-        
+        $result = false;
+        $versions = explode(', ', Injector::inst()->get('SilverStripe\Admin\LeftAndMain')->CMSVersion());
         if (!empty($versions)) {
-            $versionKeys = array('Framework: ', 'CMS: ');
-            foreach ($versionKeys as $versionKey) {
-                foreach ($versions as $version) {
-                    if (strpos($version, $versionKey) !== false) {
-                        $result = substr($version, strlen($versionKey));
-                        break;
-                    }
+            foreach ($versions as $version) {
+                if (strpos($version, 'CMS: ') !== false) {
+                    $result = substr($version, 5);
+                    break;
                 }
             }
         }
-
-        if (is_string($result)) {
-            $updatePanelCache->save($result, 'CurrentSilverStripeVersion');
-        }
-
-        return UpdateVersion::from_version_string($result);
+        $updatePanelCache->set('CurrentSilverStripeVersion', $result);
+        return UpdateVersion::fromVersionString($result);
     }
 
     protected function getSilverStripeVersions()
     {
-        $versions = UpdateVersionList::get_packagist_versions()->filter(array(
+        $versions = UpdateVersionList::getPackagistVersions()->filter([
             'PreRelease' => false
-        ))->sortByVersion('DESC');
+        ])->sortByVersion('DESC');
 
         $ignoreMajorUpdates = UpdatePanel::config()->ignore_major_updates;
         if (isset($ignoreMajorUpdates)) {
             $currentVersion = $this->getCurrentSilverStripeVersion();
             if (is_bool($ignoreMajorUpdates)) {
                 if ($ignoreMajorUpdates) {
-                    $versions = $versions->filter('Major', $currentVersion->Major);
+                    $versions = $versions->filter(['Major' => $currentVersion->Major]);
                 }
             } elseif (is_string($ignoreMajorUpdates) && strtotime($ignoreMajorUpdates)) {
                 $currentTime = new DateTime(SS_DateTime::now()->Value);
-                $versions = $versions->filterByCallback(function ($item) use ($currentTime, $currentVersion, $ignoreMajorUpdates) {
-                    if ($item->Major > $currentVersion->Major) {
-                        $releaseDate = new DateTime($item->ReleaseDate);
-                        $waitAfterRelease = $releaseDate->modify($ignoreMajorUpdates);
-                        return $currentTime > $waitAfterRelease;
+                $versions = $versions->filterByCallback(
+                    function ($item) use ($currentTime, $currentVersion, $ignoreMajorUpdates) {
+                        if ($item->Major > $currentVersion->Major) {
+                            $releaseDate = new DateTime($item->ReleaseDate);
+                            $waitAfterRelease = $releaseDate->modify($ignoreMajorUpdates);
+                            return $currentTime > $waitAfterRelease;
+                        }
+                        return true;
                     }
-                    return true;
-                });
+                );
             } else {
                 user_error('Invalid config value for UpdatePanel::ignore_major_updates', E_USER_WARNING);
             }

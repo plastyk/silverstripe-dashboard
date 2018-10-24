@@ -14,9 +14,9 @@ We can add, remove or modify these links by extending the `QuickLinksPanel`.
 
 Say we have a custom `DataObject` named `Property` that is controlled through a custom `ModelAdmin` called `PropertiesAdmin`. We would like to add a quick link that links to the `PropertiesAdmin` as well a quick link to add a new `Property`.
 
-First we create a `dashboard-custom` folder in our root directory to house our dashboard customisation code. Next we create a copy of the `QuickLinksPanel.ss` template and place this in `dashboard-custom/templates/panels/`.
+First we create a `dashboard-custom` folder in our root directory to house our dashboard customisation code. Next we create a copy of the `QuickLinksPanel.ss` template and place this in `dashboard-custom/templates/Plastyk/Dashboard/Panels/`.
 
-In our `dashboard-custom/templates/panels/QuickLinksPanel.ss` template we add the new links we want:
+In our `dashboard-custom/templates/Plastyk/Dashboard/Panels/QuickLinksPanel.ss` template we add the new links we want:
 
 ```html
 <div class="dashboard-panel quick-links-panel">
@@ -65,17 +65,22 @@ We can now see we have a link to the properties admin and a link to create a new
 
 We can improve on this code to check if the user has permission to view the properties section before displaying the buttons to the user.
 
-First we create a `QuickLinksPanelExtension.php` extension class in `dashboard-custom/code/extensions/`.
+First we create a `QuickLinksPanelExtension.php` extension class in `dashboard-custom/src/Extensions/`.
 
-In our `dashboard-custom/code/extensions/QuickLinksPanelExtension.php` class we call the `QuickLinksPanel` `updateData` hook to add in our permission check:
+In our `dashboard-custom/src/Extensions/QuickLinksPanelExtension.php` class we call the `QuickLinksPanel` `updateData` hook to add in our permission check:
 
 ```php
 <?php
+
+use SilverStripe\Core\Extension;
+use SilverStripe\Security\Permission;
+use SilverStripe\Security\Security;
+
 class QuickLinksPanelExtension extends Extension
 {
     public function updateData(&$data)
     {
-        $member = Member::currentUserID();
+        $member = Security::getCurrentUser();
 
         $data['CanViewProperties'] = Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') && class_exists('PropertiesAdmin');
         $data['CanView'] = $data['CanView'] || $data['CanViewProperties'];
@@ -90,7 +95,7 @@ We enable our extension by adding the following to our `dashboard-custom/_config
 Name: dashboard-custom
 After: '#dashboard'
 ---
-QuickLinksPanel:
+Plastyk\Dashboard\Panels\QuickLinksPanel:
   extensions:
     - QuickLinksPanelExtension
 ```

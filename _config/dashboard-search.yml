@@ -1,25 +1,24 @@
 ---
 Name: dashboard-search
-After: 'framework/*','cms/*'
 ---
-DashboardAdmin:
+Plastyk\Dashboard\Admin\DashboardAdmin:
   default_search_panels:
-    - DashboardSearchResultPagePanel
-    - DashboardSearchResultMemberPanel
-    - DashboardSearchResultFilePanel
+    - Plastyk\Dashboard\Search\DashboardSearchResultPagePanel
+    - Plastyk\Dashboard\Search\DashboardSearchResultMemberPanel
+    - Plastyk\Dashboard\Search\DashboardSearchResultFilePanel
   search_results_page_length: 10
 
 Page:
   dashboard_admin_link: 'admin/pages/edit/show/$ID/'
   extensions:
-    - DashboardSearchResultExtension
+    - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
 
-Member:
+SilverStripe\Security\Member:
   dashboard_admin_link: 'admin/security/EditForm/field/Members/item/$ID/edit/'
   extensions:
-    - DashboardSearchResultExtension
+    - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
 
-File:
+SilverStripe\Assets\File:
   dashboard_admin_link: 'admin/assets/EditForm/field/File/item/$ID/edit/'
   extensions:
-    - DashboardSearchResultExtension
+    - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension

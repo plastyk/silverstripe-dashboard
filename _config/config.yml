@@ -1,10 +1,17 @@
 ---
-Name: dashboard
-After: 'framework/*','cms/*'
+Name: dashboardconfig
+After:
+    - '#cmsdefaultadmin'
 ---
-AdminRootController:
-  default_panel: 'DashboardAdmin'
+SilverStripe\Admin\AdminRootController:
+  default_panel: Plastyk\Dashboard\Admin\DashboardAdmin
 
-DashboardAdmin:
+Plastyk\Dashboard\Admin\DashboardAdmin:
   extensions:
-    - DashboardSearchExtension
+    - Plastyk\Dashboard\Extensions\DashboardSearchExtension
+
+SilverStripe\Core\Injector\Injector:
+  Psr\SimpleCache\CacheInterface.plastykDashboardCache:
+    factory: SilverStripe\Core\Cache\CacheFactory
+    constructor:
+      namespace: "plastykDashboardCache"
