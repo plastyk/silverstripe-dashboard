@@ -19,8 +19,6 @@ Next we create a new PHP file `RecentlyEditedPropertiesPanel.php` in `dashboard-
 ```php
 <?php
 
-namespace Plastyk\Dashboard\Panels;
-
 use Plastyk\Dashboard\Model\DashboardPanel;
 use SilverStripe\Security\Permission;
 
@@ -57,7 +55,7 @@ In our `RecentlyEditedPropertiesPanel` class we have a `canView`, a `getData` an
 * `getData` fetches the results for the template.
 * `Results` returns a list of properties that have been edited in the last six months, limited to a maximum of eight results.
 
-Next we create a template for our custom panel. In `dashboard-custom/templates/Plastyk/Dashboard/Panels/` we create a `RecentlyEditedPropertiesPanel.ss` template with the following code:
+Next we create a template for our custom panel. In `dashboard-custom/templates/` we create a `RecentlyEditedPropertiesPanel.ss` template with the following code:
 
 ```html
 <div class="dashboard-panel">
@@ -92,7 +90,7 @@ Next we create a template for our custom panel. In `dashboard-custom/templates/P
 </div>
 ```
 
-Next we create a custom `DashboardPanels.ss` template to add our new panel to the dashboard. Copy the original `DashboardPanels.ss` to `dashboard-custom/templates/DashboardPanels.ss` and add `$showPanel(Plastyk\Dashboard\Panels\RecentlyEditedPropertiesPanel)` to where we want the new panel to display:
+Next we create a custom `DashboardPanels.ss` template to add our new panel to the dashboard. Copy the original `DashboardPanels.ss` to `dashboard-custom/templates/DashboardPanels.ss` and add `$showPanel(RecentlyEditedPropertiesPanel)` to where we want the new panel to display:
 
 ```html
 $showPanel(Plastyk\Dashboard\Panels\UpdatePanel)
@@ -112,10 +110,10 @@ $showPanel(Plastyk\Dashboard\Panels\UpdatePanel)
 		</div>
 	</div>
 
-	<% if $canViewPanel(Plastyk\Dashboard\Panels\RecentlyEditedPropertiesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\UsefulLinksPanel) %>
+	<% if $canViewPanel(RecentlyEditedPropertiesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\UsefulLinksPanel) %>
 	<div class="row">
 		<div class="col-4">
-			$showPanel(Plastyk\Dashboard\Panels\RecentlyEditedPropertiesPanel)
+			$showPanel(RecentlyEditedPropertiesPanel)
 		</div>
 		<div class="col-4">
 			$showPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel)
