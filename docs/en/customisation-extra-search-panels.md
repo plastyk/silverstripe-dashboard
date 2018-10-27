@@ -19,8 +19,6 @@ Next we create a new PHP file `DashboardSearchResultPropertyPanel.php` in `dashb
 ```php
 <?php
 
-namespace Plastyk\Dashboard\Search;
-
 use Plastyk\Dashboard\Model\DashboardSearchResultPanel;
 use SilverStripe\Security\Permission;
 
@@ -46,7 +44,7 @@ In our `DashboardSearchResultPropertyPanel` class we declare a `canView` functio
 * `$sort` sets the results to sort by `Title`.
 * `$exclusions` excludes properties with a `Title` of `Mordor`.
 
-Next we create a template for our custom search panel. In `dashboard-custom/templates/Plastyk/Dashboard/Search/` we create a `DashboardSearchResultPropertyPanel.ss` template with the following code:
+Next we create a template for our custom search panel. In `dashboard-custom/templates/` we create a `DashboardSearchResultPropertyPanel.ss` template with the following code:
 
 ```html
 <% if $Results %>
@@ -85,7 +83,7 @@ After: '#dashboard-search'
 ---
 Plastyk\Dashboard\Admin\DashboardAdmin:
   search_panels:
-    - Plastyk\Dashboard\Search\DashboardSearchResultPropertyPanel
+    - DashboardSearchResultPropertyPanel
 
 Property:
   dashboard_admin_link: 'admin/properties/Property/EditForm/field/Property/item/$ID/edit'
