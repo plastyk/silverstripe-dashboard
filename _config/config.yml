@@ -15,3 +15,4 @@ SilverStripe\Core\Injector\Injector:
     factory: SilverStripe\Core\Cache\CacheFactory
     constructor:
       namespace: "plastykDashboardCache"
+      defaultLifetime: 3600
