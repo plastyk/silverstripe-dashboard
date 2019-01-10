@@ -98,10 +98,12 @@ class DashboardSearchExtension extends Extension
                     && $item->FirstResult->config()->dashboard_automatic_search_redirect;
             })->first();
 
-            $searchResultCMSLink = $singleResultPanel->FirstResult->getSearchResultCMSLink();
+            if ($singleResultPanel) {
+                $searchResultCMSLink = $singleResultPanel->FirstResult->getSearchResultCMSLink();
 
-            if ($singleResultPanel && $searchResultCMSLink) {
-                return $this->owner->redirect($searchResultCMSLink);
+                if ($searchResultCMSLink) {
+                    return $this->owner->redirect($searchResultCMSLink);
+                }
             }
         }
 
