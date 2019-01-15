@@ -31,6 +31,8 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
 CSS
             );
         }
+
+        $this->extend('updateInit');
     }
 
     public function providePermissions()
