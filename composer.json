@@ -33,6 +33,11 @@
         "phpunit/phpunit": "^5.7",
         "squizlabs/php_codesniffer": "*"
     },
+    "autoload": {
+        "psr-4": {
+            "Plastyk\\Dashboard\\": "src/"
+        }
+    },
     "scripts": {
         "lint": "vendor/bin/phpcs src/ tests/",
         "lint-clean": "vendor/bin/phpcbf src/ tests/"
