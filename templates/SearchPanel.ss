@@ -19,13 +19,13 @@
     	<% if $SearchResultPanels %>
     		<% loop $SearchResultPanels %>
     		<% if $Panel %>
-    			<div class="col-4">
+    			<div class="col-xl-4">
     				$Panel
     			</div>
     		<% end_if %>
     		<% end_loop %>
     	<% else %>
-    	<div class="col-4">
+    	<div class="col-xl-4">
     		<div class="dashboard-panel">
     			<p><% _t('SearchPanel.NORESULTS', 'Sorry, no results found.') %></p>
     		</div>

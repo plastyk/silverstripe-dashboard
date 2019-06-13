@@ -19,13 +19,13 @@ $showPanel(Plastyk\Dashboard\Panels\UpdatePanel)
 
 	<% if $canViewPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\RecentlyCreatedPagesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\UsefulLinksPanel) %>
 	<div class="row">
-		<div class="col-4">
+		<div class="col-xl-4">
 			$showPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel)
 		</div>
-		<div class="col-4">
+		<div class="col-xl-4">
 			$showPanel(Plastyk\Dashboard\Panels\RecentlyCreatedPagesPanel)
 		</div>
-		<div class="col-4">
+		<div class="col-xl-4">
 			$showPanel(Plastyk\Dashboard\Panels\UsefulLinksPanel)
 		</div>
 	</div>
