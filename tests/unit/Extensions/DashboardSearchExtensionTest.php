@@ -30,7 +30,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->assertContains('Searching for Pages, Members &amp; Files', $dashboardPage->getBody());
 
         $page1 = \Page::create([
-            'Title' => 'Women\'s rights',
+            'Title' => 'rights of women',
         ]);
         $page1->write();
 
