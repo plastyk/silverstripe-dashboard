@@ -3,8 +3,8 @@
 namespace Plastyk\Dashboard\Search;
 
 use Plastyk\Dashboard\Model\DashboardSearchResultPanel;
-use SilverStripe\Security\Permission;
 use SilverStripe\Security\Member;
+use SilverStripe\Security\Permission;
 
 class DashboardSearchResultMemberPanel extends DashboardSearchResultPanel
 {

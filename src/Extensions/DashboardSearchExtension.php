@@ -19,7 +19,7 @@ use SilverStripe\View\Requirements;
 class DashboardSearchExtension extends Extension
 {
     private static $allowed_actions = [
-        'DashboardSearchForm'
+        'DashboardSearchForm',
     ];
 
     public function DashboardSearchForm()
@@ -65,13 +65,14 @@ class DashboardSearchExtension extends Extension
         }
 
         $data = [
-            'SearchValue' => Convert::html2raw($searchValue)
+            'SearchValue' => Convert::html2raw($searchValue),
         ];
 
         if (!$searchValue) {
             if (Director::is_ajax()) {
                 return $this->owner->renderWith('Includes/DashboardContent');
             }
+
             return $this->owner;
         }
 
@@ -80,6 +81,7 @@ class DashboardSearchExtension extends Extension
             if ($searchPanel) {
                 return $searchPanel->Panel;
             }
+
             return false;
         }
 
@@ -120,7 +122,7 @@ class DashboardSearchExtension extends Extension
         $data['SearchResultPanels'] = $searchResultPanels->exclude('ResultCount', 0);
         $this->owner->customise($data);
         $this->owner->customise([
-            'DashboardPanels' => $this->owner->renderWith('SearchPanel')
+            'DashboardPanels' => $this->owner->renderWith('SearchPanel'),
         ]);
 
         if (Director::is_ajax()) {
@@ -148,7 +150,7 @@ class DashboardSearchExtension extends Extension
             'SearchName' => $searchPanel->getPluralName(),
             'ResultCount' => $results->count(),
             'FirstResult' => $results->first(),
-            'Panel' => $searchPanel->forTemplate($paginationStart)
+            'Panel' => $searchPanel->forTemplate($paginationStart),
         ]);
     }
 }

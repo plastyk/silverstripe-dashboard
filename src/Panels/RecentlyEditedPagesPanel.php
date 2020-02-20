@@ -4,7 +4,6 @@ namespace Plastyk\Dashboard\Panels;
 
 use Plastyk\Dashboard\Model\DashboardPanel;
 use SilverStripe\Security\Permission;
-use SilverStripe\View\Requirements;
 
 class RecentlyEditedPagesPanel extends DashboardPanel
 {
@@ -27,7 +26,7 @@ class RecentlyEditedPagesPanel extends DashboardPanel
     public function getResults()
     {
         return \Page::get()->filter([
-            'LastEdited:GreaterThan' => date('c', strtotime('-6 months'))
+            'LastEdited:GreaterThan' => date('c', strtotime('-6 months')),
         ])->sort('LastEdited DESC')->limit(8);
     }
 }

@@ -4,7 +4,6 @@ namespace Plastyk\Dashboard\Panels;
 
 use Plastyk\Dashboard\Model\DashboardPanel;
 use SilverStripe\Security\Permission;
-use SilverStripe\View\Requirements;
 
 class RecentlyCreatedPagesPanel extends DashboardPanel
 {
@@ -27,7 +26,7 @@ class RecentlyCreatedPagesPanel extends DashboardPanel
     public function getResults()
     {
         return \Page::get()->filter([
-            'Created:GreaterThan' => date('c', strtotime('-6 months'))
+            'Created:GreaterThan' => date('c', strtotime('-6 months')),
         ])->sort('Created DESC')->limit(8);
     }
 }

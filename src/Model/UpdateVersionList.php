@@ -23,17 +23,19 @@ class UpdateVersionList extends ArrayList
     {
         $args = [
             'Minor' => 0,
-            'Patch' => 0
+            'Patch' => 0,
         ];
         if (!$includePreRelease) {
             $args['PreRelease'] = false;
         }
+
         return $this->filter($args);
     }
 
     public function hasNewerVersion($version)
     {
         $result = $this->filterNewerVersions($version);
+
         return $result->count() > 0;
     }
 
@@ -45,6 +47,7 @@ class UpdateVersionList extends ArrayList
         $result = $this->filterByCallback(function ($item) use ($version) {
             return $item->VersionCode > $version->VersionCode;
         });
+
         return $result;
     }
 
@@ -52,7 +55,7 @@ class UpdateVersionList extends ArrayList
     {
         return $this->sort([
             'VersionCode' => $direction,
-            'ReleaseDate' => $direction
+            'ReleaseDate' => $direction,
         ]);
     }
 
@@ -62,6 +65,7 @@ class UpdateVersionList extends ArrayList
         $result = $versionListCache->get('PackagistVersions');
         if ($result) {
             $result = json_decode($result);
+
             return UpdateVersionList::create($result);
         }
 
@@ -90,6 +94,7 @@ class UpdateVersionList extends ArrayList
         }
 
         $versionListCache->set('PackagistVersions', json_encode($result));
+
         return UpdateVersionList::create($result);
     }
 }

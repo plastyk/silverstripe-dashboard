@@ -4,13 +4,12 @@ namespace Plastyk\Dashboard\Model;
 
 use Plastyk\Dashboard\Admin\DashboardAdmin;
 use SilverStripe\Core\ClassInfo;
-use SilverStripe\Core\Convert;
 use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Convert;
 use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\PaginatedList;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
@@ -70,6 +69,7 @@ abstract class DashboardSearchResultPanel
         if (method_exists($searchResultClass, $nameType)) {
             return $searchResultClass->$nameType();
         }
+
         return false;
     }
 
@@ -83,7 +83,7 @@ abstract class DashboardSearchResultPanel
         $data = [
             'ClassName' => $this->getClassName(),
             'PanelClassName' => str_replace('\\', '-', $class),
-            'Results' => $this->getPaginatedResults($paginationStart)
+            'Results' => $this->getPaginatedResults($paginationStart),
         ];
 
         return $template->process($this->controller, $data);
@@ -94,6 +94,7 @@ abstract class DashboardSearchResultPanel
         if (!$this->results) {
             return ArrayList::create();
         }
+
         return $this->results;
     }
 
@@ -103,6 +104,7 @@ abstract class DashboardSearchResultPanel
         $paginatedResults = new PaginatedList($this->getResults(), [$paginationStartLabel => $paginationStart]);
         $paginatedResults->setPagelength(DashboardAdmin::config()->search_results_page_length);
         $paginatedResults->setPaginationGetVar($paginationStartLabel);
+
         return $paginatedResults;
     }
 
@@ -115,7 +117,7 @@ abstract class DashboardSearchResultPanel
         // Get the where-clause template for the search fields
         $searchWhereFields = [];
         foreach ($this->searchFields as $searchField) {
-            $searchWhereFields[] = "\"" . $searchField . "\" LIKE '%[search-string]%'";
+            $searchWhereFields[] = '"' . $searchField . "\" LIKE '%[search-string]%'";
         }
         $searchWhereFieldsTemplate = implode(' OR ', $searchWhereFields);
         $searchExactMatch = str_replace('[search-string]', $searchValue, $searchWhereFieldsTemplate);
@@ -140,7 +142,7 @@ abstract class DashboardSearchResultPanel
             $likeItems = $className::get()->where($searchWordMatch)
                 ->exclude($this->exclusions)
                 ->exclude([
-                    'ID' => $exactItems->column('ID')
+                    'ID' => $exactItems->column('ID'),
                 ])
                 ->sort($this->sort);
         } else {
@@ -154,6 +156,7 @@ abstract class DashboardSearchResultPanel
 
         $exactItems->merge($likeItems);
         $this->results = $exactItems;
+
         return $this->results;
     }
 }

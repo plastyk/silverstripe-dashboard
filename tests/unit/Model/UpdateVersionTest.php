@@ -20,6 +20,12 @@ class UpdateVersionTest extends SapphireTest
 
         $this->assertFalse(UpdateVersion::getVersionDifference('3.6.0', '3.6.0'));
         $this->assertFalse(UpdateVersion::getVersionDifference('4.0.0', '3.6.0'));
+
+        $currentVersion = UpdateVersion::fromVersionString('4.5.1');
+        $newVersion = UpdateVersion::fromVersionString('4.5.1');
+
+        $currentVersion->VersionCode = $newVersion->VersionCode - 1;
+        $this->assertFalse(UpdateVersion::getVersionDifference($currentVersion, $newVersion));
     }
 
     public function testFromVersionString()
