@@ -115,7 +115,7 @@ abstract class DashboardSearchResultPanel
         // Get the where-clause template for the search fields
         $searchWhereFields = [];
         foreach ($this->searchFields as $searchField) {
-            $searchWhereFields[] = $searchField . " LIKE '%[search-string]%'";
+            $searchWhereFields[] = "\"" . $searchField . "\" LIKE '%[search-string]%'";
         }
         $searchWhereFieldsTemplate = implode(' OR ', $searchWhereFields);
         $searchExactMatch = str_replace('[search-string]', $searchValue, $searchWhereFieldsTemplate);
