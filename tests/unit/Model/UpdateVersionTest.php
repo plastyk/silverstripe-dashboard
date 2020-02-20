@@ -7,7 +7,7 @@ use SilverStripe\Dev\SapphireTest;
 
 class UpdateVersionTest extends SapphireTest
 {
-    public function testVersionDifference()
+    public function testGetVersionDifference()
     {
         $this->assertEquals('major', UpdateVersion::getVersionDifference('3.0.0', '4.0.0'));
         $this->assertEquals('major', UpdateVersion::getVersionDifference('3.1.0', '4.5.0'));
@@ -22,7 +22,7 @@ class UpdateVersionTest extends SapphireTest
         $this->assertFalse(UpdateVersion::getVersionDifference('4.0.0', '3.6.0'));
     }
 
-    public function testVersionFromString()
+    public function testFromVersionString()
     {
         $version = UpdateVersion::fromVersionString('0.1.0');
         $this->assertEquals(0, $version->Major);
