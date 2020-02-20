@@ -21,6 +21,9 @@ matrix:
     - php: 7.2
       env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1
 
+services:
+  - mysql
+
 before_script:
   - phpenv rehash
   - phpenv config-rm xdebug.ini
