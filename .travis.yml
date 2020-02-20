@@ -23,7 +23,7 @@ matrix:
 
 services:
   - mysql
-  - pgsql
+  - postgresql
 
 before_script:
   - phpenv rehash
