@@ -7,6 +7,23 @@ use SilverStripe\Dev\SapphireTest;
 
 class UpdateVersionListTest extends SapphireTest
 {
+    public function testFilterMajorReleases()
+    {
+        $versionList = UpdateVersionList::create([
+            '3.0.0',
+            '3.6.0',
+            '4.0.0',
+            '4.0.1',
+            '4.5.1',
+        ]);
+
+        $this->assertEquals(5, $versionList->count());
+
+        $versionList = $versionList->filterMajorReleases();
+
+        $this->assertEquals(2, $versionList->count());
+    }
+
     public function testHasNewerVersion()
     {
         $versionList = UpdateVersionList::create(['4.0.0']);
