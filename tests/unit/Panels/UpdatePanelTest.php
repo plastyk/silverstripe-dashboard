@@ -22,8 +22,6 @@ class UpdatePanelTest extends SapphireTest
     {
         $updatePanel = UpdatePanel::singleton();
 
-        $this->assertTrue($updatePanel->canView());
-
         $nonPermittedUser = $this->objFromFixture(Member::class, 'user2');
         $this->logInAs($nonPermittedUser);
 
