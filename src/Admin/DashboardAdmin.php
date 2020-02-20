@@ -3,7 +3,6 @@
 namespace Plastyk\Dashboard\Admin;
 
 use SilverStripe\Admin\LeftAndMain;
-use SilverStripe\Security\Permission;
 use SilverStripe\Security\PermissionProvider;
 use SilverStripe\View\Requirements;
 
@@ -38,12 +37,13 @@ CSS
     public function providePermissions()
     {
         $title = _t('DashboardAdmin.MENUTITLE', LeftAndMain::menu_title_for_class('DashboardAdmin'));
+
         return [
             'CMS_ACCESS_DASHBOARDADMIN' => [
                 'name' => _t('CMSMain.ACCESS', "Access to '{title}' section", 'Permissions Label', ['title' => $title]),
                 'category' => $title,
-                'help' => 'Allow use of the CMS Dashboard'
-            ]
+                'help' => 'Allow use of the CMS Dashboard',
+            ],
         ];
     }
 
@@ -61,6 +61,7 @@ CSS
     {
         if (class_exists($panelName)) {
             $panel = new $panelName($this);
+
             return $panel->canView();
         }
 
@@ -77,6 +78,7 @@ CSS
         if ($panel->canView()) {
             return $panel->forTemplate();
         }
+
         return false;
     }
 }

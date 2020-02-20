@@ -2,12 +2,14 @@
 
 namespace Plastyk\Dashboard\Panels;
 
+use \DateTime;
 use Plastyk\Dashboard\Admin\DashboardAdmin;
 use Plastyk\Dashboard\Model\DashboardPanel;
 use Plastyk\Dashboard\Model\UpdateVersion;
 use Plastyk\Dashboard\Model\UpdateVersionList;
 use Psr\SimpleCache\CacheInterface;
 use SilverStripe\Core\Injector\Injector;
+use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Security\Permission;
 use SilverStripe\View\Requirements;
@@ -20,9 +22,11 @@ class UpdatePanel extends DashboardPanel
             $currentVersion = $this->getCurrentSilverStripeVersion();
             if (!$currentVersion->PreRelease) {
                 $versions = $this->getSilverStripeVersions()->filterNewerVersions($currentVersion);
+
                 return $versions->hasNewerVersion($currentVersion);
             }
         }
+
         return false;
     }
 
@@ -85,18 +89,20 @@ class UpdatePanel extends DashboardPanel
             foreach ($versions as $version) {
                 if (strpos($version, 'CMS: ') !== false) {
                     $result = substr($version, 5);
+
                     break;
                 }
             }
         }
         $updatePanelCache->set('CurrentSilverStripeVersion', $result);
+
         return UpdateVersion::fromVersionString($result);
     }
 
     protected function getSilverStripeVersions()
     {
         $versions = UpdateVersionList::getPackagistVersions()->filter([
-            'PreRelease' => false
+            'PreRelease' => false,
         ])->sortByVersion('DESC');
 
         $ignoreMajorUpdates = UpdatePanel::config()->ignore_major_updates;
@@ -107,14 +113,16 @@ class UpdatePanel extends DashboardPanel
                     $versions = $versions->filter(['Major' => $currentVersion->Major]);
                 }
             } elseif (is_string($ignoreMajorUpdates) && strtotime($ignoreMajorUpdates)) {
-                $currentTime = new DateTime(SS_DateTime::now()->Value);
+                $currentTime = new DateTime(DBDatetime::now()->Value);
                 $versions = $versions->filterByCallback(
                     function ($item) use ($currentTime, $currentVersion, $ignoreMajorUpdates) {
                         if ($item->Major > $currentVersion->Major) {
                             $releaseDate = new DateTime($item->ReleaseDate);
                             $waitAfterRelease = $releaseDate->modify($ignoreMajorUpdates);
+
                             return $currentTime > $waitAfterRelease;
                         }
+
                         return true;
                     }
                 );

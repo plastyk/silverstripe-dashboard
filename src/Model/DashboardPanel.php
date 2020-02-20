@@ -6,10 +6,8 @@ use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
-use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Permission;
 use SilverStripe\View\ArrayData;
-use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
 
 abstract class DashboardPanel
