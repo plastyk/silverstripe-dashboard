@@ -42,6 +42,14 @@ class DashboardSearchResultPanelTest extends SapphireTest
         $dashboardSearchResultPagePanel = DashboardSearchResultPagePanel::singleton();
 
         $this->assertEquals('Page', $dashboardSearchResultPagePanel->getSingularName());
+
+        $dashboardSearchResultFakeDataObjectPanel = DashboardSearchResultFakeDataObjectPanel::singleton();
+
+        $this->assertEquals('Fake', $dashboardSearchResultFakeDataObjectPanel->getSingularName());
+
+        $dashboardSearchResultFakeDataObjectPanel = DashboardSearchResultFakeObjectPanel::singleton();
+
+        $this->assertFalse($dashboardSearchResultFakeDataObjectPanel->getSingularName());
     }
 
     public function testGetPluralName()
@@ -49,6 +57,14 @@ class DashboardSearchResultPanelTest extends SapphireTest
         $dashboardSearchResultPagePanel = DashboardSearchResultPagePanel::singleton();
 
         $this->assertEquals('Pages', $dashboardSearchResultPagePanel->getPluralName());
+
+        $dashboardSearchResultFakeDataObjectPanel = DashboardSearchResultFakeDataObjectPanel::singleton();
+
+        $this->assertEquals('Fakes', $dashboardSearchResultFakeDataObjectPanel->getPluralName());
+
+        $dashboardSearchResultFakeDataObjectPanel = DashboardSearchResultFakeObjectPanel::singleton();
+
+        $this->assertFalse($dashboardSearchResultFakeDataObjectPanel->getPluralName());
     }
 
     public function testForTemplate()

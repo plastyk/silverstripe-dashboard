@@ -63,9 +63,6 @@ abstract class DashboardSearchResultPanel
 
         $searchResultClass = Injector::inst()->get($this->getClassName());
 
-        if (property_exists($searchResultClass, $nameType) && $searchResultClass->$nameType) {
-            return $searchResultClass->$nameType;
-        }
         if (method_exists($searchResultClass, $nameType)) {
             return $searchResultClass->$nameType();
         }
