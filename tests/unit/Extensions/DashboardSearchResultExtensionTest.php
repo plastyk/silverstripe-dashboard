@@ -27,5 +27,12 @@ class DashboardSearchResultExtensionTest extends SapphireTest
             'admin/fake-data-objects/fake-data-object/edit/' . $fakeDataObject1->ID . '/',
             $fakeDataObject1->getSearchResultCMSLink()
         );
+
+        $this->assertEquals(
+            'admin/fake-data-objects/fake-data-object/edit/' . $fakeDataObject2->ID . '/',
+            $fakeDataObject2->getSearchResultCMSLink()
+        );
+
+        FakeDataObject::config()->remove('dashboard_admin_link');
     }
 }
