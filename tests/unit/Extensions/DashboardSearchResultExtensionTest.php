@@ -10,7 +10,7 @@ class DashboardSearchResultExtensionTest extends SapphireTest
 
     protected static $fixture_file = '../../fixtures/DashboardAdminTest.yml';
 
-    public function testDoDashboardSearch()
+    public function testGetSearchResultCMSLink()
     {
         FakeDataObject::config()->set(
             'dashboard_admin_link',
