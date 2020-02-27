@@ -142,7 +142,8 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->assertEquals('SilverStripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(DashboardAdmin::class, $dashboardPage->getHeader('x-controller'));
 
-        $page2->delete();
+        $page2->Title = 'Climate Crisis';
+        $page2->write();
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
@@ -150,8 +151,8 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->assertEquals(CMSPageEditController::class, $dashboardPage->getHeader('x-controller'));
 
         $file1 = File::create([
-            'Title' => 'Women and men',
-            'Name' => 'Women and men',
+            'Title' => 'Men and women',
+            'Name' => 'Men and women',
         ]);
         $file1->write();
 
