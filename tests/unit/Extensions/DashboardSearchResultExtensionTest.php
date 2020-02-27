@@ -19,5 +19,13 @@ class DashboardSearchResultExtensionTest extends SapphireTest
 
         $fakeDataObject1 = FakeDataObject::create();
         $fakeDataObject1->write();
+
+        $fakeDataObject2 = FakeDataObject::create();
+        $fakeDataObject2->write();
+
+        $this->assertEquals(
+            'admin/fake-data-objects/fake-data-object/edit/' . $fakeDataObject1->ID . '/',
+            $fakeDataObject1->getSearchResultCMSLink()
+        );
     }
 }
