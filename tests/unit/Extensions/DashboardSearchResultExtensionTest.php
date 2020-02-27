@@ -34,5 +34,7 @@ class DashboardSearchResultExtensionTest extends SapphireTest
         );
 
         FakeDataObject::config()->remove('dashboard_admin_link');
+
+        $this->assertEquals('', $fakeDataObject1->getSearchResultCMSLink());
     }
 }
