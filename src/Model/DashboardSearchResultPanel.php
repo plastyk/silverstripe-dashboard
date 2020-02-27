@@ -107,14 +107,14 @@ abstract class DashboardSearchResultPanel
 
     public function performSearch($searchValue)
     {
-        $searchValue = Convert::raw2sql($searchValue);
+        $searchValue = Convert::raw2sql(strtolower($searchValue));
         $className = $this->getClassName();
         $member = Security::getCurrentUser();
 
         // Get the where-clause template for the search fields
         $searchWhereFields = [];
         foreach ($this->searchFields as $searchField) {
-            $searchWhereFields[] = '"' . $searchField . "\" LIKE '%[search-string]%'";
+            $searchWhereFields[] = 'LOWER("' . $searchField . "\") LIKE '%[search-string]%'";
         }
         $searchWhereFieldsTemplate = implode(' OR ', $searchWhereFields);
         $searchExactMatch = str_replace('[search-string]', $searchValue, $searchWhereFieldsTemplate);

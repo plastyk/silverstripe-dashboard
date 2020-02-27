@@ -133,6 +133,10 @@ class DashboardSearchResultPanelTest extends SapphireTest
 
         $this->assertEquals(1, $searchResults->count());
 
+        $searchResults = $dashboardSearchResultPagePanel->performSearch('FEMINISM');
+
+        $this->assertEquals(1, $searchResults->count());
+
         $searchResults = $dashboardSearchResultPagePanel->performSearch('Patriarchy');
 
         $this->assertEquals(0, $searchResults->count());

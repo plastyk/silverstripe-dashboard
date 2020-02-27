@@ -31,7 +31,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->assertContains('Searching for Pages, Members &amp; Files', $dashboardPage->getBody());
 
         $page1 = \Page::create([
-            'Title' => 'Rights of women',
+            'Title' => 'Women\s rights',
         ]);
         $page1->write();
 
@@ -51,7 +51,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->logInWithPermission('ADMIN');
 
         $page1 = \Page::create([
-            'Title' => 'Rights of women',
+            'Title' => 'Women\s rights',
         ]);
         $page1->write();
 
@@ -70,7 +70,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->logInWithPermission('ADMIN');
 
         $page1 = \Page::create([
-            'Title' => 'Rights of women',
+            'Title' => 'Women\s rights',
         ]);
         $page1->write();
 
@@ -92,7 +92,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->logInWithPermission('ADMIN');
 
         $page1 = \Page::create([
-            'Title' => 'Rights of women',
+            'Title' => 'Women\s rights',
         ]);
         $page1->write();
 
@@ -116,7 +116,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->logInWithPermission('ADMIN');
 
         $page1 = \Page::create([
-            'Title' => 'Rights of women',
+            'Title' => 'Women\s rights',
         ]);
         $page1->write();
 
@@ -151,8 +151,8 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->assertEquals(CMSPageEditController::class, $dashboardPage->getHeader('x-controller'));
 
         $file1 = File::create([
-            'Title' => 'Men and women',
-            'Name' => 'Men and women',
+            'Title' => 'Women and men',
+            'Name' => 'Women and men',
         ]);
         $file1->write();
 
@@ -169,7 +169,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->logInWithPermission('ADMIN');
 
         $page1 = \Page::create([
-            'Title' => 'Rights of women',
+            'Title' => 'Women\s rights',
         ]);
         $page1->write();
 
