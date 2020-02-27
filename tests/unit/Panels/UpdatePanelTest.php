@@ -110,12 +110,9 @@ class UpdatePanelTest extends SapphireTest
 
         $currentSilverStripeVersion = $updatePanel->getCurrentSilverStripeVersion();
 
-        $this->assertContains('.', $currentSilverStripeVersion->FullVersion);
-        $this->assertEquals(
-            $currentSilverStripeVersion->FullVersion,
-            $currentSilverStripeVersion->Major . '.' .
-                $currentSilverStripeVersion->Minor . '.' .
-                $currentSilverStripeVersion->Patch
+        $this->assertContains(
+            $currentSilverStripeVersion->Major . '.',
+            $currentSilverStripeVersion->FullVersion
         );
     }
 
