@@ -26,13 +26,6 @@ class DashboardAdminTest extends SapphireTest
         $this->assertFalse($dashboardAdmin->canView());
     }
 
-    public function testInit()
-    {
-        $dashboardAdmin = DashboardAdmin::singleton();
-
-        $dashboardAdmin->init();
-    }
-
     public function testProvidePermissions()
     {
         $dashboardAdmin = DashboardAdmin::singleton();
