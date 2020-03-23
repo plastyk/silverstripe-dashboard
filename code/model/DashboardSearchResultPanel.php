@@ -46,7 +46,7 @@ abstract class DashboardSearchResultPanel extends SS_Object
         if ($this->$nameType) {
             return $this->$nameType;
         }
-        $searchResultClass = Object::singleton($this->getClassName());
+        $searchResultClass = SS_Object::singleton($this->getClassName());
         if (method_exists($searchResultClass, $nameType)) {
             return $searchResultClass->$nameType();
         }
