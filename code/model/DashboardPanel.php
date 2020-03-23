@@ -1,6 +1,6 @@
 <?php
 
-abstract class DashboardPanel extends Object
+abstract class DashboardPanel extends SS_Object
 {
     protected $controller;
 

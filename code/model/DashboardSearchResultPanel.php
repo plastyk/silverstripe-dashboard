@@ -1,6 +1,6 @@
 <?php
 
-abstract class DashboardSearchResultPanel extends Object
+abstract class DashboardSearchResultPanel extends SS_Object
 {
     protected $controller;
     protected $className;
