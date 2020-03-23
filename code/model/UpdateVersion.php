@@ -1,6 +1,6 @@
 <?php
 
-class UpdateVersion extends Object
+class UpdateVersion extends SS_Object
 {
     public $FullVersion = null;
     public $VersionCode = 16777215;
