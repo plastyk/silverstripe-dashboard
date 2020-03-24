@@ -18,7 +18,7 @@ matrix:
     - php: 7.1
       env: DB=MYSQL CORE_RELEASE=3.7
     - php: 7.2
-      env: DB=MYSQL CORE_RELEASE=3.x-dev
+      env: DB=MYSQL CORE_RELEASE=3
 
 services:
   - mysql
