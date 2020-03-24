@@ -34,7 +34,7 @@ before_script:
   - echo 'memory_limit=2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
   - composer validate
-  - composer require --no-update silverstripe/cms:$SILVERSTRIPE_VERSION
+  - composer require --no-update silverstripe/installer:$SILVERSTRIPE_VERSION
   - composer require --no-update phpunit/phpunit:3.7
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:1.2.1; fi
   - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
