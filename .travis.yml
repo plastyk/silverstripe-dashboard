@@ -10,8 +10,10 @@ matrix:
       dist: precise
       env: DB=MYSQL SILVERSTRIPE_VERSION=3.2 PHPUNIT_TEST=1
     - php: 5.4
+      dist: trusty
       env: DB=MYSQL SILVERSTRIPE_VERSION=3.3 PHPUNIT_TEST=1
     - php: 5.5
+      dist: trusty
       env: DB=PGSQL SILVERSTRIPE_VERSION=3.4 PHPUNIT_TEST=1
     - php: 5.6
       env: DB=MYSQL SILVERSTRIPE_VERSION=3.5 PHPUNIT_TEST=1
