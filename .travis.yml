@@ -7,6 +7,7 @@ env:
 matrix:
   include:
     - php: 5.3
+      dist: precise
       env: DB=MYSQL SILVERSTRIPE_VERSION=3.2 PHPUNIT_TEST=1
     - php: 5.5
       env: DB=MYSQL SILVERSTRIPE_VERSION=3.4 PHPUNIT_TEST=1
