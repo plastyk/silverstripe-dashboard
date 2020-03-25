@@ -26,7 +26,7 @@ class RecentlyEditedPropertiesPanel extends DashboardPanel
 {
     public function canView($member = null)
     {
-        if (!Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') || !class_exists('Property')) {
+        if (!Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') || !class_exists(Property::class)) {
             return false;
         }
 
