@@ -3,6 +3,7 @@
 namespace Plastyk\Dashboard\Search;
 
 use Plastyk\Dashboard\Model\DashboardSearchResultPanel;
+use SilverStripe\AssetAdmin\Controller\AssetAdmin;
 use SilverStripe\Assets\File;
 use SilverStripe\Security\Permission;
 
@@ -16,7 +17,7 @@ class DashboardSearchResultFilePanel extends DashboardSearchResultPanel
     public function canView($member = null)
     {
         return Permission::checkMember($member, 'CMS_ACCESS_AssetAdmin')
-            && class_exists('SilverStripe\AssetAdmin\Controller\AssetAdmin')
+            && class_exists(AssetAdmin::class)
             && parent::canView($member);
     }
 }

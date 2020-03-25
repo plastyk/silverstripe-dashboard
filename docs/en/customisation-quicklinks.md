@@ -82,7 +82,7 @@ class QuickLinksPanelExtension extends Extension
     {
         $member = Security::getCurrentUser();
 
-        $data['CanViewProperties'] = Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') && class_exists('PropertiesAdmin');
+        $data['CanViewProperties'] = Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') && class_exists(PropertiesAdmin::class);
         $data['CanView'] = $data['CanView'] || $data['CanViewProperties'];
     }
 }
