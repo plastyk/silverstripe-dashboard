@@ -8,7 +8,9 @@ use Plastyk\Dashboard\Model\DashboardPanel;
 use Plastyk\Dashboard\Model\UpdateVersion;
 use Plastyk\Dashboard\Model\UpdateVersionList;
 use Psr\SimpleCache\CacheInterface;
+use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Core\Manifest\VersionProvider;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Security\Permission;
@@ -83,17 +85,16 @@ class UpdatePanel extends DashboardPanel
             return UpdateVersion::fromVersionString($updatePanelCache->get('CurrentSilverStripeVersion'));
         }
 
-        $result = false;
-        $versions = explode(', ', Injector::inst()->get('SilverStripe\Admin\LeftAndMain')->CMSVersion());
-        if (!empty($versions)) {
-            foreach ($versions as $version) {
-                if (strpos($version, 'CMS: ') !== false) {
-                    $result = substr($version, 5);
+        $versions = Injector::inst()->get(VersionProvider::class)->getModuleVersionFromComposer([
+            'silverstripe/framework',
+        ]);
 
-                    break;
-                }
-            }
+        $result = Injector::inst()->get(LeftAndMain::class)->CMSVersionNumber();
+
+        if (isset($versions['silverstripe/framework'])) {
+            $result = $versions['silverstripe/framework'];
         }
+
         $updatePanelCache->set('CurrentSilverStripeVersion', $result);
 
         return UpdateVersion::fromVersionString($result);
