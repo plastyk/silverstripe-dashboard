@@ -89,15 +89,15 @@ class UpdatePanel extends DashboardPanel
             'silverstripe/framework',
         ]);
 
-        $result = Injector::inst()->get(LeftAndMain::class)->CMSVersionNumber();
+        $currentVersionNumber = '';
 
         if (isset($versions['silverstripe/framework'])) {
-            $result = $versions['silverstripe/framework'];
+            $currentVersionNumber = $versions['silverstripe/framework'];
         }
 
-        $updatePanelCache->set('CurrentSilverStripeVersion', $result);
+        $updatePanelCache->set('CurrentSilverStripeVersion', $currentVersionNumber);
 
-        return UpdateVersion::fromVersionString($result);
+        return UpdateVersion::fromVersionString($currentVersionNumber);
     }
 
     protected function getSilverStripeVersions()
