@@ -9,7 +9,7 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
     public function init()
     {
         parent::init();
-        Requirements::css('https://use.fontawesome.com/releases/v5.0.6/css/all.css');
+        Requirements::css('https://use.fontawesome.com/releases/v5.13.1/css/all.css');
         Requirements::css(DASHBOARD_ADMIN_DIR . '/css/grid.css');
         Requirements::css(DASHBOARD_ADMIN_DIR . '/css/dashboard.css');
         Requirements::javascript(DASHBOARD_ADMIN_DIR . '/javascript/dashboard.js');
