@@ -8,7 +8,6 @@ use Plastyk\Dashboard\Model\DashboardPanel;
 use Plastyk\Dashboard\Model\UpdateVersion;
 use Plastyk\Dashboard\Model\UpdateVersionList;
 use Psr\SimpleCache\CacheInterface;
-use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Core\Manifest\VersionProvider;
 use SilverStripe\ORM\FieldType\DBDatetime;
