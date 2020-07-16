@@ -5,7 +5,7 @@ namespace Plastyk\Dashboard\Tests;
 use Plastyk\Dashboard\Admin\DashboardAdmin;
 use Plastyk\Dashboard\Panels\UpdatePanel;
 use Psr\SimpleCache\CacheInterface;
-use Silvertripe\Core\Injector\Injector;
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Security\Member;
 
