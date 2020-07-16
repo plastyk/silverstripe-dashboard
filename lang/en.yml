@@ -32,7 +32,7 @@ en:
     MAJORVERSIONMESSAGE: 'The available update is a major version update. A major version update consists of:'
     MINORVERSIONMESSAGE: 'The available update is a minor version update. A minor version update consists of:'
     NEWFEATURES: 'New features and enhancements'
-    NEWSILVERSTRIPEUPDATESAVAILABLE: 'New SilverStripe CMS updates are available.'
+    NEWSILVERSTRIPEUPDATESAVAILABLE: 'New Silverstripe CMS updates are available.'
     READMORE: 'Read more'
     SECURITYPATCHES: 'Security patches'
     SECURITYVERSIONMESSAGE: 'The available update is a security release. A security release consists of:'

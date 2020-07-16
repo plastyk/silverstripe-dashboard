@@ -12,7 +12,7 @@ In this example we will create a search panel that searches for `Property` items
 
 Say we have a custom `DataObject` named `Property`. We would like to search for properties through the dashboard.
 
-First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside `dashboard-custom`.
+First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by Silverstripe we must create a `_config` directory inside `dashboard-custom`.
 
 Next we create a new PHP file `DashboardSearchResultPropertyPanel.php` in `dashboard-custom/src/Search/`. In our `dashboard-custom/src/Search/DashboardSearchResultPropertyPanel.php` file we create a `DashboardSearchResultPropertyPanel` class, which extends `DashboardSearchResultPanel`:
 
@@ -32,7 +32,7 @@ class DashboardSearchResultPropertyPanel extends DashboardSearchResultPanel
     public function canView($member = null)
     {
         return Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin')
-            && class_exists(PropertiesAdmin::class) 
+            && class_exists(PropertiesAdmin::class)
             && parent::canView($member);
     }
 }
@@ -93,7 +93,7 @@ Property:
     - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
 ```
 
-We then call `?flush=all` in the browser URL to have the new template and class picked up by SilverStripe.
+We then call `?flush=all` in the browser URL to have the new template and class picked up by Silverstripe.
 
 We can now see the dashboard searches for properties:
 

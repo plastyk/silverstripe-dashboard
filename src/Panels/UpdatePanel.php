@@ -8,7 +8,6 @@ use Plastyk\Dashboard\Model\DashboardPanel;
 use Plastyk\Dashboard\Model\UpdateVersion;
 use Plastyk\Dashboard\Model\UpdateVersionList;
 use Psr\SimpleCache\CacheInterface;
-use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Core\Manifest\VersionProvider;
 use SilverStripe\ORM\FieldType\DBDatetime;
@@ -21,9 +20,9 @@ class UpdatePanel extends DashboardPanel
     public function canView($member = null)
     {
         if (Permission::checkMember($member, 'CMS_ACCESS_ADMIN')) {
-            $currentVersion = $this->getCurrentSilverStripeVersion();
+            $currentVersion = $this->getCurrentSilverstripeVersion();
             if (!$currentVersion->PreRelease) {
-                $versions = $this->getSilverStripeVersions()->filterNewerVersions($currentVersion);
+                $versions = $this->getSilverstripeVersions()->filterNewerVersions($currentVersion);
 
                 return $versions->hasNewerVersion($currentVersion);
             }
@@ -36,10 +35,10 @@ class UpdatePanel extends DashboardPanel
     {
         $data = parent::getData();
 
-        $currentVersion = $this->getCurrentSilverStripeVersion();
-        $data['CurrentSilverStripeVersion'] = $currentVersion->FullVersion;
-        $latestVersion = $this->getLatestSilverStripeVersion();
-        $data['LatestSilverStripeVersion'] = $latestVersion->FullVersion;
+        $currentVersion = $this->getCurrentSilverstripeVersion();
+        $data['CurrentSilverstripeVersion'] = $currentVersion->FullVersion;
+        $latestVersion = $this->getLatestSilverstripeVersion();
+        $data['LatestSilverstripeVersion'] = $latestVersion->FullVersion;
         $data['UpdateVersionLevel'] = UpdateVersion::getVersionDifference($currentVersion, $latestVersion);
 
         $data['ContactEmail'] = DashboardAdmin::config()->contact_email ?: false;
@@ -77,12 +76,12 @@ class UpdatePanel extends DashboardPanel
         return DBField::create_field('HTMLText', $content);
     }
 
-    public function getCurrentSilverStripeVersion()
+    public function getCurrentSilverstripeVersion()
     {
         $updatePanelCache = Injector::inst()->get(CacheInterface::class . '.plastykDashboardCache');
 
-        if ($updatePanelCache->has('CurrentSilverStripeVersion')) {
-            return UpdateVersion::fromVersionString($updatePanelCache->get('CurrentSilverStripeVersion'));
+        if ($updatePanelCache->has('CurrentSilverstripeVersion')) {
+            return UpdateVersion::fromVersionString($updatePanelCache->get('CurrentSilverstripeVersion'));
         }
 
         $versions = Injector::inst()->get(VersionProvider::class)->getModuleVersionFromComposer([
@@ -95,12 +94,12 @@ class UpdatePanel extends DashboardPanel
             $currentVersionNumber = $versions['silverstripe/framework'];
         }
 
-        $updatePanelCache->set('CurrentSilverStripeVersion', $currentVersionNumber);
+        $updatePanelCache->set('CurrentSilverstripeVersion', $currentVersionNumber);
 
         return UpdateVersion::fromVersionString($currentVersionNumber);
     }
 
-    protected function getSilverStripeVersions()
+    protected function getSilverstripeVersions()
     {
         $versions = UpdateVersionList::getPackagistVersions()->filter([
             'PreRelease' => false,
@@ -108,7 +107,7 @@ class UpdatePanel extends DashboardPanel
 
         $ignoreMajorUpdates = UpdatePanel::config()->ignore_major_updates;
         if (isset($ignoreMajorUpdates)) {
-            $currentVersion = $this->getCurrentSilverStripeVersion();
+            $currentVersion = $this->getCurrentSilverstripeVersion();
             if (is_bool($ignoreMajorUpdates)) {
                 if ($ignoreMajorUpdates) {
                     $versions = $versions->filter(['Major' => $currentVersion->Major]);
@@ -135,8 +134,8 @@ class UpdatePanel extends DashboardPanel
         return $versions;
     }
 
-    public function getLatestSilverStripeVersion()
+    public function getLatestSilverstripeVersion()
     {
-        return $this->getSilverStripeVersions()->first();
+        return $this->getSilverstripeVersions()->first();
     }
 }

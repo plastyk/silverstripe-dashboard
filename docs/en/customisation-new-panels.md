@@ -12,7 +12,7 @@ In this example we will create a panel that displays recently edited properties.
 
 Say we have a custom `DataObject` named `Property` that is controlled through a custom `ModelAdmin` called `PropertiesAdmin`. We would like to add a panel that lists recently edited properties.
 
-First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside `dashboard-custom`.
+First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by Silverstripe we must create a `_config` directory inside `dashboard-custom`.
 
 Next we create a new PHP file `RecentlyEditedPropertiesPanel.php` in `dashboard-custom/src/Panels/`. In our `dashboard-custom/src/Panels/RecentlyEditedPropertiesPanel.php` file we create a `RecentlyEditedPropertiesPanel` class, which extends `DashboardPanel`:
 
@@ -132,7 +132,7 @@ $showPanel(Plastyk\Dashboard\Panels\UpdatePanel)
 </div>
 ```
 
-We then call `?flush=all` in the browser URL to have the new templates and class picked up by SilverStripe.
+We then call `?flush=all` in the browser URL to have the new templates and class picked up by Silverstripe.
 
 We can now see we have a recently edited properties panel on our dashboard:
 

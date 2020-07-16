@@ -1,12 +1,12 @@
 <div class="dashboard-panel update-panel closed">
 	<div class="panel-head col-12">
 		<span class="dashboard-icon fa fa-exclamation-triangle" aria-hidden="true"></span>
-		<strong><% _t('UpdatePanel.NEWSILVERSTRIPEUPDATESAVAILABLE', 'New SilverStripe CMS updates are available.') %></strong>
-		<% if $CurrentSilverStripeVersion %>
-		<% _t('UpdatePanel.YOURVERSIONIS', 'Your version is') %> {$CurrentSilverStripeVersion}.
+		<strong><% _t('UpdatePanel.NEWSILVERSTRIPEUPDATESAVAILABLE', 'New Silverstripe CMS updates are available.') %></strong>
+		<% if $CurrentSilverstripeVersion %>
+		<% _t('UpdatePanel.YOURVERSIONIS', 'Your version is') %> {$CurrentSilverstripeVersion}.
 		<% end_if %>
-		<% if $LatestSilverStripeVersion %>
-		<% _t('UpdatePanel.LATESTVERSIONIS', 'The latest version is') %> {$LatestSilverStripeVersion}.
+		<% if $LatestSilverstripeVersion %>
+		<% _t('UpdatePanel.LATESTVERSIONIS', 'The latest version is') %> {$LatestSilverstripeVersion}.
 		<% end_if %>
 		<a class="read-more-link" tabindex=""><% _t('UpdatePanel.READMORE', 'Read more') %></a>
 		<span class="dashboard-icon fa fa-chevron-right" aria-hidden="true"></span>

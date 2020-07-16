@@ -32,7 +32,7 @@ de:
     MAJORVERSIONMESSAGE: 'Das verfügbare aktualisieren ist ein dur update. Eine dur version aktualisieren besteht aus:'
     MINORVERSIONMESSAGE: 'Das verfügbare aktualisieren ist ein geringer update. Eine geringer version aktualisieren besteht aus:'
     NEWFEATURES: 'Neue Funktionen und Erweiterungen'
-    NEWSILVERSTRIPEUPDATESAVAILABLE: 'Neue SilverStripe CMS updates sind verfügbar.'
+    NEWSILVERSTRIPEUPDATESAVAILABLE: 'Neue Silverstripe CMS updates sind verfügbar.'
     READMORE: 'Weiterlesen'
     SECURITYPATCHES: 'Sicherheits-Patches'
     SECURITYVERSIONMESSAGE: 'Das verfügbare aktualisieren ist ein sicherheit update. Eine sicherheit version aktualisieren besteht aus:'
