@@ -32,7 +32,7 @@ pl:
     MAJORVERSIONMESSAGE: 'Dostępna aktualizacja jest duża aktualizacją wersji. Duża aktualizacja wersji składa się z:'
     MINORVERSIONMESSAGE: 'Dostępna aktualizacja jest mniejszy aktualizacją wersji. Mniejszy aktualizacja wersji składa się z:'
     NEWFEATURES: 'Nowe funkcje i ulepszenia'
-    NEWSILVERSTRIPEUPDATESAVAILABLE: 'Dostępne są nowe aktualizacje SilverStripe CMS.'
+    NEWSILVERSTRIPEUPDATESAVAILABLE: 'Dostępne są nowe aktualizacje Silverstripe CMS.'
     READMORE: 'Czytaj więcej'
     SECURITYPATCHES: 'Poprawki zabezpieczeń'
     SECURITYVERSIONMESSAGE: 'Dostępna aktualizacja jest bezpieczeństwo aktualizacją wersji. Bezpieczeństwo aktualizacja wersji składa się z:'

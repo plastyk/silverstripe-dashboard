@@ -1,4 +1,4 @@
-# SilverStripe Dashboard
+# Silverstripe Dashboard
 
 [![Build Status](https://travis-ci.org/plastyk/silverstripe-dashboard.svg?branch=master)](https://travis-ci.org/plastyk/silverstripe-dashboard)
 [![codecov.io](https://codecov.io/github/plastyk/silverstripe-dashboard/coverage.svg?branch=master)](https://codecov.io/gh/plastyk/silverstripe-dashboard?branch=master)
@@ -7,11 +7,11 @@
 [![Latest Unstable Version](https://poser.pugx.org/plastyk/dashboard/v/unstable)](https://packagist.org/packages/plastyk/dashboard)
 [![License](https://poser.pugx.org/plastyk/dashboard/license)](LICENSE)
 
-This dashboard module provides a landing page for users logging into the CMS. Out of the box, allows viewing the state of recently created or modified pages, searching for pages & files as well as letting the user know whether the SilverStripe install is out of date.
+This dashboard module provides a landing page for users logging into the CMS. Out of the box, allows viewing the state of recently created or modified pages, searching for pages & files as well as letting the user know whether the Silverstripe install is out of date.
 
 ## Requirements
 
-* SilverStripe Framework 4.0+
+* Silverstripe Framework 4.0+
 
 ## Documentation
 * [Index](https://plastyk.github.io/silverstripe-dashboard/en/)

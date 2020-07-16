@@ -12,7 +12,7 @@ In this example we will change the main dashboard template to display only a few
 
 Say we would like to remove some of the default panels, change the order of panels and change some panel widths.
 
-First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside `dashboard-custom`.
+First we create a `dashboard-custom` folder in our root directory to house our custom dashboard code. To enable the `dashboard-custom` directory to be picked up by Silverstripe we must create a `_config` directory inside `dashboard-custom`.
 
 We create a custom `DashboardPanels.ss` template to modify the dashboard. Copy the original `DashboardPanels.ss` to `dashboard-custom/templates/DashboardPanels.ss` and edit the template as desired:
 

@@ -5,7 +5,7 @@ namespace Plastyk\Dashboard\Tests;
 use Plastyk\Dashboard\Admin\DashboardAdmin;
 use Plastyk\Dashboard\Panels\UpdatePanel;
 use Psr\SimpleCache\CacheInterface;
-use SilverStripe\Core\Injector\Injector;
+use Silvertripe\Core\Injector\Injector;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Security\Member;
 
@@ -27,11 +27,11 @@ class UpdatePanelTest extends SapphireTest
 
         $updatePanel = UpdatePanel::singleton();
 
-        $updatePanelCache->set('CurrentSilverStripeVersion', '255.0.0');
+        $updatePanelCache->set('CurrentSilverstripeVersion', '255.0.0');
 
         $this->assertFalse($updatePanel->canView());
 
-        $updatePanelCache->set('CurrentSilverStripeVersion', '4.0.0');
+        $updatePanelCache->set('CurrentSilverstripeVersion', '4.0.0');
 
         $this->assertTrue($updatePanel->canView());
 
@@ -90,37 +90,37 @@ class UpdatePanelTest extends SapphireTest
         );
     }
 
-    public function testGetCurrentSilverStripeVersion()
+    public function testGetCurrentSilverstripeVersion()
     {
         $updatePanel = UpdatePanel::singleton();
 
-        $currentSilverStripeVersion = $updatePanel->getCurrentSilverStripeVersion();
+        $currentSilverstripeVersion = $updatePanel->getCurrentSilverstripeVersion();
 
-        $this->assertContains('.', $currentSilverStripeVersion->FullVersion);
+        $this->assertContains('.', $currentSilverstripeVersion->FullVersion);
         $this->assertEquals(
-            $currentSilverStripeVersion->FullVersion,
-            $currentSilverStripeVersion->Major . '.' .
-                $currentSilverStripeVersion->Minor . '.' .
-                $currentSilverStripeVersion->Patch
+            $currentSilverstripeVersion->FullVersion,
+            $currentSilverstripeVersion->Major . '.' .
+                $currentSilverstripeVersion->Minor . '.' .
+                $currentSilverstripeVersion->Patch
         );
 
         $updatePanelCache = Injector::inst()->get(CacheInterface::class . '.plastykDashboardCache');
 
-        $updatePanelCache->clear('CurrentSilverStripeVersion');
+        $updatePanelCache->clear('CurrentSilverstripeVersion');
 
-        $currentSilverStripeVersion = $updatePanel->getCurrentSilverStripeVersion();
+        $currentSilverstripeVersion = $updatePanel->getCurrentSilverstripeVersion();
 
         $this->assertContains(
-            $currentSilverStripeVersion->Major . '.',
-            $currentSilverStripeVersion->FullVersion
+            $currentSilverstripeVersion->Major . '.',
+            $currentSilverstripeVersion->FullVersion
         );
     }
 
-    public function testGetLatestSilverStripeVersion()
+    public function testGetLatestSilverstripeVersion()
     {
         $updatePanel = UpdatePanel::singleton();
 
-        $silverStripeVersion = $updatePanel->getLatestSilverStripeVersion();
+        $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
         $this->assertContains('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
@@ -130,7 +130,7 @@ class UpdatePanelTest extends SapphireTest
 
         UpdatePanel::config()->set('ignore_major_updates', true);
 
-        $silverStripeVersion = $updatePanel->getLatestSilverStripeVersion();
+        $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
         $this->assertContains('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
@@ -141,7 +141,7 @@ class UpdatePanelTest extends SapphireTest
 
         UpdatePanel::config()->set('ignore_major_updates', '2019-01-01');
 
-        $silverStripeVersion = $updatePanel->getLatestSilverStripeVersion();
+        $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
         $this->assertContains('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
@@ -152,9 +152,9 @@ class UpdatePanelTest extends SapphireTest
 
         $updatePanelCache = Injector::inst()->get(CacheInterface::class . '.plastykDashboardCache');
 
-        $updatePanelCache->set('CurrentSilverStripeVersion', '3.0.0');
+        $updatePanelCache->set('CurrentSilverstripeVersion', '3.0.0');
 
-        $silverStripeVersion = $updatePanel->getLatestSilverStripeVersion();
+        $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
         $this->assertContains('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
@@ -165,7 +165,7 @@ class UpdatePanelTest extends SapphireTest
 
         UpdatePanel::config()->set('ignore_major_updates', '2030-01-01');
 
-        $silverStripeVersion = $updatePanel->getLatestSilverStripeVersion();
+        $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
         $this->assertContains('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
@@ -178,6 +178,6 @@ class UpdatePanelTest extends SapphireTest
 
         $this->expectException(\PHPUnit_Framework_Error_Warning::class);
 
-        $silverStripeVersion = $updatePanel->getLatestSilverStripeVersion();
+        $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
     }
 }

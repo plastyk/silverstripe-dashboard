@@ -55,7 +55,7 @@ In our `dashboard-custom/templates/Plastyk/Dashboard/Panels/QuickLinksPanel.ss` 
 </div>
 ```
 
-To enable the `dashboard-custom` directory to be picked up by SilverStripe we must create a `_config` directory inside `dashboard-custom`. We then call `?flush=all` in the browser URL to have the new template picked up by SilverStripe.
+To enable the `dashboard-custom` directory to be picked up by Silverstripe we must create a `_config` directory inside `dashboard-custom`. We then call `?flush=all` in the browser URL to have the new template picked up by Silverstripe.
 
 We can now see we have a link to the properties admin and a link to create a new property:
 

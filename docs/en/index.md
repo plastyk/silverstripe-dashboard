@@ -2,9 +2,9 @@
 layout: default
 ---
 
-# SilverStripe Dashboard
+# Silverstripe Dashboard
 
-This dashboard module provides a landing page for users logging into the CMS. Out of the box, allows viewing the state of recently created or modified pages, searching for pages & files as well as letting the user know whether the SilverStripe install is out of date.
+This dashboard module provides a landing page for users logging into the CMS. Out of the box, allows viewing the state of recently created or modified pages, searching for pages & files as well as letting the user know whether the Silverstripe install is out of date.
 
 ## Requirements
 
@@ -20,9 +20,12 @@ By default the `UpdatePanel` and `MoreInformationPanel` tell the user to contact
 
 We can also adjust the panel accent colour to match the colour scheme of the website.
 
-In our `mysite/_config/mysite.yml` add:
+In our `app/_config/dashboard.yml` add:
 
 ```yml
+---
+Name: app-dashboard
+---
 Plastyk\Dashboard\Admin\DashboardAdmin:
   contact_email: 'email@example.com'
   contact_name: 'Developer Name'
@@ -38,7 +41,7 @@ For example, if the user searches for "contact" and only one result is found acr
 
 By default this functionality is turned off but can be enabled through a config variable per search class.
 
-In our `mysite/_config/mysite.yml` add the following to turn automatic redirection on for the `Page` class:
+In our `app/_config/dashboard.yml` add the following to turn automatic redirection on for the `Page` class:
 
 ```yml
 Page:
@@ -53,7 +56,7 @@ Page:
 
 ## Subsite compatibility
 
-If using the [SilverStripe Subsites Module](https://github.com/silverstripe/silverstripe-subsites/) the dashboard menu item will not display on subsites by default. To fix this we can apply the `SubsiteMenuExtension` to our `DashboardAdmin`. In our `mysite/_config/mysite.yml` add:
+If using the [Silverstripe Subsites Module](https://github.com/silverstripe/silverstripe-subsites/) the dashboard menu item will not display on subsites by default. To fix this we can apply the `SubsiteMenuExtension` to our `DashboardAdmin`. In our `app/_config/dashboard.yml` add:
 
 ```yml
 Plastyk\Dashboard\Admin\DashboardAdmin:
