@@ -34,17 +34,14 @@ class QuickLinksPanel extends DashboardPanel
 
         $data = parent::getData();
 
-        $data['CanView'] = false;
-
         $data['CanViewPages'] = Permission::checkMember($member, 'CMS_ACCESS_CMSMain')
             && class_exists(CMSPagesController::class);
-        $data['CanView'] = $data['CanView'] || $data['CanViewPages'];
         $data['CanViewUsers'] = Permission::checkMember($member, 'CMS_ACCESS_SecurityAdmin')
             && class_exists(SecurityAdmin::class);
-        $data['CanView'] = $data['CanView'] || $data['CanViewUsers'];
         $data['CanViewSettings'] = Permission::checkMember($member, 'EDIT_SITECONFIG')
             && class_exists(SiteConfigLeftAndMain::class);
-        $data['CanView'] = $data['CanView'] || $data['CanViewSettings'];
+
+        $data['CanView'] = $data['CanViewPages'] || $data['CanViewUsers'] || $data['CanViewSettings'];
 
         $this->extend('updateData', $data);
 
