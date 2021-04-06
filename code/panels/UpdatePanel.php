@@ -60,30 +60,25 @@ class UpdatePanel extends DashboardPanel
     public function getCurrentSilverStripeVersion()
     {
         $updatePanelCache = SS_Cache::factory('DashboardUpdatePanel');
+
         $result = $updatePanelCache->load('CurrentSilverStripeVersion');
         if ($result) {
             return UpdateVersion::from_version_string($result);
         }
 
-        $versions = explode(', ', Injector::inst()->get('LeftAndMain')->CMSVersion());
-        
-        if (!empty($versions)) {
-            $versionKeys = array('Framework: ', 'CMS: ');
-            foreach ($versionKeys as $versionKey) {
-                foreach ($versions as $version) {
-                    if (strpos($version, $versionKey) !== false) {
-                        $result = substr($version, strlen($versionKey));
-                        break;
-                    }
-                }
-            }
+        $versions = Injector::inst()->get(SilverstripeVersionProvider::class)->getModuleVersionFromComposer([
+            'silverstripe/framework',
+        ]);
+
+        $currentVersionNumber = '';
+
+        if (isset($versions['silverstripe/framework'])) {
+            $currentVersionNumber = $versions['silverstripe/framework'];
         }
 
-        if (is_string($result)) {
-            $updatePanelCache->save($result, 'CurrentSilverStripeVersion');
-        }
+        $updatePanelCache->save($currentVersionNumber, 'CurrentSilverStripeVersion');
 
-        return UpdateVersion::from_version_string($result);
+        return UpdateVersion::from_version_string($currentVersionNumber);
     }
 
     protected function getSilverStripeVersions()
