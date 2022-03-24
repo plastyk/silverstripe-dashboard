@@ -34,7 +34,7 @@ class DashboardPanelTest extends SapphireTest
     {
         $moreInformationPanel = MoreInformationPanel::singleton();
 
-        $this->assertContains('Custom dashboard panels are available', $moreInformationPanel->forTemplate());
+        $this->assertStringContainsString('Custom dashboard panels are available', $moreInformationPanel->forTemplate());
 
         $nonPermittedUser = $this->objFromFixture(Member::class, 'user2');
         $this->logInAs($nonPermittedUser);

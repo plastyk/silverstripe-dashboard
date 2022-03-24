@@ -43,7 +43,7 @@ class DashboardAdminTest extends SapphireTest
 
         $dashboardContent = $dashboardAdmin->getDashboardContent();
 
-        $this->assertContains('dashboardadmin-cms-content', $dashboardContent);
+        $this->assertStringContainsString('dashboardadmin-cms-content', $dashboardContent);
     }
 
     public function testGetDashboardPanels()
@@ -52,7 +52,7 @@ class DashboardAdminTest extends SapphireTest
 
         $dashboardPanels = $dashboardAdmin->getDashboardPanels();
 
-        $this->assertContains('<h1>Your Site Name</h1>', $dashboardPanels);
+        $this->assertStringContainsString('<h1>Your Site Name</h1>', $dashboardPanels);
     }
 
     public function testCanViewPanel()
@@ -75,7 +75,7 @@ class DashboardAdminTest extends SapphireTest
         $this->assertFalse($dashboardAdmin->showPanel('FakePanelThatDoesNotExist'));
 
         $panel = $dashboardAdmin->showPanel(MoreInformationPanel::class);
-        $this->assertContains('more-information-panel', $panel->value);
+        $this->assertStringContainsString('more-information-panel', $panel->value);
 
         $nonPermittedUser = $this->objFromFixture(Member::class, 'user2');
         $this->logInAs($nonPermittedUser);

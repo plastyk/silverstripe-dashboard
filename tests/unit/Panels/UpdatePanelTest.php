@@ -75,15 +75,15 @@ class UpdatePanelTest extends SapphireTest
 
         $contactContent = $updatePanel->getContactContent();
 
-        $this->assertContains('mailto:angela.davis@gmail.com', $contactContent->Value);
-        $this->assertContains('Angela Davis', $contactContent->Value);
+        $this->assertStringContainsString('mailto:angela.davis@gmail.com', $contactContent->Value);
+        $this->assertStringContainsString('Angela Davis', $contactContent->Value);
 
         DashboardAdmin::config()->remove('contact_email');
         DashboardAdmin::config()->remove('contact_name');
 
         $contactContent = $updatePanel->getContactContent();
 
-        $this->assertContains('your web developer', $contactContent->Value);
+        $this->assertStringContainsString('your web developer', $contactContent->Value);
         $this->assertEquals(
             'If you would like to update to the latest version please contact your web developer.',
             $contactContent->Value
@@ -96,7 +96,7 @@ class UpdatePanelTest extends SapphireTest
 
         $currentSilverstripeVersion = $updatePanel->getCurrentSilverstripeVersion();
 
-        $this->assertContains('.', $currentSilverstripeVersion->FullVersion);
+        $this->assertStringContainsString('.', $currentSilverstripeVersion->FullVersion);
         $this->assertEquals(
             $currentSilverstripeVersion->FullVersion,
             $currentSilverstripeVersion->Major . '.' .
@@ -110,7 +110,7 @@ class UpdatePanelTest extends SapphireTest
 
         $currentSilverstripeVersion = $updatePanel->getCurrentSilverstripeVersion();
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             $currentSilverstripeVersion->Major . '.',
             $currentSilverstripeVersion->FullVersion
         );
@@ -122,7 +122,7 @@ class UpdatePanelTest extends SapphireTest
 
         $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
-        $this->assertContains('.', $silverStripeVersion->FullVersion);
+        $this->assertStringContainsString('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
             $silverStripeVersion->FullVersion,
             $silverStripeVersion->Major . '.' . $silverStripeVersion->Minor . '.' . $silverStripeVersion->Patch
@@ -132,7 +132,7 @@ class UpdatePanelTest extends SapphireTest
 
         $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
-        $this->assertContains('.', $silverStripeVersion->FullVersion);
+        $this->assertStringContainsString('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
             $silverStripeVersion->FullVersion,
             $silverStripeVersion->Major . '.' . $silverStripeVersion->Minor . '.' . $silverStripeVersion->Patch
@@ -143,7 +143,7 @@ class UpdatePanelTest extends SapphireTest
 
         $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
-        $this->assertContains('.', $silverStripeVersion->FullVersion);
+        $this->assertStringContainsString('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
             $silverStripeVersion->FullVersion,
             $silverStripeVersion->Major . '.' . $silverStripeVersion->Minor . '.' . $silverStripeVersion->Patch
@@ -156,7 +156,7 @@ class UpdatePanelTest extends SapphireTest
 
         $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
-        $this->assertContains('.', $silverStripeVersion->FullVersion);
+        $this->assertStringContainsString('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
             $silverStripeVersion->FullVersion,
             $silverStripeVersion->Major . '.' . $silverStripeVersion->Minor . '.' . $silverStripeVersion->Patch
@@ -167,7 +167,7 @@ class UpdatePanelTest extends SapphireTest
 
         $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
 
-        $this->assertContains('.', $silverStripeVersion->FullVersion);
+        $this->assertStringContainsString('.', $silverStripeVersion->FullVersion);
         $this->assertEquals(
             $silverStripeVersion->FullVersion,
             $silverStripeVersion->Major . '.' . $silverStripeVersion->Minor . '.' . $silverStripeVersion->Patch

@@ -23,9 +23,9 @@ class DashboardAdminFunctionalTest extends FunctionalTest
 
         $this->assertEquals(200, $dashboardPage->getStatusCode());
 
-        $this->assertContains('<h1>Your Site Name</h1>', $dashboardPage->getBody());
-        $this->assertContains('css/dashboard.css', $dashboardPage->getBody());
-        $this->assertNotContains('border-top-color: #fff000;', $dashboardPage->getBody());
+        $this->assertStringContainsString('<h1>Your Site Name</h1>', $dashboardPage->getBody());
+        $this->assertStringContainsString('css/dashboard.css', $dashboardPage->getBody());
+        $this->assertStringNotContainsString('border-top-color: #fff000;', $dashboardPage->getBody());
 
         DashboardAdmin::config()->set('panel_accent_color', '#fff000');
 
@@ -33,6 +33,6 @@ class DashboardAdminFunctionalTest extends FunctionalTest
 
         $this->assertEquals(200, $dashboardPage->getStatusCode());
 
-        $this->assertContains('border-top-color: #fff000;', $dashboardPage->getBody());
+        $this->assertStringContainsString('border-top-color: #fff000;', $dashboardPage->getBody());
     }
 }
