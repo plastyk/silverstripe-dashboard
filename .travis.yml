@@ -20,7 +20,7 @@ jobs:
     - php: 8.0
       env:
         - DB=MYSQL
-        - REQUIRE_INSTALLER="4.11.x-dev"
+        - REQUIRE_INSTALLER="4.10.x-dev"
         - PHPUNIT_TEST=1
     - php: 8.1.0
       env:
