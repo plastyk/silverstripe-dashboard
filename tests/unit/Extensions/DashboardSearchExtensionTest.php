@@ -129,7 +129,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
             $dashboardPage->getBody()
         );
 
-        $this->assertEquals('SilverStripe+-+Edit+Page', $dashboardPage->getHeader('x-title'));
+        $this->assertEquals('Silverstripe+-+Edit+Page', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(CMSPageEditController::class, $dashboardPage->getHeader('x-controller'));
 
         $page2 = \Page::create([
@@ -139,7 +139,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
-        $this->assertEquals('SilverStripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
+        $this->assertEquals('Silverstripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(DashboardAdmin::class, $dashboardPage->getHeader('x-controller'));
 
         $page2->Title = 'Climate Crisis';
@@ -147,7 +147,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
-        $this->assertEquals('SilverStripe+-+Edit+Page', $dashboardPage->getHeader('x-title'));
+        $this->assertEquals('Silverstripe+-+Edit+Page', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(CMSPageEditController::class, $dashboardPage->getHeader('x-controller'));
 
         $file1 = File::create([
@@ -158,7 +158,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
-        $this->assertEquals('SilverStripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
+        $this->assertEquals('Silverstripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(DashboardAdmin::class, $dashboardPage->getHeader('x-controller'));
     }
 
