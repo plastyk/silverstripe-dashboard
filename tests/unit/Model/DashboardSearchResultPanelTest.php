@@ -76,22 +76,22 @@ class DashboardSearchResultPanelTest extends SapphireTest
 
         $content = $dashboardSearchResultPagePanel->forTemplate()->value;
 
-        $this->assertNotContains('DashboardSearchResultPagePanel', $content);
-        $this->assertNotContains('Feminism', $content);
+        $this->assertStringNotContainsString('DashboardSearchResultPagePanel', $content);
+        $this->assertStringNotContainsString('Feminism', $content);
 
         $searchResults = $dashboardSearchResultPagePanel->performSearch('Fem');
 
         $content = $dashboardSearchResultPagePanel->forTemplate()->value;
 
-        $this->assertContains('Feminism', $content);
-        $this->assertContains('DashboardSearchResultPagePanel', $content);
+        $this->assertStringContainsString('Feminism', $content);
+        $this->assertStringContainsString('DashboardSearchResultPagePanel', $content);
 
         $searchResults = $dashboardSearchResultPagePanel->performSearch('Patriarchy');
 
         $content = $dashboardSearchResultPagePanel->forTemplate()->value;
 
-        $this->assertNotContains('DashboardSearchResultPagePanel', $content);
-        $this->assertNotContains('Feminism', $content);
+        $this->assertStringNotContainsString('DashboardSearchResultPagePanel', $content);
+        $this->assertStringNotContainsString('Feminism', $content);
     }
 
     public function testGetResults()

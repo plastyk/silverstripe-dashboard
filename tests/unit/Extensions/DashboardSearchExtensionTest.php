@@ -26,9 +26,9 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
-        $this->assertContains('Sorry, no results found.', $dashboardPage->getBody());
-        $this->assertContains('Search Results for <em>\'women\'</em>', $dashboardPage->getBody());
-        $this->assertContains('Searching for Pages, Members &amp; Files', $dashboardPage->getBody());
+        $this->assertStringContainsString('Sorry, no results found.', $dashboardPage->getBody());
+        $this->assertStringContainsString('Search Results for <em>\'women\'</em>', $dashboardPage->getBody());
+        $this->assertStringContainsString('Searching for Pages, Members &amp; Files', $dashboardPage->getBody());
 
         $page1 = \Page::create([
             'Title' => 'Women\s rights',
@@ -39,9 +39,9 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
-        $this->assertContains('dashboardadmin-cms-content', $dashboardPage->getBody());
-        $this->assertNotContains('Sorry, no results found.', $dashboardPage->getBody());
-        $this->assertNotContains('\/admin\/pages\/edit\/show\/' . $page1->ID, $dashboardPage->getBody());
+        $this->assertStringContainsString('dashboardadmin-cms-content', $dashboardPage->getBody());
+        $this->assertStringNotContainsString('Sorry, no results found.', $dashboardPage->getBody());
+        $this->assertStringNotContainsString('\/admin\/pages\/edit\/show\/' . $page1->ID, $dashboardPage->getBody());
     }
 
     public function testDoDashboardSearchAjax()
@@ -59,8 +59,8 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women&ajax=1');
 
-        $this->assertContains('dashboardadmin-cms-content', $dashboardPage->getBody());
-        $this->assertNotContains('<body', $dashboardPage->getBody());
+        $this->assertStringContainsString('dashboardadmin-cms-content', $dashboardPage->getBody());
+        $this->assertStringNotContainsString('<body', $dashboardPage->getBody());
     }
 
     public function testDoDashboardBlankSearchValueRedirect()
@@ -76,13 +76,13 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=');
 
-        $this->assertNotContains('Search Results', $dashboardPage->getBody());
-        $this->assertContains('<h1>Your Site Name</h1>', $dashboardPage->getBody());
+        $this->assertStringNotContainsString('Search Results', $dashboardPage->getBody());
+        $this->assertStringContainsString('<h1>Your Site Name</h1>', $dashboardPage->getBody());
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=&ajax=1');
 
-        $this->assertNotContains('Search Results', $dashboardPage->getBody());
-        $this->assertContains('<h1>Your Site Name</h1>', $dashboardPage->getBody());
+        $this->assertStringNotContainsString('Search Results', $dashboardPage->getBody());
+        $this->assertStringContainsString('<h1>Your Site Name</h1>', $dashboardPage->getBody());
     }
 
     public function testDoDashboardSearchSinglePanel()
@@ -103,7 +103,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
             DashboardSearchResultPagePanel::class
         );
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'Plastyk-Dashboard-Search-DashboardSearchResultPagePanel',
             $dashboardPage->getBody()
         );
@@ -124,12 +124,12 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
-        $this->assertNotContains(
+        $this->assertStringNotContainsString(
             'Plastyk-Dashboard-Search-DashboardSearchResultPagePanel',
             $dashboardPage->getBody()
         );
 
-        $this->assertEquals('SilverStripe+-+Edit+Page', $dashboardPage->getHeader('x-title'));
+        $this->assertEquals('Silverstripe+-+Edit+Page', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(CMSPageEditController::class, $dashboardPage->getHeader('x-controller'));
 
         $page2 = \Page::create([
@@ -139,7 +139,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
-        $this->assertEquals('SilverStripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
+        $this->assertEquals('Silverstripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(DashboardAdmin::class, $dashboardPage->getHeader('x-controller'));
 
         $page2->Title = 'Climate Crisis';
@@ -147,7 +147,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
-        $this->assertEquals('SilverStripe+-+Edit+Page', $dashboardPage->getHeader('x-title'));
+        $this->assertEquals('Silverstripe+-+Edit+Page', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(CMSPageEditController::class, $dashboardPage->getHeader('x-controller'));
 
         $file1 = File::create([
@@ -158,7 +158,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
 
-        $this->assertEquals('SilverStripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
+        $this->assertEquals('Silverstripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(DashboardAdmin::class, $dashboardPage->getHeader('x-controller'));
     }
 
@@ -178,11 +178,11 @@ class DashboardSearchExtensionTest extends FunctionalTest
             DashboardSearchResultPagePanel::class
         );
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'Plastyk-Dashboard-Search-DashboardSearchResultPagePanel',
             $dashboardPage->getBody()
         );
-        $this->assertNotContains('<body', $dashboardPage->getBody());
+        $this->assertStringNotContainsString('<body', $dashboardPage->getBody());
 
         $dashboardPage = $this->get(
             'admin/dashboard/DashboardSearchForm/?Search=women&ajax=1&panel-class=NonExistantClass'
