@@ -29,14 +29,4 @@ class SearchPanelTest extends SapphireTest
 
         $this->assertFalse($searchPanel->canView());
     }
-
-    public function testGetData()
-    {
-        //$searchPanel = new SearchPanel();
-
-        //$data = $searchPanel->getData();
-
-        //$this->assertTrue(isset($data['SearchValue']));
-        //$this->assertFalse($data['SearchValue']);
-    }
 }

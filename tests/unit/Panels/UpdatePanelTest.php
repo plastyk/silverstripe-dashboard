@@ -176,7 +176,7 @@ class UpdatePanelTest extends SapphireTest
 
         UpdatePanel::config()->set('ignore_major_updates', 'xyz');
 
-        $this->expectException(\PHPUnit_Framework_Error_Warning::class);
+        $this->expectException(\PHPUnit\Framework\Error\Warning::class);
 
         $silverStripeVersion = $updatePanel->getLatestSilverstripeVersion();
     }
