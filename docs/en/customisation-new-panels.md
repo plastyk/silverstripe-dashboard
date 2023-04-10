@@ -59,7 +59,7 @@ Next we create a template for our custom panel. In `dashboard-custom/templates/`
 
 ```html
 <div class="dashboard-panel">
-    <h3><a href="admin/properties/">Recently edited properties</a></h3>
+    <h3><a href="{$AdminURL}/properties/">Recently edited properties</a></h3>
     <% if $Results %>
     <table class="table">
         <thead>
@@ -72,13 +72,13 @@ Next we create a template for our custom panel. In `dashboard-custom/templates/`
             <% loop $Results %>
             <tr>
                 <td class="link">
-                    <a href="admin/properties/Property/EditForm/field/Property/item/{$ID}/edit">
+                    <a href="{$AdminURL}/properties/Property/EditForm/field/Property/item/{$ID}/edit">
                         $Title
                         <span class="note">$Address</span>
                     </a>
                 </td>
                 <td class="link date">
-                    <a href="admin/properties/Property/EditForm/field/Property/item/{$ID}/edit">$LastEdited.Nice</a>
+                    <a href="{$AdminURL}/properties/Property/EditForm/field/Property/item/{$ID}/edit">$LastEdited.Nice</a>
                 </td>
             </tr>
             <% end_loop %>

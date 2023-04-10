@@ -1,6 +1,6 @@
 <% if $Results %>
 <div class="dashboard-panel dashboard-search" data-panel-class="$PanelClassName">
-	<h3><a href="admin/pages/"><% _t('Page.PLURALNAME', 'Pages') %></a></h3>
+	<h3><a href="{$AdminURL}/pages/"><% _t('Page.PLURALNAME', 'Pages') %></a></h3>
 	<table class="table">
 		<thead>
 			<tr>

@@ -51,7 +51,7 @@ Next we create a template for our custom search panel. In `dashboard-custom/temp
 ```html
 <% if $Results %>
 <div class="dashboard-panel dashboard-search" data-panel-class="$PanelClassName">
-    <h3><a href="admin/properties/">Properties</a></h3>
+    <h3><a href="{$AdminURL}/properties/">Properties</a></h3>
     <table class="table">
         <thead>
             <tr>
@@ -88,7 +88,7 @@ Plastyk\Dashboard\Admin\DashboardAdmin:
     - DashboardSearchResultPropertyPanel
 
 Property:
-  dashboard_admin_link: 'admin/properties/Property/EditForm/field/Property/item/$ID/edit'
+  dashboard_admin_link: '$AdminURL/properties/Property/EditForm/field/Property/item/$ID/edit'
   extensions:
     - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
 ```
