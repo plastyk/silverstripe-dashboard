@@ -36,7 +36,7 @@ CSS
 
     public function providePermissions()
     {
-        $title = _t('DashboardAdmin.MENUTITLE', LeftAndMain::menu_title_for_class('DashboardAdmin'));
+        $title = _t('DashboardAdmin.MENUTITLE', LeftAndMain::menu_title('DashboardAdmin'));
 
         return [
             'CMS_ACCESS_DASHBOARDADMIN' => [
