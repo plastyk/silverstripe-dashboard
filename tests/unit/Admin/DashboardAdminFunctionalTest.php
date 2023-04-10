@@ -3,6 +3,7 @@
 namespace Plastyk\Dashboard\Tests;
 
 use Plastyk\Dashboard\Admin\DashboardAdmin;
+use SilverStripe\Admin\AdminRootController;
 use SilverStripe\Dev\FunctionalTest;
 
 class DashboardAdminFunctionalTest extends FunctionalTest
@@ -13,13 +14,15 @@ class DashboardAdminFunctionalTest extends FunctionalTest
 
     public function testInit()
     {
+        $adminUrl = AdminRootController::admin_url();
+
         DashboardAdmin::config()->remove('panel_accent_color');
 
         $dashboardAdmin = DashboardAdmin::singleton();
 
         $this->logInWithPermission('ADMIN');
 
-        $dashboardPage = $this->get('admin/dashboard/');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/');
 
         $this->assertEquals(200, $dashboardPage->getStatusCode());
 
@@ -29,7 +32,7 @@ class DashboardAdminFunctionalTest extends FunctionalTest
 
         DashboardAdmin::config()->set('panel_accent_color', '#fff000');
 
-        $dashboardPage = $this->get('admin/dashboard/');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/');
 
         $this->assertEquals(200, $dashboardPage->getStatusCode());
 
