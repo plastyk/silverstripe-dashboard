@@ -14,11 +14,11 @@ Page:
     - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
 
 SilverStripe\Security\Member:
-  dashboard_admin_link: '$AdminURL/security/EditForm/field/Members/item/$ID/edit/'
+  dashboard_admin_link: '$AdminURL/security/users/EditForm/field/users/item/$ID/edit/'
   extensions:
     - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
 
 SilverStripe\Assets\File:
-  dashboard_admin_link: '$AdminURL/assets/EditForm/field/File/item/$ID/edit/'
+  dashboard_admin_link: '$AdminURL/assets/show/$ParentID/edit/$ID/'
   extensions:
     - Plastyk\Dashboard\Extensions\DashboardSearchResultExtension

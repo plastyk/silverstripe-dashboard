@@ -29,7 +29,7 @@ In our `dashboard-custom/templates/Plastyk/Dashboard/Panels/QuickLinksPanel.ss` 
     <% end_if %>
 
     <% if $CanViewUsers %>
-    <a href="{$AdminURL}/security/">
+    <a href="{$AdminURL}/security/users/">
         <span class="dashboard-icon fa fa-users" aria-hidden="true"></span>
         <% _t('SecurityAdmin.MENUTITLE','Security') %>
     </a>
