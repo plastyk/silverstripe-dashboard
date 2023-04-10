@@ -4,6 +4,7 @@ namespace Plastyk\Dashboard\Tests;
 
 use Plastyk\Dashboard\Admin\DashboardAdmin;
 use Plastyk\Dashboard\Search\DashboardSearchResultPagePanel;
+use SilverStripe\Admin\AdminRootController;
 use SilverStripe\Assets\File;
 use SilverStripe\CMS\Controllers\CMSPageEditController;
 use SilverStripe\Dev\FunctionalTest;
@@ -16,15 +17,15 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
     public function testDoDashboardSearch()
     {
-        $dashboardAdmin = DashboardAdmin::singleton();
+        $adminUrl = AdminRootController::admin_url();
 
         $this->logInWithPermission('ADMIN');
 
-        $dashboardPage = $this->get('admin/dashboard/');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/');
 
         $this->assertEquals(200, $dashboardPage->getStatusCode());
 
-        $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/DashboardSearchForm/?Search=women');
 
         $this->assertStringContainsString('Sorry, no results found.', $dashboardPage->getBody());
         $this->assertStringContainsString('Search Results for <em>\'women\'</em>', $dashboardPage->getBody());
@@ -37,7 +38,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $this->assertTrue($page1->canView());
 
-        $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/DashboardSearchForm/?Search=women');
 
         $this->assertStringContainsString('dashboardadmin-cms-content', $dashboardPage->getBody());
         $this->assertStringNotContainsString('Sorry, no results found.', $dashboardPage->getBody());
@@ -46,7 +47,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
     public function testDoDashboardSearchAjax()
     {
-        $dashboardAdmin = DashboardAdmin::singleton();
+        $adminUrl = AdminRootController::admin_url();
 
         $this->logInWithPermission('ADMIN');
 
@@ -57,7 +58,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         $this->assertTrue($page1->canView());
 
-        $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women&ajax=1');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/DashboardSearchForm/?Search=women&ajax=1');
 
         $this->assertStringContainsString('dashboardadmin-cms-content', $dashboardPage->getBody());
         $this->assertStringNotContainsString('<body', $dashboardPage->getBody());
@@ -65,7 +66,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
     public function testDoDashboardBlankSearchValueRedirect()
     {
-        $dashboardAdmin = DashboardAdmin::singleton();
+        $adminUrl = AdminRootController::admin_url();
 
         $this->logInWithPermission('ADMIN');
 
@@ -74,12 +75,12 @@ class DashboardSearchExtensionTest extends FunctionalTest
         ]);
         $page1->write();
 
-        $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/DashboardSearchForm/?Search=');
 
         $this->assertStringNotContainsString('Search Results', $dashboardPage->getBody());
         $this->assertStringContainsString('<h1>Your Site Name</h1>', $dashboardPage->getBody());
 
-        $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=&ajax=1');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/DashboardSearchForm/?Search=&ajax=1');
 
         $this->assertStringNotContainsString('Search Results', $dashboardPage->getBody());
         $this->assertStringContainsString('<h1>Your Site Name</h1>', $dashboardPage->getBody());
@@ -87,7 +88,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
     public function testDoDashboardSearchSinglePanel()
     {
-        $dashboardAdmin = DashboardAdmin::singleton();
+        $adminUrl = AdminRootController::admin_url();
 
         $this->logInWithPermission('ADMIN');
 
@@ -99,7 +100,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         DashboardAdmin::config()->set('search_panels', [DashboardSearchResultPagePanel::class]);
 
         $dashboardPage = $this->get(
-            'admin/dashboard/DashboardSearchForm/?Search=women&panel-class=' .
+            $adminUrl . '/dashboard/DashboardSearchForm/?Search=women&panel-class=' .
             DashboardSearchResultPagePanel::class
         );
 
@@ -111,7 +112,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
     public function testDashboardAutomaticSearchRedirect()
     {
-        $dashboardAdmin = DashboardAdmin::singleton();
+        $adminUrl = AdminRootController::admin_url();
 
         $this->logInWithPermission('ADMIN');
 
@@ -122,7 +123,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
         \Page::config()->dashboard_automatic_search_redirect = true;
 
-        $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/DashboardSearchForm/?Search=women');
 
         $this->assertStringNotContainsString(
             'Plastyk-Dashboard-Search-DashboardSearchResultPagePanel',
@@ -137,7 +138,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         ]);
         $page2->write();
 
-        $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/DashboardSearchForm/?Search=women');
 
         $this->assertEquals('Silverstripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(DashboardAdmin::class, $dashboardPage->getHeader('x-controller'));
@@ -145,7 +146,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $page2->Title = 'Climate Crisis';
         $page2->write();
 
-        $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/DashboardSearchForm/?Search=women');
 
         $this->assertEquals('Silverstripe+-+Edit+Page', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(CMSPageEditController::class, $dashboardPage->getHeader('x-controller'));
@@ -156,7 +157,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         ]);
         $file1->write();
 
-        $dashboardPage = $this->get('admin/dashboard/DashboardSearchForm/?Search=women');
+        $dashboardPage = $this->get($adminUrl . '/dashboard/DashboardSearchForm/?Search=women');
 
         $this->assertEquals('Silverstripe+-+Dashboard', $dashboardPage->getHeader('x-title'));
         $this->assertEquals(DashboardAdmin::class, $dashboardPage->getHeader('x-controller'));
@@ -164,7 +165,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
 
     public function testDoPanelSearch()
     {
-        $dashboardAdmin = DashboardAdmin::singleton();
+        $adminUrl = AdminRootController::admin_url();
 
         $this->logInWithPermission('ADMIN');
 
@@ -174,7 +175,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $page1->write();
 
         $dashboardPage = $this->get(
-            'admin/dashboard/DashboardSearchForm/?Search=women&ajax=1&panel-class=' .
+            $adminUrl . '/dashboard/DashboardSearchForm/?Search=women&ajax=1&panel-class=' .
             DashboardSearchResultPagePanel::class
         );
 
@@ -185,7 +186,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->assertStringNotContainsString('<body', $dashboardPage->getBody());
 
         $dashboardPage = $this->get(
-            'admin/dashboard/DashboardSearchForm/?Search=women&ajax=1&panel-class=NonExistantClass'
+            $adminUrl . '/dashboard/DashboardSearchForm/?Search=women&ajax=1&panel-class=NonExistantClass'
         );
 
         $this->assertFalse($dashboardPage->getBody());
@@ -193,7 +194,7 @@ class DashboardSearchExtensionTest extends FunctionalTest
         $this->logInWithPermission('CMS_ACCESS_DASHBOARDADMIN');
 
         $dashboardPage = $this->get(
-            'admin/dashboard/DashboardSearchForm/?Search=women&ajax=1&panel-class=' .
+            $adminUrl . '/dashboard/DashboardSearchForm/?Search=women&ajax=1&panel-class=' .
             DashboardSearchResultPagePanel::class
         );
 

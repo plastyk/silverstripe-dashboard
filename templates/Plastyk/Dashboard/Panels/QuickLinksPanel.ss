@@ -1,21 +1,21 @@
 <div class="dashboard-panel quick-links-panel">
 
 	<% if $CanViewPages %>
-	<a href="admin/pages/">
+	<a href="{$AdminURL}pages/">
 		<span class="dashboard-icon fa fa-sitemap" aria-hidden="true"></span>
 		<% _t('CMSPagesController.MENUTITLE','Pages') %>
 	</a>
 	<% end_if %>
 
 	<% if $CanViewUsers %>
-	<a href="admin/security/">
+	<a href="{$AdminURL}security/">
 		<span class="dashboard-icon fa fa-users" aria-hidden="true"></span>
 		<% _t('SecurityAdmin.MENUTITLE','Security') %>
 	</a>
 	<% end_if %>
 
 	<% if $CanViewSettings %>
-	<a href="admin/settings/">
+	<a href="{$AdminURL}settings/">
 		<span class="dashboard-icon fa fa-cogs" aria-hidden="true"></span>
 		<% _t('CMSSettingsController.MENUTITLE','Settings') %>
 	</a>

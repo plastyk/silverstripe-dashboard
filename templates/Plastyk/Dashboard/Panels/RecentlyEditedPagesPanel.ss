@@ -1,5 +1,5 @@
 <div class="dashboard-panel">
-	<h3><a href="admin/pages/"><% _t('RecentlyEditedPagesPanel.PANELTITLE', 'Recently edited pages') %></a></h3>
+	<h3><a href="{$AdminURL}pages/"><% _t('RecentlyEditedPagesPanel.PANELTITLE', 'Recently edited pages') %></a></h3>
 	<% if $Results %>
 	<table class="table">
 		<thead>

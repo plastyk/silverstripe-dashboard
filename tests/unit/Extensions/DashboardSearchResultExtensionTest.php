@@ -2,6 +2,7 @@
 
 namespace Plastyk\Dashboard\Tests;
 
+use SilverStripe\Admin\AdminRootController;
 use SilverStripe\Dev\SapphireTest;
 
 class DashboardSearchResultExtensionTest extends SapphireTest
@@ -12,9 +13,11 @@ class DashboardSearchResultExtensionTest extends SapphireTest
 
     public function testGetSearchResultCMSLink()
     {
+        $adminUrl = AdminRootController::admin_url();
+
         FakeDataObject::config()->set(
             'dashboard_admin_link',
-            'admin/fake-data-objects/fake-data-object/edit/$ID/'
+            $adminUrl . '/fake-data-objects/fake-data-object/edit/$ID/'
         );
 
         $fakeDataObject1 = FakeDataObject::create();
@@ -24,12 +27,12 @@ class DashboardSearchResultExtensionTest extends SapphireTest
         $fakeDataObject2->write();
 
         $this->assertEquals(
-            'admin/fake-data-objects/fake-data-object/edit/' . $fakeDataObject1->ID . '/',
+            $adminUrl . '/fake-data-objects/fake-data-object/edit/' . $fakeDataObject1->ID . '/',
             $fakeDataObject1->getSearchResultCMSLink()
         );
 
         $this->assertEquals(
-            'admin/fake-data-objects/fake-data-object/edit/' . $fakeDataObject2->ID . '/',
+            $adminUrl . '/fake-data-objects/fake-data-object/edit/' . $fakeDataObject2->ID . '/',
             $fakeDataObject2->getSearchResultCMSLink()
         );
 
