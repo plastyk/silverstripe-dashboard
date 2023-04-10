@@ -11,7 +11,7 @@ This dashboard module provides a landing page for users logging into the CMS. Ou
 
 ## Requirements
 
-* Silverstripe Framework 5.0+
+* Silverstripe Framework 4.0+
 
 ## Documentation
 * [Index](https://plastyk.github.io/silverstripe-dashboard/en/)
