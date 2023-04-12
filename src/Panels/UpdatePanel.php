@@ -8,13 +8,13 @@ use Plastyk\Dashboard\Model\DashboardPanel;
 use Plastyk\Dashboard\Model\UpdateVersion;
 use Plastyk\Dashboard\Model\UpdateVersionList;
 use Psr\SimpleCache\CacheInterface;
+use SilverStripe\Core\Flushable;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Core\Manifest\VersionProvider;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Security\Permission;
 use SilverStripe\View\Requirements;
-use SilverStripe\Core\Flushable;
 
 class UpdatePanel extends DashboardPanel implements Flushable
 {
