@@ -8,6 +8,7 @@ use Plastyk\Dashboard\Model\DashboardPanel;
 use Plastyk\Dashboard\Model\UpdateVersion;
 use Plastyk\Dashboard\Model\UpdateVersionList;
 use Psr\SimpleCache\CacheInterface;
+use SilverStripe\Core\Flushable;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Core\Manifest\VersionProvider;
 use SilverStripe\ORM\FieldType\DBDatetime;
@@ -15,7 +16,7 @@ use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Security\Permission;
 use SilverStripe\View\Requirements;
 
-class UpdatePanel extends DashboardPanel
+class UpdatePanel extends DashboardPanel implements Flushable
 {
     public function canView($member = null)
     {
@@ -137,5 +138,10 @@ class UpdatePanel extends DashboardPanel
     public function getLatestSilverstripeVersion()
     {
         return $this->getSilverstripeVersions()->first();
+    }
+
+    public static function flush()
+    {
+        Injector::inst()->get(CacheInterface::class . '.plastykDashboardCache')->clear();
     }
 }
