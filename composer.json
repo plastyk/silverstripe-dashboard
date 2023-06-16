@@ -25,7 +25,6 @@
         "installer-name": "dashboard",
         "expose": [
             "css",
-            "images",
             "javascript"
         ]
     },
