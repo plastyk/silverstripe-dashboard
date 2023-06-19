@@ -8,7 +8,7 @@ jobs:
     - php: 7.4
       env:
         - DB=MYSQL
-        - REQUIRE_INSTALLER="4.10.x-dev"
+        - REQUIRE_INSTALLER="4.10.4"
         - PHPUNIT_TEST=1
         - PHPUNIT_COVERAGE_TEST=1
     - php: 7.4
