@@ -11,7 +11,7 @@ class DashboardAdmin extends LeftAndMain implements PermissionProvider
     private static $url_segment = 'dashboard';
     private static $menu_title = 'Dashboard';
     private static $menu_priority = 1000;
-    private static $menu_icon = 'plastyk/dashboard:images/treeicons/dashboard.png';
+    private static $menu_icon_class = 'font-icon-dashboard';
 
     private static $required_permission_codes = 'CMS_ACCESS_DASHBOARDADMIN';
 
