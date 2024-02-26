@@ -1,0 +1,19 @@
+mappings:
+  DashboardSearchExtension: Plastyk\Dashboard\Extensions\DashboardSearchExtension
+  DashboardSearchResultExtension: Plastyk\Dashboard\Extensions\DashboardSearchResultExtension
+  DashboardAdmin: Plastyk\Dashboard\Admin\DashboardAdmin
+  DashboardPanel: Plastyk\Dashboard\Model\DashboardPanel
+  DashboardSearchResultPanel: Plastyk\Dashboard\Model\DashboardSearchResultPanel
+  UpdateVersion: Plastyk\Dashboard\Model\UpdateVersion
+  UpdateVersionList: Plastyk\Dashboard\Model\UpdateVersionList
+  MoreInformationPanel: Plastyk\Dashboard\Panels\MoreInformationPanel
+  QuickLinksPanel: Plastyk\Dashboard\Panels\QuickLinksPanel
+  RecentlyCreatedPagesPanel: Plastyk\Dashboard\Panels\RecentlyCreatedPagesPanel
+  RecentlyEditedPagesPanel: Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel
+  SearchPanel: Plastyk\Dashboard\Panels\SearchPanel
+  UpdatePanel: Plastyk\Dashboard\Panels\UpdatePanel
+  UsefulLinksPanel: Plastyk\Dashboard\Panels\UsefulLinksPanel
+  DashboardSearchResultFilePanel: Plastyk\Dashboard\Search\DashboardSearchResultFilePanel
+  DashboardSearchResultMemberPanel: Plastyk\Dashboard\Search\DashboardSearchResultMemberPanel
+  DashboardSearchResultPagePanel: Plastyk\Dashboard\Search\DashboardSearchResultPagePanel
+
