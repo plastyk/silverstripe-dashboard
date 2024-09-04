@@ -18,6 +18,21 @@ abstract class DashboardPanel
 
     protected $controller;
 
+    /**
+     * @var int $sort The sort order of this dashboard panel
+     */
+    protected $sort = 0;
+
+    /**
+     * @var bool $enabled If set to FALSE, this dashboard panel will not display
+     */
+    protected $enabled = true;
+
+    /**
+     * @var int $section The section of this dashboard panel
+     */
+    protected $section = 'main';
+
     public function __construct($controller = null)
     {
         $this->controller = $controller;
@@ -52,5 +67,20 @@ abstract class DashboardPanel
     public function canView($member = null)
     {
         return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN');
+    }
+
+    public function getSort()
+    {
+        return $this->sort;
+    }
+
+    public function getSection()
+    {
+        return $this->section;
+    }
+
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 }

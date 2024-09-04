@@ -18,6 +18,8 @@ use SilverStripe\View\Requirements;
 
 class UpdatePanel extends DashboardPanel implements Flushable
 {
+    protected $section = null;
+    
     public function canView($member = null)
     {
         if (Permission::checkMember($member, 'CMS_ACCESS_ADMIN')) {

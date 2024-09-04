@@ -10,6 +10,8 @@ use SilverStripe\View\Requirements;
 
 class MoreInformationPanel extends DashboardPanel
 {
+    protected $section = 'bottom';
+
     public function canView($member = null)
     {
         return Permission::checkMember($member, 'CMS_ACCESS_ADMIN');

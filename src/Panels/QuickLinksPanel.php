@@ -12,6 +12,8 @@ use SilverStripe\View\Requirements;
 
 class QuickLinksPanel extends DashboardPanel
 {
+    protected $section = 'top';
+
     public function canView($member = null)
     {
         $data = $this->getData();
