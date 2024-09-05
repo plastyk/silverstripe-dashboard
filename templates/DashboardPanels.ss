@@ -1,4 +1,3 @@
-
 $showPanel(Plastyk\Dashboard\Panels\UpdatePanel)
 
 <div class="container-fluid">

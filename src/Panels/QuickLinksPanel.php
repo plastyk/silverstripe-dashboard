@@ -12,11 +12,14 @@ use SilverStripe\View\Requirements;
 
 class QuickLinksPanel extends DashboardPanel
 {
+    private static $columns = 12;
+
     private static $section = 'top';
 
     public function canView($member = null)
     {
         $data = $this->getData();
+
         if (!$data['CanView']) {
             return false;
         }

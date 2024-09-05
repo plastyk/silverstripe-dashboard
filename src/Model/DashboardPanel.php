@@ -19,10 +19,7 @@ abstract class DashboardPanel
 
     protected $controller;
 
-    /**
-     * @var int $sort The sort order of this dashboard panel
-     */
-    private static $sort = 0;
+    private static $columns = 4;
 
     /**
      * @var bool $enabled If set to FALSE, this dashboard panel will not display
@@ -33,6 +30,11 @@ abstract class DashboardPanel
      * @var int $section The section of this dashboard panel
      */
     private static $section = 'main';
+
+    /**
+     * @var int $sort The sort order of this dashboard panel
+     */
+    private static $sort = 0;
 
     public function __construct($controller = null)
     {
@@ -60,14 +62,30 @@ abstract class DashboardPanel
         array_reverse($ancestry);
         $template = new SSViewer($ancestry);
 
-        $data = $this->getData();
+        $panelContent = $template->process(new ArrayData($this->getData()));
 
-        return $template->process(new ArrayData([]), $data);
+        $columns = $this->getColumns();
+
+        if (! $columns) {
+            return $panelContent;
+        }
+
+        $holderTemplate = new SSViewer('Plastyk/Dashboard/Includes/DashboardPanelHolder');
+
+        return $holderTemplate->process(new ArrayData([
+            'PanelContent' => $panelContent,
+            'Columns' => $columns,
+        ]));
     }
 
     public function canView($member = null)
     {
-        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN');
+        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN') && $this->getEnabled();
+    }
+
+    public function getColumns()
+    {
+        return Config::inst()->get($this::class, 'columns');
     }
 
     public function getEnabled()

@@ -39,7 +39,8 @@ abstract class DashboardSearchResultPanel
 
     public function canView($member = null)
     {
-        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN') && class_exists($this->className);
+        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN') && 
+            class_exists($this->className);
     }
 
     public function getClassName()
