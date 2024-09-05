@@ -12,7 +12,7 @@ use SilverStripe\View\Requirements;
 
 class QuickLinksPanel extends DashboardPanel
 {
-    protected $section = 'top';
+    private static $section = 'top';
 
     public function canView($member = null)
     {

@@ -4,6 +4,7 @@ namespace Plastyk\Dashboard\Model;
 
 use ReflectionClass;
 use SilverStripe\Core\ClassInfo;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
@@ -18,17 +19,17 @@ abstract class DashboardPanelSection
     /**
      * @var int $sort The sort order of this dashboard panel section
      */
-    protected $sort = 50;
+    private static $sort = 50;
 
     /**
      * @var bool $enabled If set to FALSE, this dashboard panel section will not display
      */
-    protected $enabled = true;
+    private static $enabled = true;
 
     /**
      * @var int $section The section of this dashboard panel
      */
-    protected $section;
+    private static $section;
 
     public function forTemplate()
     {
@@ -50,6 +51,8 @@ abstract class DashboardPanelSection
         $sectionDashboardPanels = [];
 
         if ($dashboardPanels && count($dashboardPanels ?? []) > 0) {
+            $section = $this->getSection();
+
             foreach ($dashboardPanels as $dashboardPanel) {
                 $reflectionClass = new ReflectionClass($dashboardPanel);
 
@@ -60,7 +63,7 @@ abstract class DashboardPanelSection
                 $dashboardPanelObject = $dashboardPanel::create();
 
                 if (
-                    $dashboardPanelObject->getSection() !== $this->section ||
+                    $dashboardPanelObject->getSection() !== $section ||
                     ! $dashboardPanelObject->canView() ||
                     ! $dashboardPanelObject->getEnabled()
                 ) {
@@ -82,13 +85,18 @@ abstract class DashboardPanelSection
         return $sectionDashboardPanels;
     }
 
-    public function getSort()
-    {
-        return $this->sort;
-    }
-
     public function getEnabled()
     {
-        return $this->enabled;
+        return Config::inst()->get(self::class, 'enabled');
+    }
+
+    public function getSection()
+    {
+        return Config::inst()->get(self::class, 'section');
+    }
+
+    public function getSort()
+    {
+        return Config::inst()->get(self::class, 'sort');
     }
 }

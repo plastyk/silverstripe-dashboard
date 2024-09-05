@@ -18,7 +18,7 @@ use SilverStripe\View\Requirements;
 
 class UpdatePanel extends DashboardPanel implements Flushable
 {
-    protected $section = null;
+    private static $section = null;
     
     public function canView($member = null)
     {

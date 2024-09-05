@@ -10,7 +10,7 @@ use SilverStripe\View\Requirements;
 
 class MoreInformationPanel extends DashboardPanel
 {
-    protected $section = 'bottom';
+    private static $section = 'bottom';
 
     public function canView($member = null)
     {

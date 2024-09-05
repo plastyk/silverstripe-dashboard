@@ -3,6 +3,7 @@
 namespace Plastyk\Dashboard\Model;
 
 use SilverStripe\Core\ClassInfo;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
@@ -21,17 +22,17 @@ abstract class DashboardPanel
     /**
      * @var int $sort The sort order of this dashboard panel
      */
-    protected $sort = 0;
+    private static $sort = 0;
 
     /**
      * @var bool $enabled If set to FALSE, this dashboard panel will not display
      */
-    protected $enabled = true;
+    private static $enabled = true;
 
     /**
      * @var int $section The section of this dashboard panel
      */
-    protected $section = 'main';
+    private static $section = 'main';
 
     public function __construct($controller = null)
     {
@@ -69,18 +70,18 @@ abstract class DashboardPanel
         return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN');
     }
 
-    public function getSort()
+    public function getEnabled()
     {
-        return $this->sort;
+        return Config::inst()->get(self::class, 'enabled');
     }
 
     public function getSection()
     {
-        return $this->section;
+        return Config::inst()->get(self::class, 'section');
     }
 
-    public function getEnabled()
+    public function getSort()
     {
-        return $this->enabled;
+        return Config::inst()->get(self::class, 'sort');
     }
 }

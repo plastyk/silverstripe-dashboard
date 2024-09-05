@@ -6,6 +6,6 @@ use Plastyk\Dashboard\Model\DashboardPanelSection;
 
 class MainSection extends DashboardPanelSection
 {
-    protected $section = 'main';
-    protected $sort = 50;
+    private static $section = 'main';
+    private static $sort = 50;
 }

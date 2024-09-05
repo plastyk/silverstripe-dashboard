@@ -6,6 +6,6 @@ use Plastyk\Dashboard\Model\DashboardPanelSection;
 
 class TopSection extends DashboardPanelSection
 {
-    protected $section = 'top';
-    protected $sort = 0;
+    private static $section = 'top';
+    private static $sort = 0;
 }
