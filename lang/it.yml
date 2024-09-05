@@ -39,15 +39,3 @@ it:
     SITEPERFORMANCE: 'Miglioramenti delle prestazioni del sito'
     YOURVERSIONIS: 'La tua versione è'
     YOURWEBDEVELOPER: 'tuo sviluppatore web'
-  UsefulLinksPanel:
-    GOOGLEANALYTICS: 'Google Analytics'
-    GOOGLEANALYTICSDESCRIPTION: 'Report sul traffico del sito Web per vedere quante persone visitano il tuo sito web.'
-    METADESCRIPTION: 'Meta Descrizione Suggerimenti'
-    METADESCRIPTIONDESCRIPTION: 'Informazioni utili su come scrivere le descrizioni meta per le tue pagine.'
-    PANELTITLE: 'Strumenti e suggerimenti'
-    PIXLR: Pixlr
-    PIXLRDESCRIPTION: 'Applicazione per la modifica foto online per ridimensionare e modificare le immagini prima di caricare.'
-    SCREENSHOTSHARING: 'Condivisione di schermata'
-    SCREENSHOTSHARINGDESCRIPTION: 'App online per contribuire a condividere screenshot del tuo sito web per aiutare a risolvere i bug o per nuove funzionalità.'
-    WHATSMYBROWSER: 'Qual è il mio browser'
-    WHATSMYBROWSERDESCRIPTION: 'Informazioni sul browser che stai utilizzando.'
