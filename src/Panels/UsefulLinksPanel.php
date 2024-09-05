@@ -18,8 +18,8 @@ class UsefulLinksPanel extends DashboardPanel
     {
         $data = parent::getData();
 
-        $data['Links'] = ArrayList::create(Config::inst()->get(self::class, 'links'));
-        $data['Title'] = Config::inst()->get(self::class, 'title');
+        $data['Links'] = ArrayList::create(Config::inst()->get($this::class, 'links'));
+        $data['Title'] = Config::inst()->get($this::class, 'title');
 
         return $data;
     }

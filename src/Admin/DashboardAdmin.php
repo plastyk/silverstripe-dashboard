@@ -123,7 +123,7 @@ CSS
                 if (! $dashboardPanelSectionObject->getEnabled()) {
                     continue;
                 }
-                
+
                 $sections[$dashboardPanelSection] = $dashboardPanelSectionObject;
             }
         }

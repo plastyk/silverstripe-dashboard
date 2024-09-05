@@ -72,16 +72,16 @@ abstract class DashboardPanel
 
     public function getEnabled()
     {
-        return Config::inst()->get(self::class, 'enabled');
+        return Config::inst()->get($this::class, 'enabled');
     }
 
     public function getSection()
     {
-        return Config::inst()->get(self::class, 'section');
+        return Config::inst()->get($this::class, 'section');
     }
 
     public function getSort()
     {
-        return Config::inst()->get(self::class, 'sort');
+        return Config::inst()->get($this::class, 'sort');
     }
 }
