@@ -10,11 +10,5 @@ $showPanel(Plastyk\Dashboard\Panels\UpdatePanel)
 		</div>
 	</div>
 
-	<% if $DashboardPanelSections %>
-	<% loop $DashboardPanelSections %>
-	<div class="row">
-		$Me
-	</div>
-	<% end_loop %>
-	<% end_if %>
+	$DashboardPanelSections
 </div>

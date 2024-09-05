@@ -9,6 +9,8 @@ use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\View\ArrayData;
+use SilverStripe\View\SSViewer;
 
 abstract class DashboardPanelSection
 {
@@ -35,13 +37,17 @@ abstract class DashboardPanelSection
     {
         $dashboardPanels = $this->getSectionDashboardPanels();
 
-        $content = '';
+        $sectionContent = '';
 
         foreach ($dashboardPanels as $dashboardPanel) {
-            $content .= $dashboardPanel->forTemplate();
+            $sectionContent .= $dashboardPanel->forTemplate();
         }
-        
-        return DBField::create_field('HTMLText', $content);
+
+        $template = SSViewer::create('Plastyk/Dashboard/Includes/DashboardPanelSection');
+
+        return $template->process(new ArrayData([
+            'SectionContent' => DBField::create_field('HTMLText', $sectionContent),
+        ]));
     }
 
     private function getSectionDashboardPanels()
