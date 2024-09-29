@@ -34,7 +34,7 @@ abstract class DashboardPanel
     /**
      * @var int $sort The sort order of this dashboard panel
      */
-    private static $sort = 0;
+    private static $sort = 50;
 
     public function __construct($controller = null)
     {
