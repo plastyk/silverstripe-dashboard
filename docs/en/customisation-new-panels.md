@@ -26,7 +26,7 @@ class RecentlyEditedPropertiesPanel extends DashboardPanel
 {
     public function canView($member = null)
     {
-        if (!Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') || !class_exists(Property::class)) {
+        if (!Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') || !class_exists(Property::class) || ! parent::canView($member)) {
             return false;
         }
 
@@ -87,48 +87,6 @@ Next we create a template for our custom panel. In `dashboard-custom/templates/`
     <% else %>
     <p>No properties edited in the last six months.</p>
     <% end_if %>
-</div>
-```
-
-Next we create a custom `DashboardPanels.ss` template to add our new panel to the dashboard. Copy the original `DashboardPanels.ss` to `dashboard-custom/templates/DashboardPanels.ss` and add `$showPanel(RecentlyEditedPropertiesPanel)` to where we want the new panel to display:
-
-```html
-$showPanel(Plastyk\Dashboard\Panels\UpdatePanel)
-
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-12">
-			$showPanel(Plastyk\Dashboard\Panels\SearchPanel)
-
-			<h1>$SiteConfig.Title</h1>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-12">
-			$showPanel(Plastyk\Dashboard\Panels\QuickLinksPanel)
-		</div>
-	</div>
-
-	<% if $canViewPanel(RecentlyEditedPropertiesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel) || $canViewPanel(Plastyk\Dashboard\Panels\UsefulLinksPanel) %>
-	<div class="row">
-		<div class="col-xl-4">
-			$showPanel(RecentlyEditedPropertiesPanel)
-		</div>
-		<div class="col-xl-4">
-			$showPanel(Plastyk\Dashboard\Panels\RecentlyEditedPagesPanel)
-		</div>
-		<div class="col-xl-4">
-			$showPanel(Plastyk\Dashboard\Panels\UsefulLinksPanel)
-		</div>
-	</div>
-	<% end_if %>
-
-	<div class="row">
-		<div class="col-12">
-			$showPanel(Plastyk\Dashboard\Panels\MoreInformationPanel)
-		</div>
-	</div>
 </div>
 ```
 
