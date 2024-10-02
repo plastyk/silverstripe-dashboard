@@ -10,6 +10,10 @@ Plastyk\Dashboard\Admin\DashboardAdmin:
   extensions:
     - Plastyk\Dashboard\Extensions\DashboardSearchExtension
 
+SilverStripe\CMS\Model\SiteTree:
+  extensions:
+    - Plastyk\Dashboard\Extensions\DashboardSiteTreeExtension
+
 SilverStripe\Core\Injector\Injector:
   Psr\SimpleCache\CacheInterface.plastykDashboardCache:
     factory: SilverStripe\Core\Cache\CacheFactory
