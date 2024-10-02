@@ -4,7 +4,7 @@ layout: default
 
 # Silverstripe Dashboard
 
-This dashboard module provides a landing page for users logging into the CMS. Out of the box, allows viewing the state of recently created or modified pages, searching for pages & files as well as letting the user know whether the Silverstripe install is out of date.
+This dashboard module provides a landing page for users logging into the CMS. Out of the box it allows viewing the state of recently created or modified pages, searching for pages & files as well as letting the user know whether the Silverstripe install is out of date.
 
 ## Requirements
 
@@ -49,10 +49,14 @@ Page:
 ```
 
 ## Customisation
+* [Panel config variables](https://plastyk.github.io/silverstripe-dashboard/en/customisation-panel-config-variables)
+* [Panel section config variables](https://plastyk.github.io/silverstripe-dashboard/en/customisation-panel-section-config-variables)
 * [Adding new panels](https://plastyk.github.io/silverstripe-dashboard/en/customisation-new-panels)
-* [Changing the main dashboard template](https://plastyk.github.io/silverstripe-dashboard/en/customisation-main-template)
+* [Adding new panel sections](https://plastyk.github.io/silverstripe-dashboard/en/customisation-new-panel-sections)
+* [Changing the default dashboard](https://plastyk.github.io/silverstripe-dashboard/en/customisation-default-dashboard)
 * [Adding extra search panels](https://plastyk.github.io/silverstripe-dashboard/en/customisation-extra-search-panels)
 * [Quick Links Panel Customisation](https://plastyk.github.io/silverstripe-dashboard/en/customisation-quicklinks)
+* [Useful links Panel](https://plastyk.github.io/silverstripe-dashboard/en/customisation-useful-links-panel)
 
 ## Subsite compatibility
 

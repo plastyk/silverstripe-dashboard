@@ -3,6 +3,7 @@
 namespace Plastyk\Dashboard\Model;
 
 use SilverStripe\Core\ClassInfo;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
@@ -17,6 +18,23 @@ abstract class DashboardPanel
     use Configurable;
 
     protected $controller;
+
+    private static $columns = 4;
+
+    /**
+     * @var bool $enabled If set to FALSE, this dashboard panel will not display
+     */
+    private static $enabled = true;
+
+    /**
+     * @var int $section The section of this dashboard panel
+     */
+    private static $section = 'main';
+
+    /**
+     * @var int $sort The sort order of this dashboard panel
+     */
+    private static $sort = 50;
 
     public function __construct($controller = null)
     {
@@ -44,13 +62,44 @@ abstract class DashboardPanel
         array_reverse($ancestry);
         $template = new SSViewer($ancestry);
 
-        $data = $this->getData();
+        $panelContent = $template->process(new ArrayData($this->getData()));
 
-        return $template->process(new ArrayData([]), $data);
+        $columns = $this->getColumns();
+
+        if (! $columns) {
+            return $panelContent;
+        }
+
+        $holderTemplate = new SSViewer('Plastyk/Dashboard/Includes/DashboardPanelHolder');
+
+        return $holderTemplate->process(new ArrayData([
+            'PanelContent' => $panelContent,
+            'Columns' => $columns,
+        ]));
     }
 
     public function canView($member = null)
     {
-        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN');
+        return Permission::checkMember($member, 'CMS_ACCESS_DASHBOARDADMIN') && $this->getEnabled();
+    }
+
+    public function getColumns()
+    {
+        return Config::inst()->get($this::class, 'columns');
+    }
+
+    public function getEnabled()
+    {
+        return Config::inst()->get($this::class, 'enabled');
+    }
+
+    public function getSection()
+    {
+        return Config::inst()->get($this::class, 'section');
+    }
+
+    public function getSort()
+    {
+        return Config::inst()->get($this::class, 'sort');
     }
 }

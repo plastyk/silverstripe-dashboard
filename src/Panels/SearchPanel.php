@@ -7,6 +7,10 @@ use SilverStripe\View\Requirements;
 
 class SearchPanel extends DashboardPanel
 {
+    private static $columns = null;
+
+    private static $section = null;
+
     public function getData()
     {
         $data = parent::getData();

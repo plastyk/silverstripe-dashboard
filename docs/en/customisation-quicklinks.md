@@ -20,7 +20,6 @@ In our `dashboard-custom/templates/Plastyk/Dashboard/Panels/QuickLinksPanel.ss` 
 
 ```html
 <div class="dashboard-panel quick-links-panel">
-
     <% if $CanViewPages %>
     <a href="{$AdminURL}/pages/">
         <span class="dashboard-icon fa fa-sitemap" aria-hidden="true"></span>
@@ -51,7 +50,6 @@ In our `dashboard-custom/templates/Plastyk/Dashboard/Panels/QuickLinksPanel.ss` 
         <% _t('CMSSettingsController.MENUTITLE','Settings') %>
     </a>
     <% end_if %>
-
 </div>
 ```
 
@@ -104,7 +102,6 @@ Then in our template we wrap our property buttons in a `$CanViewProperties` chec
 
 ```html
 <div class="dashboard-panel quick-links-panel">
-
     <% if $CanViewPages %>
     <a href="{$AdminURL}/pages/">
         <span class="dashboard-icon fa fa-sitemap" aria-hidden="true"></span>
@@ -137,7 +134,6 @@ Then in our template we wrap our property buttons in a `$CanViewProperties` chec
         <% _t('CMSSettingsController.MENUTITLE','Settings') %>
     </a>
     <% end_if %>
-
 </div>
 ```
 

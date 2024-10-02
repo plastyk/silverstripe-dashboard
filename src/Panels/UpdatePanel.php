@@ -18,18 +18,25 @@ use SilverStripe\View\Requirements;
 
 class UpdatePanel extends DashboardPanel implements Flushable
 {
+    private static $columns = null;
+
+    private static $section = null;
+    
     public function canView($member = null)
     {
-        if (Permission::checkMember($member, 'CMS_ACCESS_ADMIN')) {
-            $currentVersion = $this->getCurrentSilverstripeVersion();
-            if (!$currentVersion->PreRelease) {
-                $versions = $this->getSilverstripeVersions()->filterNewerVersions($currentVersion);
-
-                return $versions->hasNewerVersion($currentVersion);
-            }
+        if (! Permission::checkMember($member, 'CMS_ACCESS_ADMIN') || ! parent::canView($member)) {
+            return false;
         }
 
-        return false;
+        $currentVersion = $this->getCurrentSilverstripeVersion();
+
+        if ($currentVersion->PreRelease) {
+            return false;
+        }
+
+        $versions = $this->getSilverstripeVersions()->filterNewerVersions($currentVersion);
+
+        return $versions->hasNewerVersion($currentVersion);
     }
 
     public function getData()

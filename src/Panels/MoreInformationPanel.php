@@ -10,9 +10,13 @@ use SilverStripe\View\Requirements;
 
 class MoreInformationPanel extends DashboardPanel
 {
+    private static $columns = 12;
+
+    private static $section = 'bottom';
+
     public function canView($member = null)
     {
-        return Permission::checkMember($member, 'CMS_ACCESS_ADMIN');
+        return Permission::checkMember($member, 'CMS_ACCESS_ADMIN') && parent::canView($member);
     }
 
     public function init()

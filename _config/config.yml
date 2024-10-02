@@ -16,3 +16,12 @@ SilverStripe\Core\Injector\Injector:
     constructor:
       namespace: "plastykDashboardCache"
       defaultLifetime: 3600
+
+Plastyk\Dashboard\Panels\UsefulLinksPanel:
+  links:
+    - Link: https://analytics.google.com/analytics/web/
+      Title: Google Analytics
+      Description: Website traffic reports to see how many people are visiting your website.
+    - Link: https://whatsmybrowser.org/
+      Title: What's my browser
+      Description: Information on what browser you are currently using.
