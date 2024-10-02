@@ -14,7 +14,7 @@
 				<td class="link">
 					<a href="$CMSEditLink">
 						$Title
-						<div class="note">$Breadcrumbs(4, true)</div>
+						<div class="note">$DashboardBreadcrumbs(4)</div>
 					</a>
 				</td>
 				<td class="link date">
