@@ -20,6 +20,6 @@
 			<% end_loop %>
 		</tbody>
 	</table>
-	<% include DashboardSearchPagination Results=$Results %>
+	<% include Plastyk/Dashboard/Includes/DashboardSearchPagination Results=$Results %>
 </div>
 <% end_if %>

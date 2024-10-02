@@ -53,12 +53,12 @@ CSS
 
     public function getDashboardContent()
     {
-        return $this->renderWith('Includes/DashboardContent');
+        return $this->renderWith('Plastyk/Dashboard/Includes/DashboardContent');
     }
 
     public function getDashboardPanels()
     {
-        return $this->renderWith('DashboardPanels');
+        return $this->renderWith('Plastyk/Dashboard/DashboardPanels');
     }
 
     public function canViewPanel($panelName)
