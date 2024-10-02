@@ -42,7 +42,7 @@ class DashboardSearchExtension extends Extension
             RequiredFields::create()
         );
         $form->setFormMethod('get');
-        $form->setTemplate('Includes/DashboardSearchForm');
+        $form->setTemplate('Plastyk/Dashboard/Includes/DashboardSearchForm');
         $form->addExtraClass('dashboard-search-form');
         $form->disableSecurityToken();
         $form->loadDataFrom($this->owner->getRequest()->getVars());
@@ -70,7 +70,7 @@ class DashboardSearchExtension extends Extension
 
         if (!$searchValue) {
             if (Director::is_ajax()) {
-                return $this->owner->renderWith('Includes/DashboardContent');
+                return $this->owner->renderWith('Plastyk/Dashboard/Includes/DashboardContent');
             }
 
             return $this->owner;
@@ -122,11 +122,11 @@ class DashboardSearchExtension extends Extension
         $data['SearchResultPanels'] = $searchResultPanels->exclude('ResultCount', 0);
         $this->owner->customise($data);
         $this->owner->customise([
-            'DashboardPanels' => $this->owner->renderWith('SearchPanel'),
+            'DashboardPanels' => $this->owner->renderWith('Plastyk/Dashboard/Panels/SearchPanelResults'),
         ]);
 
         if (Director::is_ajax()) {
-            return $this->owner->renderWith('Includes/DashboardContent');
+            return $this->owner->renderWith('Plastyk/Dashboard/Includes/DashboardContent');
         }
 
         return $this->owner;
