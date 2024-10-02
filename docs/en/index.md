@@ -50,7 +50,9 @@ Page:
 
 ## Customisation
 * [Panel config variables](https://plastyk.github.io/silverstripe-dashboard/en/customisation-panel-config-variables)
+* [Panel section config variables](https://plastyk.github.io/silverstripe-dashboard/en/customisation-panel-section-config-variables)
 * [Adding new panels](https://plastyk.github.io/silverstripe-dashboard/en/customisation-new-panels)
+* [Adding new panel sections](https://plastyk.github.io/silverstripe-dashboard/en/customisation-new-panel-sections)
 * [Changing the default dashboard](https://plastyk.github.io/silverstripe-dashboard/en/customisation-default-dashboard)
 * [Adding extra search panels](https://plastyk.github.io/silverstripe-dashboard/en/customisation-extra-search-panels)
 * [Quick Links Panel Customisation](https://plastyk.github.io/silverstripe-dashboard/en/customisation-quicklinks)
