@@ -3,11 +3,10 @@
 namespace Plastyk\Dashboard\Panels;
 
 use Plastyk\Dashboard\Model\DashboardPanel;
-use SilverStripe\Admin\SecurityAdmin;
-use SilverStripe\CMS\Controllers\CMSPagesController;
-use SilverStripe\Security\Permission;
+use Plastyk\Dashboard\Model\QuickLink;
+use ReflectionClass;
+use SilverStripe\Core\ClassInfo;
 use SilverStripe\Security\Security;
-use SilverStripe\SiteConfig\SiteConfigLeftAndMain;
 use SilverStripe\View\Requirements;
 
 class QuickLinksPanel extends DashboardPanel
@@ -18,13 +17,9 @@ class QuickLinksPanel extends DashboardPanel
 
     public function canView($member = null)
     {
-        $data = $this->getData();
+        $quickLinks = $this->getQuickLinks();
 
-        if (!$data['CanView']) {
-            return false;
-        }
-
-        return parent::canView($member);
+        return count($quickLinks) > 0 && parent::canView($member);
     }
 
     public function init()
@@ -33,23 +28,45 @@ class QuickLinksPanel extends DashboardPanel
         Requirements::css('plastyk/dashboard:css/dashboard-quick-links-panel.css');
     }
 
-    public function getData()
+    private function getQuickLinks()
     {
         $member = Security::getCurrentUser();
 
-        $data = parent::getData();
+        $quickLinks = ClassInfo::subclassesFor(QuickLink::class);
 
-        $data['CanViewPages'] = Permission::checkMember($member, 'CMS_ACCESS_CMSMain')
-            && class_exists(CMSPagesController::class);
-        $data['CanViewUsers'] = Permission::checkMember($member, 'CMS_ACCESS_SecurityAdmin')
-            && class_exists(SecurityAdmin::class);
-        $data['CanViewSettings'] = Permission::checkMember($member, 'EDIT_SITECONFIG')
-            && class_exists(SiteConfigLeftAndMain::class);
+        $quickLinkItems = [];
 
-        $data['CanView'] = $data['CanViewPages'] || $data['CanViewUsers'] || $data['CanViewSettings'];
+        if ($quickLinks && count($quickLinks ?? []) > 0) {
+            $section = $this->getSection();
 
-        $this->extend('updateData', $data);
+            foreach ($quickLinks as $quickLink) {
+                $reflectionClass = new ReflectionClass($quickLink);
 
-        return $data;
+                if ($reflectionClass->isAbstract()) {
+                    continue;
+                }
+
+                $quickLinkObject = $quickLink::create();
+
+                if (
+                    ! $quickLinkObject->canView($member) ||
+                    ! $quickLinkObject->getEnabled()
+                ) {
+                    continue;
+                }
+                
+                $quickLinkItems[$quickLink] = $quickLinkObject;
+            }
+        }
+
+        uasort($quickLinkItems, function ($a, $b) {
+            if ($a->getSort() == $b->getSort()) {
+                return 0;
+            } else {
+                return ($a->getSort() < $b->getSort()) ? -1 : 1;
+            }
+        });
+
+        return $quickLinkItems;
     }
 }
