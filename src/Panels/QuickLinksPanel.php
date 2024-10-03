@@ -6,6 +6,7 @@ use Plastyk\Dashboard\Model\DashboardPanel;
 use Plastyk\Dashboard\Model\QuickLink;
 use ReflectionClass;
 use SilverStripe\Core\ClassInfo;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
 
@@ -26,6 +27,15 @@ class QuickLinksPanel extends DashboardPanel
     {
         parent::init();
         Requirements::css('plastyk/dashboard:css/dashboard-quick-links-panel.css');
+    }
+
+    public function getData()
+    {
+        $data = parent::getData();
+
+        $data['QuickLinks'] = ArrayList::create($this->getQuickLinks());
+
+        return $data;
     }
 
     private function getQuickLinks()
@@ -55,15 +65,15 @@ class QuickLinksPanel extends DashboardPanel
                     continue;
                 }
                 
-                $quickLinkItems[$quickLink] = $quickLinkObject;
+                $quickLinkItems[$quickLink] = $quickLinkObject->toArray();
             }
         }
 
         uasort($quickLinkItems, function ($a, $b) {
-            if ($a->getSort() == $b->getSort()) {
+            if ($a['Sort'] == $b['Sort']) {
                 return 0;
             } else {
-                return ($a->getSort() < $b->getSort()) ? -1 : 1;
+                return ($a['Sort'] < $b['Sort']) ? -1 : 1;
             }
         });
 

@@ -13,7 +13,7 @@ class Users extends QuickLink
     private static $icon = 'fa-users';
     private static $sort = 60;
 
-    public function canView($member = null)
+    public function canView($member = null): bool
     {
         return Permission::checkMember($member, 'CMS_ACCESS_SecurityAdmin') &&
             class_exists(SecurityAdmin::class);

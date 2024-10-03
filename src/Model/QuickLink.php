@@ -39,35 +39,46 @@ abstract class QuickLink
      */
     private static $enabled = true;
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return Config::inst()->get($this::class, 'title');
     }
 
-    public function getUrl()
+    public function getUrl(): string
     {
         $url = Config::inst()->get($this::class, 'url');
 
         return str_replace('{$AdminURL}', AdminRootController::admin_url(), $url);
     }
 
-    public function getIcon()
+    public function getIcon(): string
     {
         return Config::inst()->get($this::class, 'icon');
     }
 
-    public function getSort()
+    public function getSort(): int
     {
         return Config::inst()->get($this::class, 'sort');
     }
 
-    public function getEnabled()
+    public function getEnabled(): bool
     {
         return Config::inst()->get($this::class, 'enabled');
     }
 
-    public function canView($member = null)
+    public function canView($member = null): bool
     {
         return true;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'Title' => $this->getTitle(),
+            'Url' => $this->getUrl(),
+            'Icon' => $this->getIcon(),
+            'Sort' => $this->getSort(),
+            'Enabled' => $this->getEnabled(),
+        ];
     }
 }

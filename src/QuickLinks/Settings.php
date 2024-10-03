@@ -13,7 +13,7 @@ class Settings extends QuickLink
     private static $icon = 'fa-cogs';
     private static $sort = 70;
 
-    public function canView($member = null)
+    public function canView($member = null): bool
     {
         return Permission::checkMember($member, 'EDIT_SITECONFIG') &&
             class_exists(SiteConfigLeftAndMain::class);

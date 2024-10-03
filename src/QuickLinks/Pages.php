@@ -13,7 +13,7 @@ class Pages extends QuickLink
     private static $icon = 'fa-sitemap';
     private static $sort = 50;
 
-    public function canView($member = null)
+    public function canView($member = null): bool
     {
         return Permission::checkMember($member, 'CMS_ACCESS_CMSMain') &&
             class_exists(CMSPagesController::class);
