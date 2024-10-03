@@ -39,7 +39,7 @@ class PropertiesQuickLink extends QuickLink
 }
 ```
 
-Now we create another file `dashboard-custom/src/QuickLinks/NewPropertiesQuickLink.php` class and add the following:
+Now we create another `dashboard-custom/src/QuickLinks/NewPropertiesQuickLink.php` class and add the following:
 
 ```php
 <?php
