@@ -1,6 +1,5 @@
 # Silverstripe Dashboard
 
-[![Build Status](https://travis-ci.org/plastyk/silverstripe-dashboard.svg?branch=master)](https://travis-ci.org/plastyk/silverstripe-dashboard)
 [![codecov.io](https://codecov.io/github/plastyk/silverstripe-dashboard/coverage.svg?branch=master)](https://codecov.io/gh/plastyk/silverstripe-dashboard?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/plastyk/dashboard/v/stable)](https://packagist.org/packages/plastyk/dashboard)
 [![Total Downloads](https://poser.pugx.org/plastyk/dashboard/downloads)](https://packagist.org/packages/plastyk/dashboard)
