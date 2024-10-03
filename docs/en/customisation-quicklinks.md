@@ -8,136 +8,95 @@ By default the `QuickLinksPanel` displays links to the CMS pages, users and sett
 
 ![Dashboard module QuickLinksPanel screenshot](images/dashboard-module-quick-links-panel.png)
 
-We can add, remove or modify these links by extending the `QuickLinksPanel`.
+We can add, remove or modify these links.
 
 ## Adding buttons to the QuickLinksPanel template
 
 Say we have a custom `DataObject` named `Property` that is controlled through a custom `ModelAdmin` called `PropertiesAdmin`. We would like to add a quick link that links to the `PropertiesAdmin` as well a quick link to add a new `Property`.
 
-First we create a `dashboard-custom` folder in our root directory to house our dashboard customisation code. Next we create a copy of the `QuickLinksPanel.ss` template and place this in `dashboard-custom/templates/Plastyk/Dashboard/Panels/`.
+First we create a `dashboard-custom` folder in our root directory to house our dashboard customisation code. Next we create a `PropertiesQuickLink.php` class and place this in `dashboard-custom/src/QuickLinks/`.
 
-In our `dashboard-custom/templates/Plastyk/Dashboard/Panels/QuickLinksPanel.ss` template we add the new links we want:
+In our `dashboard-custom/src/QuickLinks/PropertiesQuickLink.php` class we add the following:
 
-```html
-<div class="dashboard-panel quick-links-panel">
-    <% if $CanViewPages %>
-    <a href="{$AdminURL}/pages/">
-        <span class="dashboard-icon fa fa-sitemap" aria-hidden="true"></span>
-        <% _t('CMSPagesController.MENUTITLE','Pages') %>
-    </a>
-    <% end_if %>
+```php
+<?php
 
-    <% if $CanViewUsers %>
-    <a href="{$AdminURL}/security/users/">
-        <span class="dashboard-icon fa fa-users" aria-hidden="true"></span>
-        <% _t('SecurityAdmin.MENUTITLE','Security') %>
-    </a>
-    <% end_if %>
+use Plastyk\Dashboard\Model\QuickLink;
+use SilverStripe\Security\Permission;
 
-    <a href="{$AdminURL}/properties/">
-        <span class="dashboard-icon fa fa-building" aria-hidden="true"></span>
-        Properties
-    </a>
+class PropertiesQuickLink extends QuickLink
+{
+    private static $title = 'Properties';
+    private static $url = '{$AdminURL}properties/';
+    private static $icon = 'fa-building';
+    private static $sort = 10;
 
-    <a href="{$AdminURL}/properties/Property/EditForm/field/Property/item/new">
-        <span class="dashboard-icon fa fa-plus" aria-hidden="true"></span>
-        New Property
-    </a>
-
-    <% if $CanViewSettings %>
-    <a href="{$AdminURL}/settings/">
-        <span class="dashboard-icon fa fa-cogs" aria-hidden="true"></span>
-        <% _t('CMSSettingsController.MENUTITLE','Settings') %>
-    </a>
-    <% end_if %>
-</div>
+    public function canView($member = null): bool
+    {
+        return Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') &&
+            class_exists(PropertiesAdmin::class);
+    }
+}
 ```
 
-To enable the `dashboard-custom` directory to be picked up by Silverstripe we must create a `_config` directory inside `dashboard-custom`. We then call `?flush=all` in the browser URL to have the new template picked up by Silverstripe.
+Now we create another `dashboard-custom/src/QuickLinks/NewPropertiesQuickLink.php` class and add the following:
+
+```php
+<?php
+
+use Plastyk\Dashboard\Model\QuickLink;
+use SilverStripe\Security\Permission;
+
+class NewPropertiesQuickLink extends QuickLink
+{
+    private static $title = 'Properties';
+    private static $url = '{$AdminURL}properties/Property/EditForm/field/Property/item/new';
+    private static $icon = 'fa-plus';
+    private static $sort = 20;
+
+    public function canView($member = null): bool
+    {
+        return Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') &&
+            class_exists(PropertiesAdmin::class);
+    }
+}
+```
+
+To enable the `dashboard-custom` directory to be picked up by Silverstripe we must create a `_config` directory inside `dashboard-custom`. We then call `?flush=all` in the browser URL to have the new quick links picked up by Silverstripe.
 
 We can now see we have a link to the properties admin and a link to create a new property:
 
 ![Dashboard module customised QuickLinksPanel screenshot](images/dashboard-module-quick-links-panel-customised.png)
 
-## Adding permission checks
+## Removing or modifying existing quick links
 
-We can improve on this code to check if the user has permission to view the properties section before displaying the buttons to the user.
+By default the `QuickLinksPanel` displays links to the CMS pages, users and settings sections. We can remove or modify these quick links through the config.
 
-First we create a `QuickLinksPanelExtension.php` extension class in `dashboard-custom/src/Extensions/`.
-
-In our `dashboard-custom/src/Extensions/QuickLinksPanelExtension.php` class we call the `QuickLinksPanel` `updateData` hook to add in our permission check:
-
-```php
-<?php
-
-use SilverStripe\Core\Extension;
-use SilverStripe\Security\Permission;
-use SilverStripe\Security\Security;
-
-class QuickLinksPanelExtension extends Extension
-{
-    public function updateData(&$data)
-    {
-        $member = Security::getCurrentUser();
-
-        $data['CanViewProperties'] = Permission::checkMember($member, 'CMS_ACCESS_PropertiesAdmin') && class_exists(PropertiesAdmin::class);
-        $data['CanView'] = $data['CanView'] || $data['CanViewProperties'];
-    }
-}
-```
-
-We enable our extension by adding the following to our `dashboard-custom/_config/config.yml`:
+We can remove a quick link by adding the following to a yml config file:
 
 ```yml
 ---
 Name: dashboard-custom
 After: '#dashboard'
 ---
-Plastyk\Dashboard\Panels\QuickLinksPanel:
-  extensions:
-    - QuickLinksPanelExtension
+Plastyk\Dashboard\QuickLinks\Pages:
+  enabled: false
 ```
 
-Then in our template we wrap our property buttons in a `$CanViewProperties` check:
+We can modify a quick link by adding any of the following properties to a yml config file:
 
-```html
-<div class="dashboard-panel quick-links-panel">
-    <% if $CanViewPages %>
-    <a href="{$AdminURL}/pages/">
-        <span class="dashboard-icon fa fa-sitemap" aria-hidden="true"></span>
-        <% _t('CMSPagesController.MENUTITLE','Pages') %>
-    </a>
-    <% end_if %>
+```yml
+---
+Name: dashboard-custom
+After: '#dashboard'
+---
+Plastyk\Dashboard\QuickLinks\Pages:
+  title: 'Site'
+  url: '{$AdminURL}pages/'
+  icon: 'fa-file-lines'
+  sort: 100
 
-    <% if $CanViewUsers %>
-    <a href="{$AdminURL}/security/">
-        <span class="dashboard-icon fa fa-users" aria-hidden="true"></span>
-        <% _t('SecurityAdmin.MENUTITLE','Security') %>
-    </a>
-    <% end_if %>
-
-    <% if $CanViewProperties %>
-    <a href="{$AdminURL}/properties/">
-        <span class="dashboard-icon fa fa-building" aria-hidden="true"></span>
-        Properties
-    </a>
-
-    <a href="{$AdminURL}/properties/Property/EditForm/field/Property/item/new">
-        <span class="dashboard-icon fa fa-plus" aria-hidden="true"></span>
-        New Property
-    </a>
-    <% end_if %>
-
-    <% if $CanViewSettings %>
-    <a href="{$AdminURL}/settings/">
-        <span class="dashboard-icon fa fa-cogs" aria-hidden="true"></span>
-        <% _t('CMSSettingsController.MENUTITLE','Settings') %>
-    </a>
-    <% end_if %>
-</div>
 ```
-
-Now our buttons will only display to users who can view those sections.
 
 ## Customising icons
 
