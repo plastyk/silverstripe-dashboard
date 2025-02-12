@@ -9,7 +9,7 @@ use SilverStripe\Security\Permission;
 class Pages extends QuickLink
 {
     private static $title = 'Pages';
-    private static $url = '{$AdminURL}pages/';
+    private static $url = '{$AdminURL}/pages/';
     private static $icon = 'fa-sitemap';
     private static $sort = 50;
 

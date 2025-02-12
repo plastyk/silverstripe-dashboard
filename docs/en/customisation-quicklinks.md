@@ -27,7 +27,7 @@ use SilverStripe\Security\Permission;
 class PropertiesQuickLink extends QuickLink
 {
     private static $title = 'Properties';
-    private static $url = '{$AdminURL}properties/';
+    private static $url = '{$AdminURL}/properties/';
     private static $icon = 'fa-building';
     private static $sort = 10;
 
@@ -50,7 +50,7 @@ use SilverStripe\Security\Permission;
 class NewPropertiesQuickLink extends QuickLink
 {
     private static $title = 'Properties';
-    private static $url = '{$AdminURL}properties/Property/EditForm/field/Property/item/new';
+    private static $url = '{$AdminURL}/properties/Property/EditForm/field/Property/item/new';
     private static $icon = 'fa-plus';
     private static $sort = 20;
 
