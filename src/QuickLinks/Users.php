@@ -9,7 +9,7 @@ use SilverStripe\Security\Permission;
 class Users extends QuickLink
 {
     private static $title = 'Users';
-    private static $url = '{$AdminURL}security/';
+    private static $url = '{$AdminURL}/security/';
     private static $icon = 'fa-users';
     private static $sort = 60;
 
