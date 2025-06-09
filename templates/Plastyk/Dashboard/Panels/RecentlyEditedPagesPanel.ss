@@ -1,11 +1,11 @@
 <div class="dashboard-panel">
-	<h3><a href="{$AdminURL}/pages/"><% _t('RecentlyEditedPagesPanel.PANELTITLE', 'Recently edited pages') %></a></h3>
+	<h3><a href="{$AdminURL}/pages/"><%t RecentlyEditedPagesPanel.PANELTITLE 'Recently edited pages' %></a></h3>
 	<% if $Results %>
 	<table class="table">
 		<thead>
 			<tr>
-				<th><% _t('RecentlyEditedPagesPanel.TITLE', 'Title') %></th>
-				<th><% _t('RecentlyEditedPagesPanel.EDITED', 'Edited') %></th>
+				<th><%t RecentlyEditedPagesPanel.TITLE 'Title' %></th>
+				<th><%t RecentlyEditedPagesPanel.EDITED 'Edited' %></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,6 +25,6 @@
 		</tbody>
 	</table>
 	<% else %>
-	<p><% _t('RecentlyEditedPagesPanel.NORECENTLYEDITEDPAGES', 'No pages edited in the last six months.') %></p>
+	<p><%t RecentlyEditedPagesPanel.NORECENTLYEDITEDPAGES 'No pages edited in the last six months.' %></p>
 	<% end_if %>
 </div>

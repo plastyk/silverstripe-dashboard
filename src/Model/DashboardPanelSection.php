@@ -8,8 +8,8 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Extensible;
 use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\ORM\FieldType\DBField;
-use SilverStripe\View\ArrayData;
 use SilverStripe\View\SSViewer;
 
 abstract class DashboardPanelSection

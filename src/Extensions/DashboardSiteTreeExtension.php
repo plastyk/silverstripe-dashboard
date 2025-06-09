@@ -2,11 +2,11 @@
 
 namespace Plastyk\Dashboard\Extensions;
 
-use SilverStripe\ORM\DataExtension;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Core\Extension;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\View\SSViewer;
 
-class DashboardSiteTreeExtension extends DataExtension
+class DashboardSiteTreeExtension extends Extension
 {
     public function DashboardBreadcrumbs($maxDepth = 20, $stopAtPageType = false, $showHidden = false, $delimiter = '/')
     {

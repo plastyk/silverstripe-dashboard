@@ -4,7 +4,7 @@ namespace Plastyk\Dashboard\Panels;
 
 use Plastyk\Dashboard\Model\DashboardPanel;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\ORM\ArrayList;
+use SilverStripe\Model\List\ArrayList;
 
 class UsefulLinksPanel extends DashboardPanel
 {

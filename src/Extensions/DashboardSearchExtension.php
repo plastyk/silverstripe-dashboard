@@ -9,12 +9,13 @@ use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormAction;
-use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TextField;
-use SilverStripe\ORM\ArrayList;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
+use SilverStripe\Model\ArrayData;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\Security\Security;
-use SilverStripe\View\ArrayData;
 use SilverStripe\View\Requirements;
+
 
 class DashboardSearchExtension extends Extension
 {
@@ -39,7 +40,7 @@ class DashboardSearchExtension extends Extension
             'DashboardSearchForm',
             $fields,
             $actions,
-            RequiredFields::create()
+            RequiredFieldsValidator::create()
         );
         $form->setFormMethod('get');
         $form->setTemplate('Plastyk/Dashboard/Includes/DashboardSearchForm');

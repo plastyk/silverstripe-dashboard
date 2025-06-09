@@ -2,10 +2,11 @@
 
 namespace Plastyk\Dashboard\Extensions;
 
-use SilverStripe\ORM\DataExtension;
-use SilverStripe\View\SSViewer;
+use SilverStripe\Core\Extension;
+use SilverStripe\TemplateEngine\SSTemplateEngine;
+use SilverStripe\View\ViewLayerData;
 
-class DashboardSearchResultExtension extends DataExtension
+class DashboardSearchResultExtension extends Extension
 {
     public function getSearchResultCMSLink()
     {
@@ -15,6 +16,9 @@ class DashboardSearchResultExtension extends DataExtension
             return '';
         }
 
-        return SSViewer::execute_string($adminLink, $this->owner);
+        return SSTemplateEngine::singleton()->renderString(
+            $adminLink, 
+            ViewLayerData::create($this->owner)
+        );
     }
 }

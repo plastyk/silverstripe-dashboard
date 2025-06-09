@@ -1,10 +1,10 @@
 <% if $Results %>
 <div class="dashboard-panel dashboard-search" data-panel-class="$PanelClassName">
-	<h3><a href="{$AdminURL}/assets/"><% _t('File.PLURALNAME', 'Files') %></a></h3>
+	<h3><a href="{$AdminURL}/assets/"><%t File.PLURALNAME 'Files' %></a></h3>
 	<table class="table">
 		<thead>
 			<tr>
-				<th><% _t('SearchPanel.TITLE', 'Title') %></th>
+				<th><%t SearchPanel.TITLE 'Title' %></th>
 			</tr>
 		</thead>
 		<tbody>

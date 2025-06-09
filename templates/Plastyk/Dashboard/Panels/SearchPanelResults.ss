@@ -7,7 +7,7 @@
 <% if $SearchValue %>
 	<div class="row">
 		<div class="col-12">
-            <h2><% _t('SearchPanel.SEARCHRESULTSFOR', 'Search Results for') %> <em>'$SearchValue'</em></h2>
+            <h2><%t SearchPanel.SEARCHRESULTSFOR 'Search Results for' %> <em>'$SearchValue'</em></h2>
 
             <% if $SearchMessage %>
             <p class="note">$SearchMessage</p>
@@ -27,7 +27,7 @@
     	<% else %>
     	<div class="col-xl-4">
     		<div class="dashboard-panel">
-    			<p><% _t('SearchPanel.NORESULTS', 'Sorry, no results found.') %></p>
+    			<p><%t SearchPanel.NORESULTS 'Sorry, no results found.' %></p>
     		</div>
     	</div>
     	<% end_if %>

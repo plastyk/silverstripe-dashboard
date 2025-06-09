@@ -3,7 +3,7 @@
 namespace Plastyk\Dashboard\QuickLinks;
 
 use Plastyk\Dashboard\Model\QuickLink;
-use SilverStripe\CMS\Controllers\CMSPagesController;
+use SilverStripe\CMS\Controllers\CMSMain;
 use SilverStripe\Security\Permission;
 
 class Pages extends QuickLink
@@ -16,6 +16,6 @@ class Pages extends QuickLink
     public function canView($member = null): bool
     {
         return Permission::checkMember($member, 'CMS_ACCESS_CMSMain') &&
-            class_exists(CMSPagesController::class);
+            class_exists(CMSMain::class);
     }
 }

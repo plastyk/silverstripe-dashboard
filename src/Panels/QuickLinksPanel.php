@@ -6,7 +6,7 @@ use Plastyk\Dashboard\Model\DashboardPanel;
 use Plastyk\Dashboard\Model\QuickLink;
 use ReflectionClass;
 use SilverStripe\Core\ClassInfo;
-use SilverStripe\ORM\ArrayList;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
 
