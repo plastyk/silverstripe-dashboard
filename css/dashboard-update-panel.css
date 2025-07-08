@@ -5,16 +5,14 @@
 }
 
 .cms-content.DashboardAdmin .dashboard-panel.update-panel .panel-head {
-	padding-top: 16px;
-	padding-bottom: 16px;
+	padding: 20px;
 	cursor: pointer;
 	position: relative;
 }
 
 .cms-content.DashboardAdmin .dashboard-panel.update-panel .panel-body {
 	display: none;
-	padding-top: 16px;
-	padding-bottom: 16px;
+	padding: 20px;
 	background: #f9f9f9;
 }
 
@@ -28,8 +26,8 @@
 
 .cms-content.DashboardAdmin .dashboard-panel.update-panel .fa-chevron-right {
 	position: absolute;
-	top: 14px;
-	right: 16px;
+	top: 20px;
+	right: 20px;
 	font-size: 20px;
 }
 
