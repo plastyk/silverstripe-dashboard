@@ -73,7 +73,6 @@ class UpdateVersionList extends ArrayList
         curl_setopt($versionRequest, CURLOPT_URL, 'https://packagist.org/packages/silverstripe/framework.json');
         curl_setopt($versionRequest, CURLOPT_RETURNTRANSFER, 1);
         $versionFeed = curl_exec($versionRequest);
-        curl_close($versionRequest);
 
         if (!$versionFeed) {
             return UpdateVersionList::create();
